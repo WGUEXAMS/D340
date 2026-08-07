@@ -907,6 +907,159 @@
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
 
+
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel-2:#161f2c; --panel-3:#0d1420;
+    --border:#233042; --border-soft:#1a2532;
+    --text:#dce6f0; --text-dim:#7c8ba1; --text-faint:#4b586b;
+    --cyan:#35c4e8; --cyan-dim:#1c7c95;
+    --red:#ff5a5f; --red-dim:#5c2226;
+    --green:#3ddc84; --green-dim:#1c4a34;
+    --amber:#ffb454; --amber-dim:#5c4520;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; padding-bottom:60px;
+  }
+  ::selection{background:var(--cyan-dim);color:#fff;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel-3);}
+  ::-webkit-scrollbar-thumb{background:#2a3849;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#38495e;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,#0d131c 0%, #0a0e14 100%);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:9px;
+    background:linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dim) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:#04141a;font-size:15px;
+    box-shadow:0 0 22px rgba(53,196,232,0.35);
+  }
+  .brand-text .course{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.3px;}
+  .brand-text .sub{font-size:12px;color:var(--text-dim);margin-top:1px;}
+  .ticket{
+    display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 16px;
+  }
+  .ticket b{color:var(--text);font-weight:600;}
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;margin-right:6px;
+    animation:pulseDot 1.6s infinite;
+  }
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,180,84,0.55);}70%{box-shadow:0 0 0 7px rgba(255,180,84,0);}100%{box-shadow:0 0 0 0 rgba(255,180,84,0);}}
+
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
+
+  .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+  .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .sev-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;
+    background:var(--amber-dim);color:#ffdba9;border:1px solid #7a5a26;padding:3px 9px;border-radius:5px;
+  }
+  .brief p{margin:0 0 14px;color:var(--text-dim);font-size:14px;line-height:1.6;max-width:900px;}
+  .doc-btns{display:flex;gap:10px;flex-wrap:wrap;}
+  .doc-btn{
+    display:flex;align-items:center;gap:9px;background:linear-gradient(180deg,#1a2634,#131c27);
+    border:1px solid #2c3d51;color:var(--text);padding:10px 16px;border-radius:9px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s ease;
+  }
+  .doc-btn:hover{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.12);}
+
+  /* doc modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(4,7,11,0.72);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .doc-modal{
+    width:min(760px,100%);max-height:85vh;overflow:auto;background:var(--panel-3);border:1px solid var(--border);
+    border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  }
+  .doc-bar{
+    background:linear-gradient(180deg,#1a4a5c,#0f3444);color:#eaf9ff;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    position:sticky;top:0;
+  }
+  .doc-bar button{
+    width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.06);color:#eaf9ff;cursor:pointer;font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .doc-bar button:hover{background:rgba(255,90,95,0.35);border-color:var(--red);}
+  .doc-body{padding:20px 22px;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
+  .doc-body h4{font-family:'Space Grotesk',sans-serif;color:var(--text);font-size:13.5px;margin:16px 0 8px;}
+  .doc-body table{width:100%;border-collapse:collapse;margin-top:10px;font-size:12.5px;}
+  .doc-body th{background:var(--panel-2);color:var(--cyan);text-align:left;padding:8px 10px;font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;}
+  .doc-body td{padding:8px 10px;border-bottom:1px solid var(--border-soft);}
+  .matrix-table{border-collapse:collapse;margin-top:10px;}
+  .matrix-table th, .matrix-table td{border:1px solid var(--border-soft);padding:8px 12px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .matrix-table th{background:var(--panel-2);color:var(--cyan);}
+  .band-low{background:rgba(61,220,132,0.12);color:#a8f0c6;}
+  .band-medium{background:rgba(255,180,84,0.14);color:#ffdba9;}
+  .band-high{background:rgba(255,90,95,0.14);color:#ffbfc1;}
+  .band-critical{background:rgba(255,90,95,0.28);color:#ffdbdc;font-weight:700;}
+
+  /* tabs */
+  .term-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+  .term-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel-2);}
+  .term-tab{
+    padding:12px 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;
+    color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s ease;
+  }
+  .term-tab:hover{color:var(--text);}
+  .term-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--panel-3);}
+  .tab-panel{display:none;padding:18px;}
+  .tab-panel.active{display:block;}
+
+  table.rtable{width:100%;border-collapse:collapse;}
+  table.rtable th{
+    text-align:left;font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--text-dim);
+    padding:10px 12px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.3px;
+  }
+  table.rtable td{padding:12px;border-bottom:1px solid var(--border-soft);vertical-align:top;font-size:13px;color:var(--text-dim);}
+  table.rtable select{
+    background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:8px 10px;font-family:'Inter',sans-serif;font-size:12.5px;min-width:110px;
+  }
+  table.rtable select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  .ctrl-cell{display:flex;flex-direction:column;gap:6px;min-width:190px;}
+  .row-fb{font-size:10.5px;font-family:'IBM Plex Mono',monospace;margin-top:4px;}
+  .row-fb.correct{color:var(--green);}
+  .row-fb.incorrect{color:var(--red);}
+
+  .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+  .section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+  .section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+  .actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+  .btn-primary{background:var(--cyan);color:#04141a;}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+  .score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+  .score-pill.show{display:inline-block;}
+  .score-pill.full{border-color:var(--green);color:var(--green);background:rgba(61,220,132,0.08);}
+  .score-pill.partial{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,0.08);}
+
+  .analysis{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+  .analysis.show{display:block;}
+  .analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+  .astep{display:flex;gap:12px;margin-bottom:10px;}
+  .astep .num{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);}
+  .astep p{margin:0;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .astep b{color:var(--text);}
+  .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+
   /* ============ Menu screen (now matching the dark theme of the simulations) ============ */
   .menu-shell{
     --m-bg:var(--bg);--m-card:var(--panel);--m-border:var(--border);--m-border2:var(--cyan-dim);
@@ -984,14 +1137,374 @@
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
       <div class="mode-screen">
-        <p>5 questions &middot; website defacement investigation, phishing incident response, server hardening compliance, network hardening discovery &amp; vulnerability scan validation</p>
-        <button class="begin-btn" onclick="switchScreen('defacement')">
+        <p>6 questions &middot; risk assessment action plan, website defacement investigation, phishing incident response, server hardening compliance, network hardening discovery &amp; vulnerability scan validation</p>
+        <button class="begin-btn" onclick="switchScreen('risk')">
           Begin Exam
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
       </div>
     </div>
   </div>
+</div>
+
+<div id="screen-risk" class="sim-screen">
+
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">D3</div>
+    <div class="brand-text">
+      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="sub">Simulation — Risk Assessment Action Plan</div>
+    </div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>RA-4402</b></span>
+    <span>Sector: <b style="color:var(--amber)">Healthcare</b></span>
+    <span id="clock-risk">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>Riverbend Medical Center — Risk Assessment <span class="sev-chip">ACTION PLAN DUE</span></h1>
+    <p>
+      Riverbend Medical Center must build an action plan from a recent risk assessment. The plan needs
+      <b style="color:var(--text)">risk categorization</b>, <b style="color:var(--text)">risk prioritization</b>,
+      and <b style="color:var(--text)">implementation of controls</b>. Review the three documents below, then
+      complete the Risk Categorization and Controls tabs. Some findings need more than one control; some controls
+      may be used more than once or not at all.
+    </p>
+    <div class="doc-btns">
+      <button class="doc-btn" onclick="openDoc('audit')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+        Audit Report
+      </button>
+      <button class="doc-btn" onclick="openDoc('matrix')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Risk Matrix
+      </button>
+      <button class="doc-btn" onclick="openDoc('sla')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        SLA Expectations
+      </button>
+    </div>
+  </div>
+
+  <div class="term-panel">
+    <div class="term-tabs" id="rp-tabs"></div>
+
+    <div class="tab-panel active" id="panel-categorization">
+      <table class="rtable">
+        <thead><tr><th style="width:120px;">Risk Prioritization</th><th>Risk Finding</th><th style="width:140px;">Risk Categorization</th></tr></thead>
+        <tbody id="cat-body"></tbody>
+      </table>
+    </div>
+
+    <div class="tab-panel" id="panel-controls">
+      <table class="rtable">
+        <thead><tr><th>Risk Finding</th><th colspan="3">Control(s) to Implement</th></tr></thead>
+        <tbody id="ctrl-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Submit Action Plan</h2>
+    <div class="sub">grades both the Risk Categorization and Controls tabs together</div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkRiskPlan()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetRiskSim()">Reset All</button>
+      <span class="score-pill" id="risk-pill"></span>
+    </div>
+
+    <div class="analysis" id="risk-analysis">
+      <h3>Risk Assessment Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>Score = Likelihood × Impact.</b> The audit report gives each finding a likelihood and impact rating (1–5); cross-referencing those against the risk matrix gives the score, and the score determines both priority order and categorization band.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Highest priority: unauthenticated patient portal access</b> (score <code>25</code>, Critical) — direct, credential-free exposure of PHI is the most urgent finding regardless of how many other issues exist.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Controls aren't one-size-fits-all.</b> A legacy-OS finding needs patching <i>and</i> segmentation; a phishing finding needs filtering <i>and</i> awareness training. Some findings only need one control (e.g. a clean desk policy for paperwork left at a printer); "Acceptance" and unused controls in the list are intentional distractors.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Takeaway.</b> Prioritization follows risk score, not how alarming a finding sounds — a well-understood human-error finding (misdirected email) can rank below a technical finding with a higher likelihood × impact product.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- document modal -->
+<div class="modal-overlay" id="doc-overlay">
+  <div class="doc-modal">
+    <div class="doc-bar">
+      <span id="doc-title">Document</span>
+      <button onclick="closeDoc()">✕</button>
+    </div>
+    <div class="doc-body" id="doc-body"></div>
+  </div>
+</div>
+
+<div class="exam-nav">
+  <button class="back-btn" onclick="switchScreen('menu')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    Back
+  </button>
+  <button class="next-btn" onclick="switchScreen('defacement')">
+    Next Question
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<script>
+/* ============ Findings data ============ */
+// score = likelihood x impact; band derived from score
+const FINDINGS = [
+  { id:"f5", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:5, impact:5 },
+  { id:"f1", text:"Medical imaging workstations are running an unsupported, end-of-life operating system.", likelihood:4, impact:4 },
+  { id:"f2", text:"A large volume of outbound DNS traffic is detected from the billing server to an unrecognized external host.", likelihood:3, impact:5 },
+  { id:"f3", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:4, impact:3 },
+  { id:"f6", text:"Copies of live patient records were found within the test and staging environments.", likelihood:3, impact:3 },
+  { id:"f4", text:"A spreadsheet containing patient billing records was sent to the wrong department distribution list.", likelihood:2, impact:3 },
+  { id:"f7", text:"Discharge paperwork containing patient information was left unattended at a nurses' station printer.", likelihood:2, impact:2 },
+  { id:"f8", text:"Personal USB drives were found connected to nursing station workstations.", likelihood:3, impact:1 }
+];
+FINDINGS.forEach(f=>{ f.score = f.likelihood * f.impact; });
+
+function bandFor(score){
+  if(score>=16) return "Critical";
+  if(score>=11) return "High";
+  if(score>=6) return "Medium";
+  return "Low";
+}
+FINDINGS.forEach(f=>{ f.band = bandFor(f.score); });
+
+// priority rank = order by score descending (1 = highest score)
+const RANKED = [...FINDINGS].sort((a,b)=>b.score-a.score);
+RANKED.forEach((f,i)=>{ f.priority = i+1; });
+
+// display order (shuffled from priority order, matching how these tables are usually presented un-sorted)
+const DISPLAY_ORDER = ["f1","f2","f3","f4","f5","f6","f7","f8"];
+const findingById = Object.fromEntries(FINDINGS.map(f=>[f.id,f]));
+
+const CONTROL_OPTIONS = [
+  "Apply vendor security patches / upgrade OS",
+  "Implement network segmentation",
+  "Implement IDS/IPS",
+  "Implement DLP",
+  "Implement email filtering",
+  "Require security awareness training",
+  "Implement SPF/DKIM/DMARC",
+  "Require multi-factor authentication",
+  "Implement web application firewall",
+  "Restrict test/staging data to synthetic or masked records",
+  "Implement data deidentification",
+  "Implement clean desk policy",
+  "Implement full disk encryption",
+  "Disable USB ports / implement device control policy",
+  "Implement approved software listing",
+  "Implement file integrity monitoring",
+  "Acceptance"
+];
+
+const EXPECTED_CONTROLS = {
+  f1: ["Apply vendor security patches / upgrade OS","Implement network segmentation"],
+  f2: ["Implement IDS/IPS","Implement network segmentation"],
+  f3: ["Implement email filtering","Require security awareness training","Implement SPF/DKIM/DMARC"],
+  f4: ["Implement DLP","Require security awareness training"],
+  f5: ["Require multi-factor authentication","Implement web application firewall"],
+  f6: ["Restrict test/staging data to synthetic or masked records","Implement data deidentification"],
+  f7: ["Implement clean desk policy"],
+  f8: ["Disable USB ports / implement device control policy","Implement approved software listing"]
+};
+
+/* ============ Document contents ============ */
+const DOCS = {
+  audit: {
+    title: "Audit Report — Riverbend Medical Center",
+    body: () => {
+      let rows = DISPLAY_ORDER.map(id=>{
+        const f = findingById[id];
+        return `<tr><td>${f.text}</td><td>${f.likelihood}</td><td>${f.impact}</td></tr>`;
+      }).join('');
+      return `<p>External auditors assessed each finding for <b>likelihood</b> (1–5) and <b>impact</b> (1–5) based on current controls and system exposure. Cross-reference these ratings with the Risk Matrix to determine each finding's score.</p>
+      <table><thead><tr><th>Finding</th><th>Likelihood</th><th>Impact</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+  },
+  matrix: {
+    title: "Risk Matrix",
+    body: () => {
+      let html = `<p>Risk Score = Likelihood × Impact. Use the score to determine the categorization band.</p>
+      <table class="matrix-table"><tr><th></th>`;
+      for(let i=1;i<=5;i++) html += `<th>Impact ${i}</th>`;
+      html += `</tr>`;
+      for(let l=5;l>=1;l--){
+        html += `<tr><th>Likelihood ${l}</th>`;
+        for(let i=1;i<=5;i++){
+          const s = l*i;
+          const band = bandFor(s);
+          html += `<td class="band-${band.toLowerCase()}">${s}</td>`;
+        }
+        html += `</tr>`;
+      }
+      html += `</table>
+      <p style="margin-top:14px;">
+        <span class="band-low" style="padding:2px 8px;border-radius:4px;">1–5 Low</span> &nbsp;
+        <span class="band-medium" style="padding:2px 8px;border-radius:4px;">6–10 Medium</span> &nbsp;
+        <span class="band-high" style="padding:2px 8px;border-radius:4px;">11–15 High</span> &nbsp;
+        <span class="band-critical" style="padding:2px 8px;border-radius:4px;">16–25 Critical</span>
+      </p>`;
+      return html;
+    }
+  },
+  sla: {
+    title: "SLA Expectations",
+    body: () => `
+      <h4>Remediation Windows by Risk Category</h4>
+      <table>
+        <thead><tr><th>Category</th><th>Required Remediation Window</th></tr></thead>
+        <tbody>
+          <tr><td>Critical</td><td>Within 48 hours of confirmation</td></tr>
+          <tr><td>High</td><td>Within 7 calendar days</td></tr>
+          <tr><td>Medium</td><td>Within 30 calendar days</td></tr>
+          <tr><td>Low</td><td>Within 90 calendar days, or documented risk acceptance</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px;">Per hospital policy, any finding involving direct, unauthenticated exposure of Protected Health Information (PHI) is treated as Critical regardless of computed score, and must be escalated to the CISO immediately upon discovery.</p>`
+  }
+};
+
+function openDoc(key){
+  document.getElementById('doc-title').textContent = DOCS[key].title;
+  document.getElementById('doc-body').innerHTML = DOCS[key].body();
+  document.getElementById('doc-overlay').classList.add('show');
+}
+function closeDoc(){ document.getElementById('doc-overlay').classList.remove('show'); }
+document.getElementById('doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='doc-overlay') closeDoc(); });
+
+/* ============ Tabs ============ */
+const rpTabsEl = document.getElementById('rp-tabs');
+const RP_TABS = [
+  { key:"categorization", label:"Risk categorization" },
+  { key:"controls", label:"Controls" }
+];
+RP_TABS.forEach((t,i)=>{
+  const el = document.createElement('div');
+  el.className = 'term-tab' + (i===0?' active':'');
+  el.textContent = t.label; el.dataset.k = t.key;
+  el.onclick = ()=>showRpTab(t.key);
+  rpTabsEl.appendChild(el);
+});
+function showRpTab(key){
+  [...rpTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
+  document.getElementById('panel-categorization').classList.toggle('active', key==='categorization');
+  document.getElementById('panel-controls').classList.toggle('active', key==='controls');
+}
+
+/* ============ Build Risk Categorization table ============ */
+const catBody = document.getElementById('cat-body');
+DISPLAY_ORDER.forEach(id=>{
+  const f = findingById[id];
+  const tr = document.createElement('tr');
+  tr.dataset.id = id;
+  tr.innerHTML = `
+    <td>
+      <select class="priority-select">
+        <option value="">Select</option>
+        ${[1,2,3,4,5,6,7,8].map(n=>`<option value="${n}">${n}</option>`).join('')}
+      </select>
+      <div class="row-fb" data-fb="priority"></div>
+    </td>
+    <td>${f.text}</td>
+    <td>
+      <select class="band-select">
+        <option value="">Select</option>
+        <option>Critical</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+      <div class="row-fb" data-fb="band"></div>
+    </td>`;
+  catBody.appendChild(tr);
+});
+
+/* ============ Build Controls table ============ */
+const ctrlBody = document.getElementById('ctrl-body');
+DISPLAY_ORDER.forEach(id=>{
+  const f = findingById[id];
+  const row = document.createElement('tr');
+  row.dataset.id = id;
+  let cells = `<td>${f.text}</td>`;
+  for(let i=0;i<3;i++){
+    cells += `<td><select class="control-select" data-slot="${i}"><option value="">Select control</option>${CONTROL_OPTIONS.map(o=>`<option>${o}</option>`).join('')}</select></td>`;
+  }
+  row.innerHTML = cells;
+  ctrlBody.appendChild(row);
+
+  const fbRow = document.createElement('tr');
+  fbRow.innerHTML = `<td colspan="4"><div class="row-fb" data-fb-for="${id}"></div></td>`;
+  ctrlBody.appendChild(fbRow);
+});
+
+/* ============ Grading ============ */
+function checkRiskPlan(){
+  let correct=0, total=0;
+
+  // categorization tab
+  catBody.querySelectorAll('tr').forEach(tr=>{
+    const f = findingById[tr.dataset.id];
+    const pSel = tr.querySelector('.priority-select');
+    const bSel = tr.querySelector('.band-select');
+    const pFb = tr.querySelector('[data-fb="priority"]');
+    const bFb = tr.querySelector('[data-fb="band"]');
+
+    total += 2;
+    const pOk = parseInt(pSel.value,10) === f.priority;
+    const bOk = bSel.value === f.band;
+    if(pOk) correct++;
+    if(bOk) correct++;
+    pFb.textContent = pOk ? '✓' : '✗';
+    pFb.className = 'row-fb ' + (pOk?'correct':'incorrect');
+    bFb.textContent = bOk ? '✓' : '✗';
+    bFb.className = 'row-fb ' + (bOk?'correct':'incorrect');
+  });
+
+  // controls tab
+  ctrlBody.querySelectorAll('tr[data-id]').forEach(tr=>{
+    const id = tr.dataset.id;
+    const expected = new Set(EXPECTED_CONTROLS[id]);
+    const chosen = [...tr.querySelectorAll('.control-select')].map(s=>s.value).filter(v=>v);
+    const chosenSet = new Set(chosen);
+
+    total += 1;
+    const sameSize = chosenSet.size === expected.size;
+    const allMatch = sameSize && [...expected].every(c=>chosenSet.has(c));
+    if(allMatch) correct++;
+
+    const fb = ctrlBody.querySelector(`[data-fb-for="${id}"]`);
+    fb.textContent = allMatch ? '✓ correct control set' : '✗ incorrect control set';
+    fb.className = 'row-fb ' + (allMatch?'correct':'incorrect');
+  });
+
+  const pill = document.getElementById('risk-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('risk-analysis').classList.add('show');
+}
+
+function resetRiskSim(){
+  catBody.querySelectorAll('select').forEach(s=>s.value='');
+  catBody.querySelectorAll('.row-fb').forEach(fb=>{fb.textContent='';fb.className='row-fb';});
+  ctrlBody.querySelectorAll('select').forEach(s=>s.value='');
+  ctrlBody.querySelectorAll('.row-fb').forEach(fb=>{fb.textContent='';fb.className='row-fb';});
+  document.getElementById('risk-pill').className = 'score-pill';
+  document.getElementById('risk-analysis').classList.remove('show');
+  closeDoc();
+  showRpTab('categorization');
+}
+
+/* ============ Clock ============ */
+
+</script>
+
 </div>
 
 <div id="screen-defacement" class="sim-screen">
@@ -1082,7 +1595,7 @@
 </div>
 
 <div class="exam-nav">
-  <button class="back-btn" onclick="switchScreen('menu')">
+  <button class="back-btn" onclick="switchScreen('risk')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
@@ -2932,6 +3445,7 @@ function tickBothClocks(){
   const c = document.getElementById('clock-network'); if(c) c.textContent = now;
   const d = document.getElementById('clock-scan'); if(d) d.textContent = now;
   const e = document.getElementById('clock-defacement'); if(e) e.textContent = now;
+  const f = document.getElementById('clock-risk'); if(f) f.textContent = now;
 }
 tickBothClocks(); setInterval(tickBothClocks, 1000);
 </script>
