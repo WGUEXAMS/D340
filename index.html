@@ -439,7 +439,7 @@
   .astep p{margin:0;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}  .exam-nav{
-    max-width:1220px;margin:0 auto;padding:0 28px 40px;display:flex;justify-content:space-between;align-items:center;
+    max-width:100%;margin:0;padding:0 40px 40px;display:flex;justify-content:space-between;align-items:center;
   }
   .next-btn{
     font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:13px 26px;border-radius:9px;
@@ -448,11 +448,11 @@
   }
   .next-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
   .back-btn{
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:13px 22px;border-radius:9px;
-    background:transparent;color:#9fb0c2;border:1px solid #2c3d51;cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:13px 26px;border-radius:9px;
+    background:var(--panel-2);color:var(--text);border:1px solid var(--border);cursor:pointer;
     display:flex;align-items:center;gap:8px;transition:all .15s ease;
   }
-  .back-btn:hover{border-color:#5a92ad;color:#fff;}
+  .back-btn:hover{background:var(--panel-3);border-color:#5a92ad;transform:translateY(-1px);}
   .back-btn:disabled{opacity:.35;cursor:default;}
   .next-toast{
     position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);
@@ -630,6 +630,283 @@
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
 
+
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel-2:#161f2c; --panel-3:#0d1420;
+    --border:#233042; --border-soft:#1a2532;
+    --text:#dce6f0; --text-dim:#7c8ba1; --text-faint:#4b586b;
+    --cyan:#35c4e8; --cyan-dim:#1c7c95;
+    --red:#ff5a5f; --red-dim:#5c2226;
+    --green:#3ddc84; --green-dim:#1c4a34;
+    --amber:#ffb454; --amber-dim:#5c4520;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; padding-bottom:60px;
+  }
+  ::selection{background:var(--cyan-dim);color:#fff;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel-3);}
+  ::-webkit-scrollbar-thumb{background:#2a3849;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#38495e;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,#0d131c 0%, #0a0e14 100%);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:9px;
+    background:linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dim) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:#04141a;font-size:15px;
+    box-shadow:0 0 22px rgba(53,196,232,0.35);
+  }
+  .brand-text .course{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.3px;}
+  .brand-text .sub{font-size:12px;color:var(--text-dim);margin-top:1px;}
+  .ticket{
+    display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 16px;
+  }
+  .ticket b{color:var(--text);font-weight:600;}
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block;margin-right:6px;
+    animation:pulseDot 1.6s infinite;
+  }
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,90,95,0.55);}70%{box-shadow:0 0 0 7px rgba(255,90,95,0);}100%{box-shadow:0 0 0 0 rgba(255,90,95,0);}}
+
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
+
+  .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+  .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .sev-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;
+    background:var(--red-dim);color:#ffb2b4;border:1px solid #6f2c30;padding:3px 9px;border-radius:5px;
+  }
+  .brief p{margin:0 0 4px;color:var(--text-dim);font-size:14px;line-height:1.6;max-width:900px;}
+  .brief .rule{margin-top:10px;font-size:13.5px;color:var(--text-dim);}
+  .brief .rule li{margin-bottom:4px;}
+  .brief .rule b{color:var(--cyan);}
+
+  /* topology */
+  .topo-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+  .topo-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 6px;}
+  .topo-head h2{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0;font-weight:600;color:var(--text-dim);letter-spacing:0.4px;text-transform:uppercase;}
+  .topo-head .hint{font-size:12px;color:var(--text-faint);font-family:'IBM Plex Mono',monospace;}
+  .diagram-wrap{padding:10px 18px 24px;}
+
+  .report-btn{
+    display:flex;align-items:center;gap:9px;white-space:nowrap;
+    background:linear-gradient(180deg,#1a2634,#131c27);
+    border:1px solid #2c3d51;color:var(--text);
+    padding:10px 16px;border-radius:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;
+    cursor:pointer;transition:all .15s ease;margin:0 18px 14px;
+  }
+  .report-btn:hover{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.12);}
+
+  /* report modal */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(4,7,11,0.72);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .report-modal{
+    width:min(680px,100%);max-height:85vh;overflow:auto;background:var(--panel-3);border:1px solid var(--border);
+    border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  }
+  .report-bar{
+    background:linear-gradient(180deg,#1a4a5c,#0f3444);color:#eaf9ff;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    position:sticky;top:0;
+  }
+  .report-bar button{
+    width:24px;height:24px;border-radius:6px;border:1px solid rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.06);color:#eaf9ff;cursor:pointer;font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .report-bar button:hover{background:rgba(255,90,95,0.35);border-color:var(--red);}
+  .finding{padding:18px 22px;border-bottom:1px solid var(--border-soft);}
+  .finding:last-child{border-bottom:none;}
+  .sev-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:3px 10px;border-radius:5px;display:inline-block;margin-bottom:10px;}
+  .sev-tag.high{background:var(--red-dim);color:#ffb2b4;}
+  .sev-tag.medium{background:var(--amber-dim);color:#ffdba9;}
+  .sev-tag.low{background:var(--cyan-dim);color:#d3f4ff;}
+  .frow{display:grid;grid-template-columns:110px 1fr;gap:10px;font-size:13px;margin-bottom:8px;}
+  .frow b{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-transform:uppercase;}
+  .frow span{color:var(--text);line-height:1.55;}
+
+  /* section / table */
+  .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+  .section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+  .section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+  table.remtable{width:100%;border-collapse:collapse;}
+  table.remtable th{
+    text-align:left;font-family:'Space Grotesk',sans-serif;font-size:12.5px;color:var(--text-dim);
+    padding:10px 14px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:0.3px;
+  }
+  table.remtable td{padding:14px;border-bottom:1px solid var(--border-soft);vertical-align:top;}
+  table.remtable td.sys{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--cyan);font-size:13.5px;white-space:nowrap;}
+  table.remtable select{
+    width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:9px 11px;font-family:'Inter',sans-serif;font-size:13px;
+  }
+  table.remtable select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  .row-fb{font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:6px;min-height:14px;}
+  .row-fb.correct{color:var(--green);}
+  .row-fb.incorrect{color:var(--red);}
+
+  .actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+  .btn-primary{background:var(--cyan);color:#04141a;}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+  .score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+  .score-pill.show{display:inline-block;}
+  .score-pill.full{border-color:var(--green);color:var(--green);background:rgba(61,220,132,0.08);}
+  .score-pill.partial{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,0.08);}
+
+  .analysis{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+  .analysis.show{display:block;}
+  .analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+  .astep{display:flex;gap:12px;margin-bottom:12px;}
+  .astep .num{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--cyan);}
+  .astep p{margin:0;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
+  .astep b{color:var(--text);}
+  .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
+
+
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel-2:#161f2c; --panel-3:#0d1420;
+    --border:#233042; --border-soft:#1a2532;
+    --text:#dce6f0; --text-dim:#7c8ba1; --text-faint:#4b586b;
+    --cyan:#35c4e8; --cyan-dim:#1c7c95;
+    --red:#ff5a5f; --red-dim:#5c2226;
+    --green:#3ddc84; --green-dim:#1c4a34;
+    --amber:#ffb454; --amber-dim:#5c4520;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; padding-bottom:60px;
+  }
+  ::selection{background:var(--cyan-dim);color:#fff;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel-3);}
+  ::-webkit-scrollbar-thumb{background:#2a3849;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#38495e;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,#0d131c 0%, #0a0e14 100%);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{
+    width:38px;height:38px;border-radius:9px;
+    background:linear-gradient(135deg, var(--cyan) 0%, var(--cyan-dim) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;color:#04141a;font-size:15px;
+    box-shadow:0 0 22px rgba(53,196,232,0.35);
+  }
+  .brand-text .course{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.3px;}
+  .brand-text .sub{font-size:12px;color:var(--text-dim);margin-top:1px;}
+  .ticket{
+    display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 16px;
+  }
+  .ticket b{color:var(--text);font-weight:600;}
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block;margin-right:6px;
+    animation:pulseDot 1.6s infinite;
+  }
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,90,95,0.55);}70%{box-shadow:0 0 0 7px rgba(255,90,95,0);}100%{box-shadow:0 0 0 0 rgba(255,90,95,0);}}
+
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
+
+  .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+  .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .sev-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;
+    background:var(--red-dim);color:#ffb2b4;border:1px solid #6f2c30;padding:3px 9px;border-radius:5px;
+  }
+  .brief p{margin:0;color:var(--text-dim);font-size:14px;line-height:1.6;max-width:900px;}
+
+  /* terminal-style tab panel */
+  .term-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+  .term-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel-2);}
+  .term-tab{
+    padding:12px 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;
+    color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s ease;
+  }
+  .term-tab:hover{color:var(--text);}
+  .term-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--panel-3);}
+  .term-body{background:#050a0f;padding:16px 18px;height:380px;overflow:auto;}
+  .term-body pre{margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;color:#c9d6e0;white-space:pre-wrap;}
+  .term-body pre .ip-flag{color:var(--red);}
+  .term-body pre .file-flag{color:var(--amber);}
+  .term-body pre .col{color:var(--cyan);}
+
+  /* section */
+  .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+  .section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+  .section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+  .answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:900px){.answer-grid{grid-template-columns:1fr;}}
+  .qbox{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px;}
+  .qbox label{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:10px;}
+  .qbox select{
+    width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;
+  }
+  .qbox select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  .qbox .fb{font-size:11.5px;font-family:'IBM Plex Mono',monospace;margin-top:8px;min-height:14px;}
+  .qbox .fb.correct{color:var(--green);}
+  .qbox .fb.incorrect{color:var(--red);}
+
+  .qbox.actions-box{grid-column:1 / -1;}
+  .chk-list{display:flex;flex-direction:column;}
+  .chk{
+    display:flex;align-items:center;gap:12px;padding:11px 0;font-size:13.5px;color:var(--text-dim);cursor:pointer;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .chk:last-child{border-bottom:none;}
+  .chk:hover{color:var(--text);}
+  .chk input{width:17px;height:17px;flex-shrink:0;accent-color:var(--cyan);}
+  .chk .badge{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:2px 8px;border-radius:4px;display:none;}
+  .chk .badge.correct{display:inline-block;background:var(--green-dim);color:#a8f0c6;}
+  .chk .badge.incorrect{display:inline-block;background:var(--red-dim);color:#ffbfc1;}
+
+  .actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+  .btn-primary{background:var(--cyan);color:#04141a;}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+  .score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+  .score-pill.show{display:inline-block;}
+  .score-pill.full{border-color:var(--green);color:var(--green);background:rgba(61,220,132,0.08);}
+  .score-pill.partial{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,0.08);}
+
+  .analysis{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+  .analysis.show{display:block;}
+  .analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+  .astep{display:flex;gap:12px;margin-bottom:12px;}
+  .astep .num{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--cyan);}
+  .astep p{margin:0;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
+  .astep b{color:var(--text);}
+  .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
+
   /* ============ Menu screen (now matching the dark theme of the simulations) ============ */
   .menu-shell{
     --m-bg:var(--bg);--m-card:var(--panel);--m-border:var(--border);--m-border2:var(--cyan-dim);
@@ -707,14 +984,255 @@
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
       <div class="mode-screen">
-        <p>3 questions &middot; phishing incident response, server hardening compliance &amp; network hardening discovery</p>
-        <button class="begin-btn" onclick="switchScreen('phish')">
+        <p>5 questions &middot; website defacement investigation, phishing incident response, server hardening compliance, network hardening discovery &amp; vulnerability scan validation</p>
+        <button class="begin-btn" onclick="switchScreen('defacement')">
           Begin Exam
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
         </button>
       </div>
     </div>
   </div>
+</div>
+
+<div id="screen-defacement" class="sim-screen">
+
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">D3</div>
+    <div class="brand-text">
+      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="sub">Simulation — Website Defacement Investigation</div>
+    </div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>INC-7781</b></span>
+    <span>Type: <b style="color:var(--red)">Defacement</b></span>
+    <span id="clock-defacement">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>mycorp.io Homepage Altered <span class="sev-chip">ACTIVE INCIDENT</span></h1>
+    <p>
+      The company's public website was maliciously altered overnight. The site is edited by one employee,
+      <b style="color:var(--text)">dkim</b>, over SFTP. Review the SFTP log, netstat output, and HTTP access log
+      below, then identify the source IP the analyst should be most concerned about, the actual indicator of
+      compromise, and the two most appropriate corrective actions.
+    </p>
+  </div>
+
+  <div class="term-panel">
+    <div class="term-tabs" id="term-tabs-def"></div>
+    <div class="term-body"><pre id="term-content-def"></pre></div>
+  </div>
+
+  <div class="section">
+    <h2>Findings</h2>
+    <div class="sub">answer using only what the three logs show</div>
+    <div class="answer-grid">
+      <div class="qbox">
+        <label>Which source IP address should the analyst be most concerned about?</label>
+        <select id="ans-ip">
+          <option value="">Select</option>
+          <option>88.201.5.64</option>
+          <option>10.20.30.15</option>
+          <option>10.20.30.22</option>
+          <option>71.44.19.203</option>
+          <option>203.0.44.9</option>
+          <option>10.20.30.40</option>
+        </select>
+        <div class="fb" id="fb-ip"></div>
+      </div>
+      <div class="qbox">
+        <label>Identify the indicator of compromise:</label>
+        <select id="ans-ioc">
+          <option value="">Select</option>
+          <option>404 server error</option>
+          <option>Modified team file</option>
+          <option>Unauthorized username</option>
+          <option>Modified index.html file</option>
+          <option>Repeated failed logins</option>
+        </select>
+        <div class="fb" id="fb-ioc"></div>
+      </div>
+      <div class="qbox actions-box">
+        <label>Select the corrective actions (choose two):</label>
+        <div class="chk-list" id="actions-list"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkDefacement()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetDefacementSim()">Start Over</button>
+      <span class="score-pill" id="def-pill"></span>
+    </div>
+
+    <div class="analysis" id="def-analysis">
+      <h3>Investigation Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>Baseline the normal pattern.</b> dkim's legitimate edits all come from <code>10.20.30.0/24</code> — the office range — during business hours, writing pages like <code>team.html</code> and <code>contact.html</code>.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>The outlier.</b> At <code>20:15</code>, dkim's account logs in from <code>88.201.5.64</code> — an external IP, well outside the office range, at an unusual hour — and writes <code>index.html</code>, the site's actual homepage. That's the source IP to be concerned about.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Indicator of compromise.</b> The netstat and HTTP logs confirm <code>88.201.5.64</code> connected on port 22 and pulled the homepage right after. The write to <code>index.html</code> — the page that visibly changed — is the actual indicator, not the unrelated failed logins from <code>71.44.19.203</code> or the 404s from <code>203.0.44.9</code> (someone just mistyped a filename).</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Corrective actions.</b> <b>Change the password on the dkim account</b> (the credential was used from an unexpected location) and <b>Block external SFTP access</b> (the actual exposure that let it happen). Shutting down the file transfer server or deleting the account are disproportionate — dkim still needs to edit the site from the office; blocking all of <code>10.20.30.*</code> would lock out the legitimate internal logins too.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="exam-nav">
+  <button class="back-btn" onclick="switchScreen('menu')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    Back
+  </button>
+  <button class="next-btn" onclick="switchScreen('phish')">
+    Next Question
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<script>
+/* ============ Log data ============ */
+const TABS = {
+  sftp: {
+    label: "SFTP Log",
+    content: `2026-02-14 09:12:05 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.15</span>] [username = dkim]
+2026-02-14 09:12:40 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 09:14:02 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./team.html written]
+2026-02-14 09:20:11 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.15] [username = dkim]
+2026-02-14 11:05:33 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.22</span>] [username = dkim]
+2026-02-14 11:06:10 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 11:08:45 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./contact.html written]
+2026-02-14 11:12:19 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.22] [username = dkim]
+2026-02-14 20:15:37 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="ip-flag">88.201.5.64</span>] [username = dkim]
+2026-02-14 20:16:02 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 20:17:50 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [<span class="file-flag">./index.html written</span>]
+2026-02-14 20:19:03 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 88.201.5.64] [username = dkim]
+2026-02-14 20:45:11 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (failed login) [IP = 71.44.19.203] [username = dkim]
+2026-02-15 08:02:14 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.40</span>] [username = dkim]
+2026-02-15 08:04:00 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-15 08:06:22 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./index.html written]
+2026-02-15 08:08:47 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.40] [username = dkim]`
+  },
+  netstat: {
+    label: "Netstat",
+    content: `> netstat -ano
+
+TCP    0.0.0.0:22            0.0.0.0:0              LISTENING     1400
+TCP    127.0.0.1:1500         127.0.0.1:51022        ESTABLISHED   900
+TCP    127.0.0.1:1500         127.0.0.1:51100        ESTABLISHED   900
+TCP    127.0.0.1:51022        127.0.0.1:1500         ESTABLISHED   4700
+TCP    127.0.0.1:51200        127.0.0.1:1500         ESTABLISHED   4100
+TCP    127.0.0.1:51201        127.0.0.1:1501         ESTABLISHED   4100
+TCP    127.0.0.1:40010        <span class="ip-flag">88.201.5.64:22</span>       ESTABLISHED   4820
+TCP    127.0.0.1:40011        10.20.30.15:22         ESTABLISHED   5010
+TCP    127.0.0.1:40012        10.20.30.22:22         ESTABLISHED   5000
+TCP    127.0.0.1:40013        71.44.19.203:22        TIME_WAIT     0
+TCP    127.0.0.1:40014        71.44.19.203:22        TIME_WAIT     0
+TCP    127.0.0.1:40015        199.83.14.90:22        SYN_SENT      4870`
+  },
+  http: {
+    label: "HTTP Access",
+    content: `10.20.30.15    - "" - [2026-02-14 09:14:20 "GET https://mycorp.io/team.html" HTTP/1.1 200]
+10.20.30.22    - "" - [2026-02-14 11:09:02 "GET https://mycorp.io/contact.html" HTTP/1.1 200]
+203.0.44.9     - "" - [2026-02-14 15:02:11 "GET https://mycorp.io" HTTP/1.1 200]
+<span class="ip-flag">88.201.5.64</span>    - "" - [2026-02-14 20:18:10 <span class="file-flag">"GET https://mycorp.io" HTTP/1.1 200</span>]
+71.44.19.203   - "" - [2026-02-14 20:46:02 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
+71.44.19.203   - "" - [2026-02-14 20:46:15 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
+71.44.19.203   - "" - [2026-02-14 20:46:29 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
+10.20.30.40    - "" - [2026-02-15 08:07:00 "GET http://mycorp.io" HTTP/1.1 200]
+203.0.44.9     - "" - [2026-02-15 09:12:44 "GET https://mycorp.io" HTTP/1.1 200]
+203.0.44.9     - "" - [2026-02-15 09:12:58 "GET https://mycorp.io/team.html" HTTP/1.1 200]`
+  }
+};
+
+const defTabsEl = document.getElementById('term-tabs-def');
+const defTermContent = document.getElementById('term-content-def');
+const tabKeys = Object.keys(TABS);
+function showTab(key){
+  defTermContent.innerHTML = TABS[key].content;
+  [...defTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
+}
+tabKeys.forEach((key,i)=>{
+  const t = document.createElement('div');
+  t.className = 'term-tab' + (i===0?' active':'');
+  t.textContent = TABS[key].label; t.dataset.k = key;
+  t.onclick = ()=>showTab(key);
+  defTabsEl.appendChild(t);
+});
+showTab(tabKeys[0]);
+
+/* ============ Corrective actions ============ */
+const ACTIONS = [
+  { key:"pwd", label:"Change the password on the dkim account.", correct:true },
+  { key:"block_sftp", label:"Block external SFTP access.", correct:true },
+  { key:"encrypt", label:"Encrypt index.html.", correct:false },
+  { key:"shutdown", label:"Shut down the insecure file transfer server.", correct:false },
+  { key:"delete", label:"Delete the dkim account.", correct:false },
+  { key:"deny_internal", label:"Deny 10.20.30.*.* at firewall.", correct:false }
+];
+const actionsList = document.getElementById('actions-list');
+ACTIONS.forEach(a=>{
+  const lbl = document.createElement('label');
+  lbl.className = 'chk';
+  lbl.innerHTML = `<input type="checkbox" data-key="${a.key}"><span>${a.label}</span><span class="badge"></span>`;
+  actionsList.appendChild(lbl);
+});
+
+/* ============ Grading ============ */
+const CORRECT_IP = "88.201.5.64";
+const CORRECT_IOC = "Modified index.html file";
+
+function checkDefacement(){
+  let correct=0, total=2;
+
+  const ipSel = document.getElementById('ans-ip');
+  const ipOk = ipSel.value === CORRECT_IP;
+  document.getElementById('fb-ip').textContent = ipOk ? '✓ correct' : '✗ incorrect';
+  document.getElementById('fb-ip').className = 'fb ' + (ipOk?'correct':'incorrect');
+  if(ipOk) correct++;
+
+  const iocSel = document.getElementById('ans-ioc');
+  const iocOk = iocSel.value === CORRECT_IOC;
+  document.getElementById('fb-ioc').textContent = iocOk ? '✓ correct' : '✗ incorrect';
+  document.getElementById('fb-ioc').className = 'fb ' + (iocOk?'correct':'incorrect');
+  if(iocOk) correct++;
+
+  actionsList.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    total++;
+    const action = ACTIONS.find(a=>a.key===cb.dataset.key);
+    const ok = cb.checked === action.correct;
+    if(ok) correct++;
+    const badge = cb.parentElement.querySelector('.badge');
+    badge.className = 'badge ' + (ok?'correct':'incorrect');
+    badge.textContent = ok ? '✓' : '✗';
+  });
+
+  const pill = document.getElementById('def-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('def-analysis').classList.add('show');
+}
+
+function resetDefacementSim(){
+  document.getElementById('ans-ip').value = '';
+  document.getElementById('ans-ioc').value = '';
+  document.getElementById('fb-ip').textContent = ''; document.getElementById('fb-ip').className = 'fb';
+  document.getElementById('fb-ioc').textContent = ''; document.getElementById('fb-ioc').className = 'fb';
+  actionsList.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.checked = false;
+    const badge = cb.parentElement.querySelector('.badge');
+    badge.className = 'badge'; badge.textContent='';
+  });
+  document.getElementById('def-pill').className = 'score-pill';
+  document.getElementById('def-analysis').classList.remove('show');
+}
+
+/* ============ Clock ============ */
+
+</script>
+
 </div>
 
 <div id="screen-phish" class="sim-screen">
@@ -764,7 +1282,7 @@
       <span class="hint">click a server to pull its logs</span>
     </div>
     <div id="desktop">
-      <svg id="diagram" viewBox="0 0 1000 480" style="width:100%;max-width:1420px;margin:0 auto;display:block;">
+      <svg id="diagram" viewBox="0 0 1000 480" style="width:100%;max-width:820px;margin:0 auto;display:block;">
         <!-- internal network zone -->
         <rect x="180" y="16" width="810" height="324" rx="16" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
         <text x="204" y="46" fill="#5f92a8" font-family="Space Grotesk" font-weight="600" font-size="14.5" letter-spacing="0.5">INTERNAL NETWORK — TRUST ZONE</text>
@@ -930,7 +1448,7 @@
 
 <!-- Phishing email modal -->
 <div class="exam-nav">
-  <button class="back-btn" onclick="switchScreen('menu')">
+  <button class="back-btn" onclick="switchScreen('defacement')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
@@ -1943,8 +2461,8 @@ function nextQuestion(){ finishExam(); }
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
-  <button class="next-btn" onclick="finishExam()">
-    Finish Exam
+  <button class="next-btn" onclick="switchScreen('scan')">
+    Next Question
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
 </div>
@@ -2116,6 +2634,282 @@ function resetNetworkSim(){
 
 </div>
 
+<div id="screen-scan" class="sim-screen">
+
+
+<header>
+  <div class="brand">
+    <div class="brand-mark">D3</div>
+    <div class="brand-text">
+      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="sub">Simulation — Vulnerability Scan Validation &amp; Remediation</div>
+    </div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>SCAN-5502</b></span>
+    <span>Standard: <b style="color:var(--red)">PCI DSS</b></span>
+    <span id="clock-scan">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>Post-Deployment Vulnerability Scan <span class="sev-chip">TRIAGE REQUIRED</span></h1>
+    <p>
+      Developers recently pushed new code to three servers in the CDE (Cardholder Data Environment). An external
+      vulnerability scan flagged findings on each one. For every finding, you need to validate whether it's real,
+      then act accordingly:
+    </p>
+    <ul class="rule">
+      <li>If the finding is <b>not valid</b> (a false positive), submit it as a non-issue — no remediation needed.</li>
+      <li>If the finding <b>is valid</b>, select the remediation action that actually fixes the underlying vulnerability.</li>
+    </ul>
+  </div>
+
+  <div class="topo-panel">
+    <div class="topo-head">
+      <h2>Network Diagram</h2>
+      <span class="hint">CDE vs. internal segmentation</span>
+    </div>
+    <div class="diagram-wrap">
+      <svg id="netdiagram" viewBox="0 0 1000 420" style="width:100%;max-width:900px;margin:0 auto;display:block;">
+        <!-- CDE zone -->
+        <rect x="20" y="16" width="360" height="300" rx="14" fill="#241a14" stroke="#5a3a22" stroke-width="1.2"/>
+        <text x="42" y="44" fill="#d9a06b" font-family="Space Grotesk" font-weight="700" font-size="14" letter-spacing="0.5">CDE NETWORK</text>
+
+        <!-- Internal zone -->
+        <rect x="620" y="16" width="360" height="300" rx="14" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
+        <text x="642" y="44" fill="#5f92a8" font-family="Space Grotesk" font-weight="700" font-size="14" letter-spacing="0.5">INTERNAL NETWORK</text>
+
+        <!-- CDE servers -->
+        <g><rect x="46" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+          <text x="66" y="98" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB01</text>
+          <text x="66" y="116" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.20</text></g>
+        <g><rect x="214" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+          <text x="234" y="98" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB02</text>
+          <text x="234" y="116" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.21</text></g>
+        <g><rect x="46" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+          <text x="66" y="208" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB03</text>
+          <text x="66" y="226" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.22</text></g>
+        <g><rect x="214" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+          <text x="234" y="208" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB04</text>
+          <text x="234" y="226" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.23</text></g>
+
+        <!-- Internal servers -->
+        <g><rect x="646" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+          <text x="666" y="98" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">DBSRV01</text>
+          <text x="666" y="116" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.10</text></g>
+        <g><rect x="814" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+          <text x="834" y="98" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">FILESRV01</text>
+          <text x="834" y="116" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.11</text></g>
+        <g><rect x="646" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+          <text x="666" y="208" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">AUTHSRV01</text>
+          <text x="666" y="226" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.12</text></g>
+        <g><rect x="814" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+          <text x="834" y="208" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">WKSTN01</text>
+          <text x="834" y="226" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.13</text></g>
+
+        <!-- connectors: CDE -> router -->
+        <line x1="196" y1="105" x2="450" y2="105" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="196" y1="215" x2="450" y2="215" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="450" y1="105" x2="450" y2="215" stroke="#2a3d4f" stroke-width="2"/>
+        <!-- connectors: internal -> router -->
+        <line x1="646" y1="105" x2="550" y2="105" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="646" y1="215" x2="550" y2="215" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="550" y1="105" x2="550" y2="215" stroke="#2a3d4f" stroke-width="2"/>
+
+        <!-- Router -->
+        <rect x="452" y="132" width="96" height="56" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <text x="500" y="156" text-anchor="middle" fill="#dce6f0" font-family="Inter" font-weight="600" font-size="12.5">Router</text>
+        <text x="500" y="173" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10.5">10.50.0.1</text>
+
+        <!-- Router -> Firewall -> Internet -->
+        <line x1="500" y1="188" x2="500" y2="250" stroke="#2a3d4f" stroke-width="2"/>
+        <rect x="452" y="250" width="96" height="60" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"/>
+        <path d="M500 262 l16 6 v13 c0 9 -7 15 -16 18 c-9 -3 -16 -9 -16 -18 v-13 z" fill="none" stroke="#ffb454" stroke-width="1.8"/>
+        <text x="500" y="326" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12">Firewall</text>
+        <text x="500" y="342" text-anchor="middle" fill="#5a6b7f" font-family="IBM Plex Mono" font-size="10">203.0.113.45</text>
+
+        <line x1="500" y1="310" x2="500" y2="360" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="6 5"/>
+        <ellipse cx="500" cy="390" rx="58" ry="26" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.6"/>
+        <text x="500" y="395" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12">Internet</text>
+      </svg>
+    </div>
+    <button class="report-btn" onclick="openReport()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+      Vulnerability Scan Report
+    </button>
+  </div>
+
+  <div class="section">
+    <h2>Step 2 — Validate &amp; Remediate</h2>
+    <div class="sub">select a Validate Result and Remediation Action for each server</div>
+    <table class="remtable">
+      <thead><tr><th>System</th><th>Validate Result</th><th>Remediation Action</th></tr></thead>
+      <tbody id="rem-body"></tbody>
+    </table>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkScan()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetScanSim()">Start Over</button>
+      <span class="score-pill" id="scan-pill"></span>
+    </div>
+
+    <div class="analysis" id="scan-analysis">
+      <h3>Triage Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>APPWEB01 (10.50.0.20)</b> — the scan flags cleartext transmission of session data. The diagram shows APPWEB01 sits in the CDE, reachable from the internet through the firewall — this is production traffic, so the finding is a <b>True Positive</b>. <b>Fix:</b> Encrypt Entire Session (force TLS/HTTPS for the whole session, not just login).</p></div>
+      <div class="astep"><div class="num">2</div><p><b>APPWEB02 (10.50.0.21)</b> — a session cookie is missing the <code>Secure</code> attribute, meaning it could be sent over plain HTTP if that path ever exists. This is a real configuration gap in the new code — <b>True Positive</b>. <b>Fix:</b> Set Secure Flag on Cookies.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>APPWEB03 (10.50.0.22)</b> — the server presents a certificate not issued by a trusted CA. Since this server is internet-facing in the CDE, browsers connecting to it will show trust warnings — a genuine issue, <b>True Positive</b>. <b>Fix:</b> Replace with Certificate from Trusted CA.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Takeaway.</b> "True Positive" means the scanner correctly found a real issue — validity and remediation are two separate judgment calls. A finding can be real (true positive) but still need the right fix chosen from several plausible-looking options.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- report modal -->
+<div class="exam-nav">
+  <button class="back-btn" onclick="switchScreen('network')">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    Back
+  </button>
+  <button class="next-btn" onclick="finishExam()">
+    Finish Exam
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<div class="modal-overlay" id="report-overlay">
+  <div class="report-modal">
+    <div class="report-bar">
+      Vulnerability Scan Report
+      <button onclick="closeReport()">✕</button>
+    </div>
+
+    <div class="finding">
+      <span class="sev-tag high">HIGH SEVERITY</span>
+      <div class="frow"><b>Title</b><span>Cleartext Transmission of Session Data</span></div>
+      <div class="frow"><b>Description</b><span>The application transmits authentication and session data over an unencrypted channel, allowing anyone with visibility into the network path to read it in transit.</span></div>
+      <div class="frow"><b>Affected Asset</b><span>10.50.0.20 (APPWEB01)</span></div>
+      <div class="frow"><b>Risk</b><span>An attacker capturing traffic on this segment could obtain valid session credentials and impersonate a legitimate user.</span></div>
+      <div class="frow"><b>Reference</b><span>NVD-ADV-1140</span></div>
+    </div>
+
+    <div class="finding">
+      <span class="sev-tag medium">MEDIUM SEVERITY</span>
+      <div class="frow"><b>Title</b><span>Session Cookie Missing Secure Attribute</span></div>
+      <div class="frow"><b>Description</b><span>A cookie used to track authenticated sessions is not marked with the Secure attribute, so the browser may transmit it over an unencrypted HTTP connection if one is ever established.</span></div>
+      <div class="frow"><b>Affected Asset</b><span>10.50.0.21 (APPWEB02)</span></div>
+      <div class="frow"><b>Risk</b><span>Session hijacking via cookie interception on an unencrypted connection.</span></div>
+      <div class="frow"><b>Reference</b><span>NVD-ADV-2213</span></div>
+    </div>
+
+    <div class="finding">
+      <span class="sev-tag low">LOW SEVERITY</span>
+      <div class="frow"><b>Title</b><span>Untrusted TLS Certificate</span></div>
+      <div class="frow"><b>Description</b><span>The server's TLS certificate was not issued by a publicly trusted Certificate Authority.</span></div>
+      <div class="frow"><b>Affected Asset</b><span>10.50.0.22 (APPWEB03)</span></div>
+      <div class="frow"><b>Risk</b><span>Users have no trusted basis for verifying server identity, making it easier for an attacker to present a spoofed certificate unnoticed.</span></div>
+      <div class="frow"><b>Reference</b><span>NVD-ADV-3087</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ Data ============ */
+const VALIDATE_OPTIONS = ["False Positive","False Negative","True Positive","True Negative"];
+const REMEDIATION_OPTIONS = [
+  "Encrypt Entire Session",
+  "Set Secure Flag on Cookies",
+  "Implement Input Validation",
+  "Submit as Non-Issue",
+  "Use Unique Anti-CSRF Token",
+  "Avoid Open Redirects",
+  "Disable Legacy HTTP Access",
+  "Replace with Certificate from Trusted CA",
+  "Renew Expiring Certificate"
+];
+
+const SYSTEMS = [
+  { id:"APPWEB01", validate:"True Positive", remediation:"Encrypt Entire Session" },
+  { id:"APPWEB02", validate:"True Positive", remediation:"Set Secure Flag on Cookies" },
+  { id:"APPWEB03", validate:"True Positive", remediation:"Replace with Certificate from Trusted CA" }
+];
+
+/* ============ Build table ============ */
+const tbody = document.getElementById('rem-body');
+SYSTEMS.forEach(sys=>{
+  const tr = document.createElement('tr');
+  tr.dataset.id = sys.id;
+  tr.innerHTML = `
+    <td class="sys">${sys.id}</td>
+    <td>
+      <select class="validate-select">
+        <option value=""></option>
+        ${VALIDATE_OPTIONS.map(o=>`<option>${o}</option>`).join('')}
+      </select>
+      <div class="row-fb" data-fb="validate"></div>
+    </td>
+    <td>
+      <select class="remediation-select">
+        <option value=""></option>
+        ${REMEDIATION_OPTIONS.map(o=>`<option>${o}</option>`).join('')}
+      </select>
+      <div class="row-fb" data-fb="remediation"></div>
+    </td>`;
+  tbody.appendChild(tr);
+});
+
+/* ============ Report modal ============ */
+function openReport(){ document.getElementById('report-overlay').classList.add('show'); }
+function closeReport(){ document.getElementById('report-overlay').classList.remove('show'); }
+document.getElementById('report-overlay').addEventListener('click',(e)=>{ if(e.target.id==='report-overlay') closeReport(); });
+
+/* ============ Grading ============ */
+function checkScan(){
+  let correct=0, total=0;
+  tbody.querySelectorAll('tr').forEach(tr=>{
+    const sys = SYSTEMS.find(s=>s.id===tr.dataset.id);
+    const vSel = tr.querySelector('.validate-select');
+    const rSel = tr.querySelector('.remediation-select');
+    const vFb = tr.querySelector('[data-fb="validate"]');
+    const rFb = tr.querySelector('[data-fb="remediation"]');
+
+    total += 2;
+    const vOk = vSel.value === sys.validate;
+    const rOk = rSel.value === sys.remediation;
+    if(vOk) correct++;
+    if(rOk) correct++;
+
+    vFb.textContent = vOk ? '✓' : '✗';
+    vFb.className = 'row-fb ' + (vOk?'correct':'incorrect');
+    rFb.textContent = rOk ? '✓' : '✗';
+    rFb.className = 'row-fb ' + (rOk?'correct':'incorrect');
+  });
+
+  const pill = document.getElementById('scan-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('scan-analysis').classList.add('show');
+}
+
+function resetScanSim(){
+  tbody.querySelectorAll('tr').forEach(tr=>{
+    tr.querySelector('.validate-select').value = '';
+    tr.querySelector('.remediation-select').value = '';
+    tr.querySelectorAll('.row-fb').forEach(fb=>{fb.textContent='';fb.className='row-fb';});
+  });
+  document.getElementById('scan-pill').className = 'score-pill';
+  document.getElementById('scan-analysis').classList.remove('show');
+  closeReport();
+}
+
+/* ============ Clock ============ */
+
+</script>
+
+</div>
+
 <div class="completion-toast" id="completion-toast">You've completed both questions in this practice set.</div>
 
 
@@ -2136,6 +2930,8 @@ function tickBothClocks(){
   const a = document.getElementById('clock-phish'); if(a) a.textContent = now;
   const b = document.getElementById('clock-compliance'); if(b) b.textContent = now;
   const c = document.getElementById('clock-network'); if(c) c.textContent = now;
+  const d = document.getElementById('clock-scan'); if(d) d.textContent = now;
+  const e = document.getElementById('clock-defacement'); if(e) e.textContent = now;
 }
 tickBothClocks(); setInterval(tickBothClocks, 1000);
 </script>
