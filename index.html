@@ -87,7 +87,7 @@
   }
 
   /* ---------- Layout ---------- */
-  .wrap{max-width:1360px;margin:0 auto;padding:26px 28px 0;}
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
   .brief{
     background:var(--panel);border:1px solid var(--border);border-radius:12px;
     padding:18px 22px;margin-bottom:22px;
@@ -323,7 +323,7 @@
   }
   @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,180,84,0.55);}70%{box-shadow:0 0 0 7px rgba(255,180,84,0);}100%{box-shadow:0 0 0 0 rgba(255,180,84,0);}}
 
-  .wrap{max-width:1220px;margin:0 auto;padding:26px 28px 0;}
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
 
   .brief{
     background:var(--panel);border:1px solid var(--border);border-radius:12px;
@@ -390,11 +390,19 @@
 
   /* recommendations — permanent per-server checklist cards */
   .reco-widget{padding:0;overflow:hidden;}
-  .reco-cards{background:var(--panel-2);padding:18px 20px;display:flex;flex-direction:column;gap:16px;}
+  .reco-tabs{display:flex;background:var(--panel-3);border-bottom:1px solid var(--border);}
+  .reco-tab{
+    padding:12px 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;
+    color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s ease;
+  }
+  .reco-tab:hover{color:var(--text);}
+  .reco-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--panel-2);}
+  .reco-cards{background:var(--panel-2);padding:18px 20px;}
   .reco-card{
     background:var(--panel-3);border:1px solid var(--border-soft);border-radius:10px;padding:16px 20px 6px;
-    display:flex;flex-direction:column;gap:2px;
+    flex-direction:column;gap:2px;display:none;
   }
+  .reco-card.active{display:flex;}
   .reco-card .rc-server-name{
     font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14.5px;color:var(--cyan);margin-bottom:8px;
   }
@@ -505,7 +513,7 @@
   }
   @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(53,196,232,0.55);}70%{box-shadow:0 0 0 7px rgba(53,196,232,0);}100%{box-shadow:0 0 0 0 rgba(53,196,232,0);}}
 
-  .wrap{max-width:1220px;margin:0 auto;padding:26px 28px 0;}
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
 
   .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
   .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
@@ -622,12 +630,15 @@
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
 
-  /* ============ Menu screen (reused from the original quiz launcher) ============ */
+  /* ============ Menu screen (now matching the dark theme of the simulations) ============ */
   .menu-shell{
-    --m-bg:#f5f5f3;--m-card:#fff;--m-border:#d3d1c7;--m-border2:#b4b2a9;
-    --m-text:#1a1a18;--m-text2:#888780;--m-hover:#f1efe8;--m-accent:#534AB7;
-    min-height:100vh;background:var(--m-bg);color:var(--m-text);
-    font-family:system-ui,-apple-system,sans-serif;
+    --m-bg:var(--bg);--m-card:var(--panel);--m-border:var(--border);--m-border2:var(--cyan-dim);
+    --m-text:var(--text);--m-text2:var(--text-dim);--m-hover:var(--panel-2);--m-accent:var(--cyan);
+    min-height:100vh;
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--m-bg);
+    color:var(--m-text);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
   }
   .menu-inner{max-width:720px;margin:0 auto;padding:4rem 2rem 5rem;}
   .menu-top{margin-bottom:2.6rem;text-align:center;}
@@ -666,11 +677,11 @@
   .completion-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
   .begin-btn{
-    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15.5px;padding:15px 34px;border-radius:10px;
-    background:var(--m-accent);color:#fff;border:none;cursor:pointer;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:15px 34px;border-radius:10px;
+    background:var(--m-accent);color:#04141a;border:none;cursor:pointer;
     display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;
   }
-  .begin-btn:hover{opacity:.9;transform:translateY(-1px);}
+  .begin-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
 
   .coffee-btn{
     position:fixed;bottom:24px;right:24px;background:#FFDD00;border:none;border-radius:99px;
@@ -1353,6 +1364,7 @@ function resetPhishSim(){
   <div class="section reco-widget">
     <div class="widget-header">Configuration Change Recommendations</div>
     <div class="widget-instructions">Check every Service / Config Change that applies to each server, based ONLY on the hardening guidelines.</div>
+    <div class="reco-tabs" id="reco-tabs"></div>
     <div class="reco-cards" id="rec-list"></div>
     <div class="actions">
       <button class="btn btn-primary" onclick="checkPart2()">Submit Part 2</button>
@@ -1675,23 +1687,33 @@ const CANDIDATE_COMBOS = [
   { service:"SSH",             change:"Remove or Disable" }
 ];
 
-servers.forEach(s=>{
+servers.forEach((s,i)=>{
+  const tab = document.createElement('div');
+  tab.className = 'reco-tab' + (i===0?' active':'');
+  tab.textContent = s; tab.dataset.s = s;
+  tab.onclick = ()=>showRecoTab(s);
+  document.getElementById('reco-tabs').appendChild(tab);
+
   const card = document.createElement('div');
-  card.className = 'reco-card';
+  card.className = 'reco-card' + (i===0?' active':'');
   card.dataset.server = s;
   let rowsHtml = `<div class="rc-server-name">${s}</div>`;
-  CANDIDATE_COMBOS.forEach((c,i)=>{
+  CANDIDATE_COMBOS.forEach((c,ci)=>{
     const k = keyOf(s,c.service,c.change);
     rowsHtml += `
     <label class="rc-row">
       <input type="checkbox" data-key="${k}">
       <span class="rc-label">${c.service} — ${c.change}</span>
-      <span class="rc-badge" id="badge-${s}-${i}"></span>
+      <span class="rc-badge" id="badge-${s}-${ci}"></span>
     </label>`;
   });
   card.innerHTML = rowsHtml;
   recList.appendChild(card);
 });
+function showRecoTab(s){
+  document.querySelectorAll('#reco-tabs .reco-tab').forEach(t=>t.classList.toggle('active', t.dataset.s===s));
+  document.querySelectorAll('#rec-list .reco-card').forEach(c=>c.classList.toggle('active', c.dataset.server===s));
+}
 
 function checkPart2(){
   let correctCount=0, total=0;
