@@ -457,7 +457,15 @@
   .exam-qnum{
     font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text-dim);font-weight:600;letter-spacing:0.3px;
   }
+  .exam-qnum-group{display:flex;align-items:center;gap:8px;}
   .exam-nav .btn-group{display:flex;align-items:center;gap:12px;}
+  .jump-select{
+    background:var(--panel-2);border:1px solid var(--border);color:var(--text);
+    padding:6px 10px;border-radius:7px;font-family:'IBM Plex Mono',monospace;font-size:13px;
+    cursor:pointer;
+  }
+  .jump-select:hover{border-color:var(--cyan);}
+  .jump-select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
   .next-btn{
     font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:13px 26px;border-radius:9px;
     background:linear-gradient(180deg,#35c4e8,#1c7c95);color:#fff;border:none;cursor:pointer;
@@ -1236,6 +1244,276 @@
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}
 
+
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel-2:#161f2c; --panel-3:#0d1420;
+    --border:#233042; --border-soft:#1a2532;
+    --text:#dce6f0; --text-dim:#7c8ba1; --text-faint:#4b586b;
+    --cyan:#35c4e8; --cyan-dim:#1c7c95;
+    --red:#ff5a5f; --red-dim:#5c2226;
+    --green:#3ddc84; --green-dim:#1c4a34;
+    --amber:#ffb454; --amber-dim:#5c4520;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; padding-bottom:110px;
+  }
+  ::selection{background:var(--cyan-dim);color:#fff;}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel-3);}
+  ::-webkit-scrollbar-thumb{background:#2a3849;border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:#38495e;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,#0d131c 0%, #0a0e14 100%);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand-text .course{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.3px;}
+  .brand-text .sub{font-size:12px;color:var(--text-dim);margin-top:1px;}
+  .ticket{
+    display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 16px;
+  }
+  .ticket b{color:var(--text);font-weight:600;}
+  .live-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block;margin-right:6px;
+    animation:pulseDot 1.6s infinite;
+  }
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,90,95,0.55);}70%{box-shadow:0 0 0 7px rgba(255,90,95,0);}100%{box-shadow:0 0 0 0 rgba(255,90,95,0);}}
+
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
+
+  .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+  .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .sev-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;
+    background:var(--red-dim);color:#ffb2b4;border:1px solid #6f2c30;padding:3px 9px;border-radius:5px;
+  }
+  .doc-btns{display:flex;gap:10px;flex-wrap:wrap;}
+  .doc-btn{
+    display:flex;align-items:center;gap:9px;background:linear-gradient(180deg,#1a2634,#131c27);
+    border:1px solid #2c3d51;color:var(--text);padding:10px 16px;border-radius:9px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s ease;
+  }
+  .doc-btn:hover{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.12);}
+  .doc-btn.qread-btn{background:linear-gradient(180deg,#35c4e8,#1c7c95);border:none;color:#fff;}
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(4,7,11,0.72);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:150;padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .doc-modal{
+    width:min(760px,100%);max-height:85vh;overflow:auto;background:var(--panel-3);border:1px solid var(--border);
+    border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,0.6);
+  }
+  .doc-bar{
+    background:linear-gradient(180deg,#1a4a5c,#0f3444);color:#eaf9ff;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    position:sticky;top:0;
+  }
+  .doc-bar button{
+    width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,0.18);
+    background:rgba(255,255,255,0.06);color:#eaf9ff;cursor:pointer;font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .doc-bar button:hover{background:rgba(255,90,95,0.35);border-color:var(--red);}
+  .doc-body{padding:18px 22px;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .doc-body h4{font-family:'Space Grotesk',sans-serif;color:var(--text);font-size:13.5px;margin:14px 0 8px;}
+  .doc-body table{width:100%;border-collapse:collapse;margin-top:8px;font-size:12px;}
+  .doc-body th{background:var(--panel-2);color:var(--cyan);text-align:left;padding:7px 9px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;}
+  .doc-body td{padding:7px 9px;border-bottom:1px solid var(--border-soft);}
+  .doc-body pre{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;line-height:1.6;white-space:pre-wrap;overflow-x:auto;}
+  .sev-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.5px;padding:2px 9px;border-radius:5px;display:inline-block;margin:8px 0 4px;}
+  .sev-tag.high{background:var(--red-dim);color:#ffb2b4;}
+  .sev-tag.medium{background:var(--amber-dim);color:#ffdba9;}
+  .sev-tag.low{background:var(--cyan-dim);color:#d3f4ff;}
+
+  .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+  .section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+  .section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+  .id-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media(max-width:900px){.id-grid{grid-template-columns:1fr;}}
+  .qbox{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px;}
+  .qbox label{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--text);margin-bottom:10px;}
+  .qbox select{
+    width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  }
+  .qbox select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  .qbox .fb{font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:8px;min-height:14px;}
+  .qbox .fb.correct{color:var(--green);}
+  .qbox .fb.incorrect{color:var(--red);}
+
+  .kc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:900px){.kc-grid{grid-template-columns:1fr;}}
+  .kc-row{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+  .kc-row label{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--cyan);}
+  .kc-row select{
+    background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:9px 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  }
+  .kc-row .fb{font-size:11px;font-family:'IBM Plex Mono',monospace;}
+  .kc-row .fb.correct{color:var(--green);}
+  .kc-row .fb.incorrect{color:var(--red);}
+
+  .actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+  .btn-primary{background:var(--cyan);color:#04141a;}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+  .score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+  .score-pill.show{display:inline-block;}
+  .score-pill.full{border-color:var(--green);color:var(--green);background:rgba(61,220,132,0.08);}
+  .score-pill.partial{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,0.08);}
+
+  .analysis{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+  .analysis.show{display:block;}
+  .analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+  .astep{display:flex;gap:12px;margin-bottom:10px;}
+  .astep .num{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);}
+  .astep p{margin:0;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .astep b{color:var(--text);}
+  .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+
+
+  :root{
+    --bg:#0a0e14; --panel:#111823; --panel-2:#161f2c; --panel-3:#0d1420;
+    --border:#233042; --border-soft:#1a2532;
+    --text:#dce6f0; --text-dim:#7c8ba1; --text-faint:#4b586b;
+    --cyan:#35c4e8; --cyan-dim:#1c7c95;
+    --red:#ff5a5f; --red-dim:#5c2226;
+    --green:#3ddc84; --green-dim:#1c4a34;
+    --amber:#ffb454; --amber-dim:#5c4520;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(1200px 600px at 15% -10%, #0f1826 0%, transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, #0d1622 0%, transparent 55%), var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh; padding-bottom:110px;
+  }
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel-3);}
+  ::-webkit-scrollbar-thumb{background:#2a3849;border-radius:6px;}
+
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg,#0d131c 0%, #0a0e14 100%);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:14px;
+  }
+  .brand-text .course{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.3px;}
+  .brand-text .sub{font-size:12px;color:var(--text-dim);margin-top:1px;}
+  .ticket{
+    display:flex;align-items:center;gap:18px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:9px 16px;
+  }
+  .ticket b{color:var(--text);font-weight:600;}
+  .live-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block;margin-right:6px;animation:pulseDot 1.6s infinite;}
+  @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(255,180,84,0.55);}70%{box-shadow:0 0 0 7px rgba(255,180,84,0);}100%{box-shadow:0 0 0 0 rgba(255,180,84,0);}}
+
+  .wrap{max-width:100%;margin:0;padding:26px 40px 0;}
+
+  .brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;}
+  .brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 8px;font-weight:600;display:flex;align-items:center;gap:9px;}
+  .sev-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;
+    background:var(--amber-dim);color:#ffdba9;border:1px solid #7a5a26;padding:3px 9px;border-radius:5px;
+  }
+  .doc-btns{display:flex;gap:10px;flex-wrap:wrap;}
+  .doc-btn{
+    display:flex;align-items:center;gap:9px;background:linear-gradient(180deg,#1a2634,#131c27);
+    border:1px solid #2c3d51;color:var(--text);padding:10px 16px;border-radius:9px;
+    font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s ease;
+  }
+  .doc-btn:hover{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.12);}
+  .doc-btn.qread-btn{background:linear-gradient(180deg,#35c4e8,#1c7c95);border:none;color:#fff;}
+
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(4,7,11,0.72);backdrop-filter:blur(2px);
+    display:none;align-items:center;justify-content:center;z-index:150;padding:20px;
+  }
+  .modal-overlay.show{display:flex;}
+  .doc-modal{width:min(760px,100%);max-height:85vh;overflow:auto;background:var(--panel-3);border:1px solid var(--border);border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,0.6);}
+  .doc-bar{
+    background:linear-gradient(180deg,#1a4a5c,#0f3444);color:#eaf9ff;padding:14px 20px;
+    display:flex;align-items:center;justify-content:space-between;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    position:sticky;top:0;
+  }
+  .doc-bar button{width:26px;height:26px;border-radius:6px;border:1px solid rgba(255,255,255,0.18);background:rgba(255,255,255,0.06);color:#eaf9ff;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .doc-bar button:hover{background:rgba(255,90,95,0.35);border-color:var(--red);}
+  .doc-body{padding:18px 22px;font-size:13px;color:var(--text-dim);line-height:1.6;}
+
+  .term-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+  .term-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel-2);flex-wrap:wrap;}
+  .term-tab{padding:12px 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s ease;}
+  .term-tab:hover{color:var(--text);}
+  .term-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--panel-3);}
+  .tab-panel{display:none;padding:18px;}
+  .tab-panel.active{display:block;}
+
+  table.datatable{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.datatable th{background:var(--panel-2);color:var(--cyan);text-align:left;padding:9px 11px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+  table.datatable td{padding:9px 11px;border-bottom:1px solid var(--border-soft);color:var(--text-dim);vertical-align:top;}
+  table.datatable td.yes{color:var(--green);font-weight:600;}
+  table.datatable td.no{color:var(--red);font-weight:600;}
+
+  .sla-note{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+  .sla-note b{color:var(--text);}
+
+  .finding{padding:14px 0;border-bottom:1px solid var(--border-soft);}
+  .finding:last-child{border-bottom:none;}
+  .finding .frow{display:grid;grid-template-columns:110px 1fr;gap:8px;font-size:12.5px;margin-bottom:4px;}
+  .finding .frow b{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;}
+  .finding .frow span{color:var(--text);}
+
+  .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+  .section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+  .section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+  .answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  @media(max-width:900px){.answer-grid{grid-template-columns:1fr;}}
+  .qbox{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px;}
+  .qbox label{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:12px;}
+  .qbox select{width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;}
+  .qbox select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  .qbox .fb{font-size:11px;font-family:'IBM Plex Mono',monospace;margin-top:8px;min-height:14px;}
+  .qbox .fb.correct{color:var(--green);}
+  .qbox .fb.incorrect{color:var(--red);}
+
+  .chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;}
+  .chk{display:flex;align-items:center;gap:10px;padding:8px 0;font-size:13px;color:var(--text-dim);cursor:pointer;font-family:'IBM Plex Mono',monospace;}
+  .chk:hover{color:var(--text);}
+  .chk input{width:16px;height:16px;accent-color:var(--cyan);flex-shrink:0;}
+
+  .actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+  .btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+  .btn-primary{background:var(--cyan);color:#04141a;}
+  .btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+  .btn-ghost:hover{border-color:var(--text-faint);color:var(--text);}
+  .score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+  .score-pill.show{display:inline-block;}
+  .score-pill.full{border-color:var(--green);color:var(--green);background:rgba(61,220,132,0.08);}
+  .score-pill.partial{border-color:var(--amber);color:var(--amber);background:rgba(255,180,84,0.08);}
+
+  .analysis{margin-top:6px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+  .analysis.show{display:block;}
+  .analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+  .astep{display:flex;gap:12px;margin-bottom:10px;}
+  .astep .num{flex-shrink:0;width:24px;height:24px;border-radius:6px;background:var(--panel-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);}
+  .astep p{margin:0;font-size:13px;color:var(--text-dim);line-height:1.6;}
+  .astep b{color:var(--text);}
+  .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:11.5px;}
+
   /* ============ Menu screen (now matching the dark theme of the simulations) ============ */
   .menu-shell{
     --m-bg:var(--bg);--m-card:var(--panel);--m-border:var(--border);--m-border2:var(--cyan-dim);
@@ -1325,7 +1603,7 @@
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
       <div class="mode-screen">
-        <p>7 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery &amp; vulnerability scan validation</p>
+        <p>9 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery, vulnerability scan validation, kill chain incident analysis &amp; vulnerability remediation SLA</p>
       </div>
       <div style="text-align:center;">
         <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
@@ -1452,7 +1730,13 @@
 </div>
 
 <div class="exam-nav">
-  <span class="exam-qnum">Question 1 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk" selected>1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('menu')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -1824,7 +2108,13 @@ function resetRiskSim(){
 </div>
 
 <div class="exam-nav">
-  <span class="exam-qnum">Question 2 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement" selected>2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('risk')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -2088,7 +2378,13 @@ function resetDefacementSim(){
 </div>
 
 <div class="exam-nav">
-  <span class="exam-qnum">Question 3 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil" selected>3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('defacement')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -2471,7 +2767,13 @@ function resetExfilSim(){
 
 <!-- Phishing email modal -->
 <div class="exam-nav">
-  <span class="exam-qnum">Question 4 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish" selected>4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('exfil')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -2947,7 +3249,13 @@ function resetPhishSim(){
 </div>
 
 <div class="exam-nav">
-  <span class="exam-qnum">Question 5 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance" selected>5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('phish')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -3516,7 +3824,13 @@ function nextQuestion(){ finishExam(); }
 </div>
 
 <div class="exam-nav">
-  <span class="exam-qnum">Question 6 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network" selected>6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('compliance')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
@@ -3846,14 +4160,20 @@ function resetNetworkSim(){
 
 <!-- report modal -->
 <div class="exam-nav">
-  <span class="exam-qnum">Question 7 of 7</span>
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan" selected>7</option><option value="killchain">8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('network')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
-  <button class="next-btn" onclick="finishExam()">
-    Finish Exam
+  <button class="next-btn" onclick="switchScreen('killchain')">
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
   </div>
@@ -3990,6 +4310,592 @@ function resetScanSim(){
 
 </div>
 
+<div id="screen-killchain" class="sim-screen">
+
+
+<header>
+  <div class="brand-text">
+    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="sub">Simulation — Kill Chain Incident Analysis</div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>INC-6120</b></span>
+    <span>Type: <b style="color:var(--red)">Malware</b></span>
+    <span id="clock-killchain">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>Northwind Freight Co. — Phishing-Delivered Malware <span class="sev-chip">INCIDENT</span></h1>
+    <div class="doc-btns">
+      <button class="doc-btn qread-btn" onclick="openKcDoc('question')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        Read Question
+      </button>
+      <button class="doc-btn" onclick="openKcDoc('firewall')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v4H4zM4 14h16v4H4z"/></svg>
+        Firewall log
+      </button>
+      <button class="doc-btn" onclick="openKcDoc('fim')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l4-4h10l4 4v13H3z"/></svg>
+        File integrity report
+      </button>
+      <button class="doc-btn" onclick="openKcDoc('domains')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"/></svg>
+        Malware domain list
+      </button>
+      <button class="doc-btn" onclick="openKcDoc('vuln')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+        Vulnerability scan
+      </button>
+      <button class="doc-btn" onclick="openKcDoc('email')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        Phishing email
+      </button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 1 — Identify</h2>
+    <div class="sub">use the artifacts above to determine each value</div>
+    <div class="id-grid" id="id-grid"></div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkKcPart1()">Submit Part 1</button>
+      <span class="score-pill" id="kc-p1-pill"></span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Part 2 — Kill Chain Controls</h2>
+    <div class="sub">select one control per kill chain item — each control may only be used once, and not all controls will be used</div>
+    <div class="kc-grid" id="kc-grid"></div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkKcPart2()">Submit Part 2</button>
+      <button class="btn btn-ghost" onclick="resetKillChainSim()">Start Over</button>
+      <span class="score-pill" id="kc-p2-pill"></span>
+    </div>
+
+    <div class="analysis" id="kc-analysis">
+      <h3>Incident Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>Identification.</b> The firewall's alert message names the executable directly: <code>invoice.exe From 81.161.63.253</code>. Cross-referencing the malware domain list confirms <code>81.161.63.253</code> is a known-bad IP. The file integrity report shows <code>invoice.exe</code> first appearing (Added) at <code>1 Dec 2019 14:03:19</code> — that's when the malware entered the organization.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Kill chain mapping.</b> Each stage gets the control that would have broken the chain at that specific point: Email filtering stops the phishing email before delivery; forcing plain-text email format strips the clickable link so it can't be activated; an IP blocklist stops the connection to the known-bad IP; a firewall file type filter blocks the executable from downloading in the first place; restricted local user permissions stops silent installation; updated antivirus catches the malware at execution; disk-level encryption protects data confidentiality even if the endpoint is compromised further.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Takeaway.</b> A single control rarely stops a phishing-to-ransomware chain — defense works because each stage has an independent control that can break the chain even if an earlier one fails.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- document modal -->
+<div class="modal-overlay" id="kc-doc-overlay">
+  <div class="doc-modal">
+    <div class="doc-bar">
+      <span id="kc-doc-title">Document</span>
+      <button onclick="closeKcDoc()">✕</button>
+    </div>
+    <div class="doc-body" id="kc-doc-body"></div>
+  </div>
+</div>
+
+<div class="exam-nav">
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain" selected>8</option><option value="sla">9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
+  <div class="btn-group">
+    <button class="back-btn" onclick="switchScreen('scan')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      Back
+    </button>
+    <button class="next-btn" onclick="switchScreen('sla')">
+      Next
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ============ Reference data ============ */
+const MALWARE_NAME = "invoice.exe";
+const MALICIOUS_IP = "81.161.63.253";
+const MALWARE_ENTRY_TIME = "1 Dec 2019 14:03:19";
+
+const EXEC_OPTIONS = ["invoice.exe","shipment_notice.docx","shipment_notice_v2.docx","quarterly_report.xlsx"];
+const IP_OPTIONS = ["81.161.63.253","198.51.100.14","192.0.2.55","10.0.4.12","203.0.113.201","172.16.5.9"];
+const TIME_OPTIONS = ["30 Nov 2019 12:05:34","30 Nov 2019 12:25:13","1 Dec 2019 13:59:25","1 Dec 2019 14:03:19","1 Dec 2019 14:25:30","1 Dec 2019 11:24:16"];
+
+/* ============ Documents ============ */
+const KC_DOCS = {
+  firewall: {
+    title: "Firewall Log",
+    body: () => `
+      <h4>Traffic Denied</h4>
+      <pre>Dec 1 14:10:46 fw01 fw01: NetShield device_id=fw01 [Root]system-notification-00257(traffic):
+policy_id=119 service=udp/port:7001 proto=17 src zone=Trust dst zone=Untrust action=Deny sent=0 rcvd=0 src=10.0.4.12 dst=198.51.100.14 src_port=3036 dst_port=7001
+
+Dec 1 14:12:31 fw01 aka1: NetShield device_id=aka1 [Root]system-notification-00257(traffic):
+policy_id=120 service=udp/port:20721 proto=17 src zone=Trust dst zone=DMZ action=Deny sent=0 rcvd=0 src=10.0.4.19 dst=192.0.2.55 src_port=53 dst_port=20721</pre>
+      <h4>Alert Messages</h4>
+      <pre>Dec 1 14:03:19 [xx] fw01: NetShield device_id=fw01 [Root]system-alert-00016: <b style="color:var(--amber)">invoice.exe</b> From <b style="color:var(--amber)">81.161.63.253</b>, proto TCP (zone Untrust, int untrust). Occurred 1 times.</pre>
+      <h4>Critical Messages</h4>
+      <pre>Dec 1 11:24:16 fw01 sav00: NetShield device_id=sav00 [Root]system-critical-00436: Large ICMP packet! From 203.0.113.201 to 10.0.4.5, proto 1 (zone Untrust, int ethernet1/2). Occurred 1 times.
+Dec 1 17:12:33 [00001] system-critical-00042: Replay packet detected on IPSec tunnel on ethernet3 with tunnel ID 0x1c! From w.x.y.z to a.b.c.d/336, ESP, SPI 0xf63af637, SEQ 0xe337.</pre>`
+  },
+  fim: {
+    title: "File Integrity Monitoring Report",
+    body: () => `
+      <p>Shows files, folders, shares, and permissions that were created, deleted, or modified.</p>
+      <table>
+        <thead><tr><th>Action</th><th>What</th><th>Who</th><th>When</th></tr></thead>
+        <tbody>
+          <tr><td>Added</td><td>\\\\host2\\users\\jsmith\\Downloads\\quarterly_report.xlsx</td><td>Domainusers\\jsmith</td><td>30 Nov 2019 12:05:34</td></tr>
+          <tr><td>Removed</td><td>\\\\host2\\users\\jsmith\\Downloads\\quarterly_report.xlsx</td><td>Domainusers\\jsmith</td><td>30 Nov 2019 12:25:13</td></tr>
+          <tr><td>Added</td><td>\\\\host2\\users\\jsmith\\Downloads\\shipment_notice.docx</td><td>Domainusers\\jsmith</td><td>1 Dec 2019 13:59:25</td></tr>
+          <tr><td>Added</td><td>\\\\host2\\users\\jsmith\\Downloads\\invoice.exe</td><td>Domainusers\\jsmith</td><td>1 Dec 2019 14:03:19</td></tr>
+          <tr><td>Renamed</td><td>shipment_notice.docx &rarr; shipment_notice_v2.docx</td><td>Domainusers\\jsmith</td><td>1 Dec 2019 14:25:30</td></tr>
+        </tbody>
+      </table>`
+  },
+  domains: {
+    title: "Malware Domain List",
+    body: () => `
+      <pre># ThreatFeedIntel.io Host List #
+# https://threatfeedintel.io/hostlist/hosts.txt #
+# Last updated: 3 Dec 2019, 21:00:00 #
+# IP #
+
+81.161.63.253
+203.0.113.201
+198.51.100.14
+192.0.2.55
+172.16.5.9
+198.51.100.201
+203.0.113.44
+192.0.2.180</pre>`
+  },
+  vuln: {
+    title: "Vulnerability Scan Report",
+    body: () => `
+      <span class="sev-tag high">HIGH SEVERITY</span>
+      <p><b>Title:</b> Cleartext transmission of sensitive information<br>
+      <b>Description:</b> The application transmits sensitive data in cleartext over a channel that can be intercepted.<br>
+      <b>Affected asset:</b> 172.20.0.40 &nbsp; <b>Reference:</b> CVE-2002-1949</p>
+      <span class="sev-tag high">HIGH SEVERITY</span>
+      <p><b>Title:</b> Elevated privileges not required for software installation<br>
+      <b>Description:</b> Standard user accounts can install software; privileged-account requirement is not configured.<br>
+      <b>Affected asset:</b> 172.20.0.42 &nbsp; <b>Reference:</b> n/a</p>
+      <span class="sev-tag medium">MEDIUM SEVERITY</span>
+      <p><b>Title:</b> Sensitive cookie in HTTPS session without 'Secure' attribute<br>
+      <b>Affected asset:</b> 172.20.0.47 &nbsp; <b>Reference:</b> CVE-2004-0462</p>
+      <span class="sev-tag low">LOW SEVERITY</span>
+      <p><b>Title:</b> Untrusted SSL/TLS server X.509 certificate<br>
+      <b>Affected asset:</b> 172.20.0.53 &nbsp; <b>Reference:</b> CVE-2005-1234</p>`
+  },
+  email: {
+    title: "Phishing Email",
+    body: () => `
+      <p><b>From:</b> billing-support@northwind-invoicing.com<br>
+      <b>To:</b> all-staff@northwindfreight.com<br>
+      <b>Date:</b> 1 Dec 2019 13:55:02<br>
+      <b>Subject:</b> Updated Shipment Billing Report — Action Required</p>
+      <hr style="border-color:var(--border-soft);margin:12px 0;">
+      <p>Dear Team,<br><br>
+      Please review the attached shipment notice and click the link below to download the latest billing report
+      before end of day.<br><br>
+      <span style="color:var(--cyan);text-decoration:underline;">Download Billing Report →</span><br><br>
+      Regards,<br>Billing Support Team</p>`
+  },
+  question: {
+    title: "Question",
+    body: () => `
+      <p>A company recently experienced a security incident. The security team has determined a user clicked on
+      a link embedded in a phishing email that was sent to the entire company. The link resulted in a malware
+      download, which was subsequently installed and run.</p>
+      <h4>Part 1</h4>
+      <p>Review the artifacts associated with the security incident. Identify the name of the malware, the
+      malicious IP address, and the date and time when the malware executable entered the organization.</p>
+      <h4>Part 2</h4>
+      <p>Review the kill chain items and select an appropriate control for each that would improve the security
+      posture of the organization and would have helped prevent this incident from occurring. Each control may
+      only be used once, and not all controls will be used.</p>`
+  }
+};
+
+function openKcDoc(key){
+  document.getElementById('kc-doc-title').textContent = KC_DOCS[key].title;
+  document.getElementById('kc-doc-body').innerHTML = KC_DOCS[key].body();
+  document.getElementById('kc-doc-overlay').classList.add('show');
+}
+function closeKcDoc(){ document.getElementById('kc-doc-overlay').classList.remove('show'); }
+document.getElementById('kc-doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='kc-doc-overlay') closeKcDoc(); });
+
+/* ============ Part 1 build ============ */
+const kcIdGrid = document.getElementById('id-grid');
+function buildKcIdBox(id, label, options){
+  const box = document.createElement('div');
+  box.className = 'qbox';
+  box.innerHTML = `<label>${label}</label>
+    <select id="${id}"><option value="">Select option</option>${options.map(o=>`<option>${o}</option>`).join('')}</select>
+    <div class="fb" id="fb-${id}"></div>`;
+  kcIdGrid.appendChild(box);
+}
+buildKcIdBox('id-exec', 'Malicious executable', EXEC_OPTIONS);
+buildKcIdBox('id-ip', 'Malicious IP address', IP_OPTIONS);
+buildKcIdBox('id-time', 'Date/time malware entered organization', TIME_OPTIONS);
+
+function checkKcPart1(){
+  let correct=0, total=3;
+  const checks = [
+    ['id-exec', MALWARE_NAME],
+    ['id-ip', MALICIOUS_IP],
+    ['id-time', MALWARE_ENTRY_TIME]
+  ];
+  checks.forEach(([id,val])=>{
+    const sel = document.getElementById(id);
+    const ok = sel.value === val;
+    if(ok) correct++;
+    const fb = document.getElementById('fb-'+id);
+    fb.textContent = ok ? '✓ correct' : '✗ incorrect';
+    fb.className = 'fb ' + (ok?'correct':'incorrect');
+  });
+  const pill = document.getElementById('kc-p1-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('kc-analysis').classList.add('show');
+}
+
+/* ============ Part 2 build ============ */
+const KC_CONTROL_OPTIONS = [
+
+  "Email filtering",
+  "Plain text email format",
+  "Honeypot",
+  "Multi-factor authentication",
+  "MAC filtering",
+  "Restricted local user permissions",
+  "IP blocklist",
+  "Disk-level encryption",
+  "Updated antivirus",
+  "Network segmentation",
+  "Firewall file type filter",
+  "VPN",
+  "Automated offline backups"
+];
+const KILL_CHAIN = [
+  { key:"phishing_email", label:"Phishing email", correct:"Email filtering" },
+  { key:"active_link", label:"Active link clicked", correct:"Plain text email format" },
+  { key:"malicious_site", label:"Malicious website access", correct:"IP blocklist" },
+  { key:"malware_download", label:"Malware download", correct:"Firewall file type filter" },
+  { key:"malware_install", label:"Malware install", correct:"Restricted local user permissions" },
+  { key:"malware_exec", label:"Malware execution", correct:"Updated antivirus" },
+  { key:"file_encryption", label:"File encryption", correct:"Disk-level encryption" }
+];
+const kcGrid = document.getElementById('kc-grid');
+KILL_CHAIN.forEach(item=>{
+  const row = document.createElement('div');
+  row.className = 'kc-row';
+  row.dataset.key = item.key;
+  row.innerHTML = `<label>${item.label}</label>
+    <select class="kc-select"><option value="">Select control</option>${KC_CONTROL_OPTIONS.map(o=>`<option>${o}</option>`).join('')}</select>
+    <div class="fb"></div>`;
+  kcGrid.appendChild(row);
+});
+
+function checkKcPart2(){
+  let correct=0, total=KILL_CHAIN.length;
+  kcGrid.querySelectorAll('.kc-row').forEach(row=>{
+    const item = KILL_CHAIN.find(k=>k.key===row.dataset.key);
+    const sel = row.querySelector('.kc-select');
+    const ok = sel.value === item.correct;
+    if(ok) correct++;
+    const fb = row.querySelector('.fb');
+    fb.textContent = ok ? '✓ correct' : '✗ incorrect';
+    fb.className = 'fb ' + (ok?'correct':'incorrect');
+  });
+  const pill = document.getElementById('kc-p2-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('kc-analysis').classList.add('show');
+}
+
+function resetKillChainSim(){
+  kcIdGrid.querySelectorAll('select').forEach(s=>s.value='');
+  kcIdGrid.querySelectorAll('.fb').forEach(fb=>{fb.textContent='';fb.className='fb';});
+  document.getElementById('kc-p1-pill').className = 'score-pill';
+  kcGrid.querySelectorAll('select').forEach(s=>s.value='');
+  kcGrid.querySelectorAll('.fb').forEach(fb=>{fb.textContent='';fb.className='fb';});
+  document.getElementById('kc-p2-pill').className = 'score-pill';
+  document.getElementById('kc-analysis').classList.remove('show');
+  closeDoc();
+}
+
+/* ============ Clock ============ */
+
+</script>
+
+</div>
+
+<div id="screen-sla" class="sim-screen">
+
+
+<header>
+  <div class="brand-text">
+    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="sub">Simulation — Vulnerability Remediation SLA</div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>VULN-8817</b></span>
+    <span>Type: <b style="color:var(--amber)">Remediation</b></span>
+    <span id="clock-sla">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>Cascade Freight Co. — Vulnerability Remediation <span class="sev-chip">SLA REVIEW</span></h1>
+    <div class="doc-btns">
+      <button class="doc-btn qread-btn" onclick="openSlaDoc('question')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        Read Question
+      </button>
+    </div>
+  </div>
+
+  <div class="term-panel">
+    <div class="term-tabs" id="rem-tabs"></div>
+    <div class="tab-panel active" id="panel-sla">
+      <table class="datatable">
+        <thead><tr><th>CVSS Risk Level</th><th>Standard</th><th>PROD</th><th>UAT</th><th>DEV</th></tr></thead>
+        <tbody>
+          <tr><td>CVSS &gt; 9.5</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">5 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>CVSS 7.0 – 9.5</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">12 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
+          <tr><td>CVSS 4.0 – 6.9</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">25 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td>CVSS 0 – 3.9</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">50 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+        </tbody>
+      </table>
+      <div class="sla-note">
+        <b>Any of these timeframes may be accelerated at the discretion of the CISO.</b><br>
+        If patching cannot be completed, or a vendor has not released a patch within the timeframe above, a compensating control must be put in place within the same timeframe and the exception process must be followed.
+      </div>
+    </div>
+    <div class="tab-panel" id="panel-env">
+      <table class="datatable">
+        <thead><tr><th>Environment</th><th>Location</th><th>Subnets</th><th>Domain</th><th>Publicly Accessible</th><th>NGFW</th><th>Load Balancer</th><th>MFA Required</th></tr></thead>
+        <tbody>
+          <tr><td>prod.cascadefreight.io</td><td>External</td><td>10.20.4.10<br>10.20.4.11<br>192.168.90.0/24<br>192.168.91.0/24</td><td>cascadefreight.io</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td>dev.cascadefreight.io</td><td>Internal</td><td>192.168.94.0/24<br>192.168.95.0/24</td><td>cascadefreight.io</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td>uat.cascadefreight.io</td><td>External</td><td>192.168.80.0/24<br>192.168.81.0/24</td><td>cascadefreight.io</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-panel" id="panel-output">
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Apache Tomcat: Unsupported software version detected</span></div>
+        <div class="frow"><b>Description</b><span>The software version detected is no longer supported by the vendor.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.80.9</span></div>
+        <div class="frow"><b>Risk</b><span>Unpatched software</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2023-4110, CVSS 8.1</span></div>
+      </div>
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Sensitive cookie in HTTPS session without "Secure" attribute</span></div>
+        <div class="frow"><b>Description</b><span>The Secure attribute for sensitive cookies is not set, which could cause the cookie to be sent in plaintext over an HTTP session.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.94.12</span></div>
+        <div class="frow"><b>Risk</b><span>Session sidejacking</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2021-0462, CVSS 6.5</span></div>
+      </div>
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Untrusted SSL/TLS server X.509 certificate</span></div>
+        <div class="frow"><b>Description</b><span>The server's TLS/SSL certificate is signed by a certificate authority that is untrusted or unknown.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.90.20</span></div>
+        <div class="frow"><b>Risk</b><span>May allow on-path attackers to insert a spoofed certificate for any distinguished name (DN).</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2020-0601, CVSS 4.5</span></div>
+      </div>
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Elevated privileges not required for software installation</span></div>
+        <div class="frow"><b>Description</b><span>Standard user accounts can install software; a privileged-account requirement is not configured.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.95.14</span></div>
+        <div class="frow"><b>Risk</b><span>Enhanced risk of unauthorized or malicious software installation</span></div>
+        <div class="frow"><b>Reference</b><span>n/a, CVSS 7.8</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Remediation Decision</h2>
+    <div class="sub">cross-reference the SLA table, environment architecture, and scan output</div>
+    <div class="answer-grid">
+      <div class="qbox">
+        <label>Select the server to be patched within 12 calendar days:</label>
+        <div class="chk-grid" id="server-checks"></div>
+        <div class="fb" id="fb-server"></div>
+      </div>
+      <div class="qbox">
+        <label>Select the appropriate technique and mitigation:</label>
+        <select id="ans-technique">
+          <option value="">Select</option>
+          <option>Request exception; legacy protocol could have operational impact</option>
+          <option>Patch; upload signed certificate from trusted third-party provider</option>
+          <option>Patch; issue a new certificate revocation update to the CA</option>
+          <option>Patch; upgrade Tomcat to current supported release</option>
+          <option>Request exception; vendor has not released a compatible patch yet</option>
+          <option>Compensating control; create new ACL on firewall to restrict access</option>
+          <option>Compensating control; implement secure session cookie flags</option>
+          <option>Compensating control; implement MFA on the application</option>
+        </select>
+        <div class="fb" id="fb-technique"></div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkSlaAnswers()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetSlaSim()">Reset All Answers</button>
+      <span class="score-pill" id="sla-pill"></span>
+    </div>
+
+    <div class="analysis" id="sla-analysis">
+      <h3>Remediation Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>Match the CVSS score to a bracket.</b> The Tomcat finding is CVSS <code>8.1</code>, which falls in the <code>7.0–9.5</code> bracket — a 12-day remediation window that applies to PROD and UAT, but <i>not</i> DEV.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Confirm the environment applies.</b> The affected asset, <code>192.168.80.9</code>, falls within the <code>uat.cascadefreight.io</code> subnet (<code>192.168.80.0/24</code>) — UAT is in scope for this bracket, so this finding must be remediated within 12 days.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Why the other findings don't qualify for 12 days.</b> The sensitive-cookie finding (CVSS 6.5, 192.168.94.12) is in the 4.0–6.9 bracket — DEV is excluded from that bracket entirely, so no SLA clock applies at all. The TLS certificate finding (CVSS 4.5, 192.168.90.20) is PROD but falls in a lower bracket with a 25-day window. The privilege-escalation finding (CVSS 7.8, 192.168.95.14) would qualify for the 12-day bracket by score, but the asset is in DEV — which the 7.0–9.5 bracket doesn't cover.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Technique.</b> The finding is "unsupported software version" — the fix is to <b>patch; upgrade Tomcat to current supported release</b>, not a workaround or compensating control, since a supported version is directly available.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- document modal -->
+<div class="modal-overlay" id="sla-doc-overlay">
+  <div class="doc-modal">
+    <div class="doc-bar">
+      <span id="sla-doc-title">Question</span>
+      <button onclick="closeSlaDoc()">✕</button>
+    </div>
+    <div class="doc-body" id="sla-doc-body"></div>
+  </div>
+</div>
+
+<div class="exam-nav">
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla" selected>9</option>
+    </select>
+    <span class="exam-qnum">of 9</span>
+  </div>
+  <div class="btn-group">
+    <button class="back-btn" onclick="switchScreen('killchain')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      Back
+    </button>
+    <button class="next-btn" onclick="finishExam()">
+      Finish
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ============ Tabs ============ */
+const REM_TABS = [
+  { key:"sla", label:"Remediation Timeframes" },
+  { key:"env", label:"Environment" },
+  { key:"output", label:"Output" }
+];
+const remTabsEl = document.getElementById('rem-tabs');
+REM_TABS.forEach((t,i)=>{
+  const el = document.createElement('div');
+  el.className = 'term-tab' + (i===0?' active':'');
+  el.textContent = t.label; el.dataset.k = t.key;
+  el.onclick = ()=>showRemTab(t.key);
+  remTabsEl.appendChild(el);
+});
+function showRemTab(key){
+  [...remTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
+  document.getElementById('panel-sla').classList.toggle('active', key==='sla');
+  document.getElementById('panel-env').classList.toggle('active', key==='env');
+  document.getElementById('panel-output').classList.toggle('active', key==='output');
+}
+
+/* ============ Server checkboxes ============ */
+const SERVERS = ["192.168.80.9","192.168.80.10","192.168.94.12","192.168.95.14","192.168.90.20","192.168.91.15"];
+const CORRECT_SERVERS = new Set(["192.168.80.9"]);
+const serverChecks = document.getElementById('server-checks');
+SERVERS.forEach(ip=>{
+  const lbl = document.createElement('label');
+  lbl.className = 'chk';
+  lbl.innerHTML = `<input type="checkbox" value="${ip}"><span>${ip}</span>`;
+  serverChecks.appendChild(lbl);
+});
+
+/* ============ Document modal ============ */
+const SLA_DOCS = {
+  question: {
+    title: "Question",
+    body: () => `
+      <p>A security analyst is reviewing the output of a vulnerability scan for Cascade Freight Co.</p>
+      <p><b>INSTRUCTIONS</b></p>
+      <p>Review the information in each tab (Remediation Timeframes, Environment, Output). Based on the
+      organization's environment architecture and remediation standards, select the server to be patched
+      within 12 calendar days, and select the appropriate technique and mitigation.</p>`
+  }
+};
+function openSlaDoc(key){
+  document.getElementById('sla-doc-title').textContent = SLA_DOCS[key].title;
+  document.getElementById('sla-doc-body').innerHTML = SLA_DOCS[key].body();
+  document.getElementById('sla-doc-overlay').classList.add('show');
+}
+function closeSlaDoc(){ document.getElementById('sla-doc-overlay').classList.remove('show'); }
+document.getElementById('sla-doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='sla-doc-overlay') closeSlaDoc(); });
+
+/* ============ Grading ============ */
+const CORRECT_TECHNIQUE = "Patch; upgrade Tomcat to current supported release";
+
+function checkSlaAnswers(){
+  let correct=0, total=2;
+
+  const checked = [...serverChecks.querySelectorAll('input:checked')].map(i=>i.value);
+  const serverOk = checked.length === CORRECT_SERVERS.size && checked.every(ip=>CORRECT_SERVERS.has(ip));
+  if(serverOk) correct++;
+  const fbServer = document.getElementById('fb-server');
+  fbServer.textContent = serverOk ? '✓ correct' : '✗ incorrect';
+  fbServer.className = 'fb ' + (serverOk?'correct':'incorrect');
+
+  const techSel = document.getElementById('ans-technique');
+  const techOk = techSel.value === CORRECT_TECHNIQUE;
+  if(techOk) correct++;
+  const fbTech = document.getElementById('fb-technique');
+  fbTech.textContent = techOk ? '✓ correct' : '✗ incorrect';
+  fbTech.className = 'fb ' + (techOk?'correct':'incorrect');
+
+  const pill = document.getElementById('sla-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
+  document.getElementById('sla-analysis').classList.add('show');
+}
+
+function resetSlaSim(){
+  serverChecks.querySelectorAll('input').forEach(i=>i.checked=false);
+  document.getElementById('fb-server').textContent=''; document.getElementById('fb-server').className='fb';
+  document.getElementById('ans-technique').value='';
+  document.getElementById('fb-technique').textContent=''; document.getElementById('fb-technique').className='fb';
+  document.getElementById('sla-pill').className = 'score-pill';
+  document.getElementById('sla-analysis').classList.remove('show');
+  showRemTab('sla');
+  closeDoc();
+}
+
+/* ============ Clock ============ */
+
+</script>
+
+</div>
+
 <div class="completion-toast" id="completion-toast">You've completed both questions in this practice set.</div>
 
 
@@ -4045,6 +4951,8 @@ function tickBothClocks(){
   const e = document.getElementById('clock-defacement'); if(e) e.textContent = now;
   const f = document.getElementById('clock-risk'); if(f) f.textContent = now;
   const g = document.getElementById('clock-exfil'); if(g) g.textContent = now;
+  const h = document.getElementById('clock-killchain'); if(h) h.textContent = now;
+  const i = document.getElementById('clock-sla'); if(i) i.textContent = now;
 }
 tickBothClocks(); setInterval(tickBothClocks, 1000);
 </script>
