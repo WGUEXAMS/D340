@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>D340 · Simulation Practice Set</title>
+<title>CompTIA CySA+ Exam</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -449,9 +449,15 @@
   .astep p{margin:0;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
   .astep b{color:var(--text);}
   .astep code{background:var(--panel-3);border:1px solid var(--border-soft);padding:1px 6px;border-radius:4px;color:var(--amber);font-family:'IBM Plex Mono',monospace;font-size:12px;}  .exam-nav{
-    position:fixed;bottom:24px;right:40px;z-index:1000;
-    display:flex;justify-content:flex-end;align-items:center;gap:12px;
+    position:fixed;bottom:0;left:0;right:0;z-index:1000;
+    background:var(--panel);border-top:1px solid var(--border);
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 40px;box-shadow:0 -8px 24px rgba(0,0,0,0.35);
   }
+  .exam-qnum{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text-dim);font-weight:600;letter-spacing:0.3px;
+  }
+  .exam-nav .btn-group{display:flex;align-items:center;gap:12px;}
   .next-btn{
     font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:13px 26px;border-radius:9px;
     background:linear-gradient(180deg,#35c4e8,#1c7c95);color:#fff;border:none;cursor:pointer;
@@ -1182,6 +1188,10 @@
   .term-body{background:#050a0f;padding:16px 18px;height:340px;overflow:auto;}
   .term-body pre{margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;color:#c9d6e0;white-space:pre-wrap;}
   .term-body pre .hl{color:var(--red);}
+  #screen-defacement .term-body pre .hl, #screen-defacement .term-body pre .col, #screen-defacement .term-body pre .ip-flag, #screen-defacement .term-body pre .file-flag{color:inherit!important;}
+  #screen-exfil .term-body pre .hl, #screen-exfil .term-body pre .hdr{color:inherit!important;}
+  #screen-compliance .term-body pre .hl-good, #screen-compliance .term-body pre .hl-bad, #screen-compliance .term-body pre .prompt{color:inherit!important;}
+  #screen-network .console-body pre .hl, #screen-network .console-body pre .prompt{color:inherit!important;}
   .term-body pre .hdr{color:var(--cyan);}
 
   .section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
@@ -1278,6 +1288,14 @@
     display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;
   }
   .begin-btn:hover{filter:brightness(1.08);transform:translateY(-1px);}
+  .begin-btn-fixed{
+    position:fixed;bottom:24px;right:40px;z-index:1000;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:15px 34px;border-radius:10px;
+    background:var(--cyan);color:#04141a;border:none;cursor:pointer;
+    display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;
+    box-shadow:0 10px 30px rgba(53,196,232,0.3);
+  }
+  .begin-btn-fixed:hover{filter:brightness(1.08);transform:translateY(-1px);}
 
   .coffee-btn-big{
     display:inline-flex;align-items:center;gap:16px;background:#FFDD00;border:none;border-radius:99px;
@@ -1303,15 +1321,11 @@
   <div class="menu-shell">
     <div class="menu-inner">
       <div class="menu-top">
-        <h1>D340 · Cyber Defense &amp; Countermeasures</h1>
+        <h1>CompTIA CySA+ Exam</h1>
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
       <div class="mode-screen">
         <p>7 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery &amp; vulnerability scan validation</p>
-        <button class="begin-btn" onclick="switchScreen('risk')">
-          Begin Exam
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
-        </button>
       </div>
       <div style="text-align:center;">
         <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
@@ -1320,6 +1334,10 @@
       </div>
     </div>
   </div>
+  <button class="begin-btn-fixed" onclick="switchScreen('risk')">
+    Begin Exam
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
 </div>
 
 <div id="screen-risk" class="sim-screen">
@@ -1328,9 +1346,8 @@
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Risk Assessment Action Plan</div>
-      <div class="qnum">Question 1 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -1354,10 +1371,11 @@
         <div class="qread-body">
           <p>
             Riverbend Medical Center must build an action plan from a recent risk assessment. The plan needs
-            <b style="color:var(--text)">risk categorization</b>, <b style="color:var(--text)">risk prioritization</b>,
-            and <b style="color:var(--text)">implementation of controls</b>. Review the three documents below, then
-            complete the Risk Categorization and Controls tabs. Some findings need more than one control; some controls
-            may be used more than once or not at all.
+            <b style="color:var(--text)">risk categorization</b> (which security property — Confidentiality, Integrity,
+            Availability — and compliance obligation each finding threatens), <b style="color:var(--text)">risk
+            prioritization</b> (ranked by risk score, highest first), and <b style="color:var(--text)">implementation
+            of controls</b>. Review the three documents below, then complete the Risk Categorization and Controls tabs.
+            Some findings need more than one control; some controls may be used more than once or not at all.
           </p>
         </div>
       </div>
@@ -1387,7 +1405,7 @@
 
     <div class="tab-panel active" id="panel-categorization">
       <table class="rtable">
-        <thead><tr><th style="width:120px;">Risk Prioritization</th><th>Risk Finding</th><th style="width:140px;">Risk Categorization</th></tr></thead>
+        <thead><tr><th style="width:120px;">Risk Prioritization</th><th>Risk Finding</th><th style="width:220px;">Risk Categorization</th></tr></thead>
         <tbody id="cat-body"></tbody>
       </table>
     </div>
@@ -1411,11 +1429,12 @@
 
     <div class="analysis" id="risk-analysis">
       <h3>Risk Assessment Analysis</h3>
-      <div class="astep"><div class="num">1</div><p><b>Score = Likelihood × Impact.</b> The audit report gives each finding a likelihood and impact rating (1–5); cross-referencing those against the risk matrix gives the score, and the score determines both priority order and categorization band.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>Highest risk, priority 8:</b> the misdirected billing spreadsheet (score <code>20</code>, High) — a guaranteed, already-occurred exposure of patient billing data to the wrong recipients outweighs findings that are only a potential exposure. <b>Lowest risk, priority 1:</b> personal USB drives on nursing workstations (score <code>2</code>, Low).</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Priority numbering runs low-to-high with score</b> — priority 1 is the least urgent finding, priority 8 is the most urgent. Don't reverse this: a higher priority number always means a higher computed risk score.</p></div>
-      <div class="astep"><div class="num">4</div><p><b>Controls aren't one-size-fits-all.</b> A legacy-OS finding needs patching <i>and</i> segmentation; a phishing finding needs filtering <i>and</i> awareness training. Some findings only need one control (e.g. a clean desk policy for paperwork left at a printer); "Acceptance" and unused controls in the list are intentional distractors.</p></div>
-      <div class="astep"><div class="num">5</div><p><b>Takeaway.</b> Prioritization follows risk score, not how alarming a finding sounds — a well-understood human-error finding (misdirected email) can rank below a technical finding with a higher likelihood × impact product.</p></div>
+      <div class="astep"><div class="num">1</div><p><b>Two separate judgments.</b> Score = Likelihood × Impact drives <i>prioritization</i> (the order to remediate). <i>Categorization</i> is a different question — which security property does this finding threaten (Confidentiality, Integrity, Availability) and does it carry a compliance obligation? A finding's category doesn't change based on its score.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Categorization examples.</b> The patient portal, PHI-in-staging, billing spreadsheet, and printer paperwork findings are all <code>Confidentiality/Compliance</code> — each exposes PHI/PII and triggers a HIPAA obligation. Unauthorized software is <code>Integrity/Compliance</code> — it risks unapproved code changing system behavior, not direct data exposure. Phishing attachments and unrestricted web browsing are <code>Confidentiality/Integrity</code> — both are vectors for malicious code or credential theft. The ICMP reconnaissance finding is <code>Confidentiality</code> alone — it exposes network information, not PHI.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Highest priority, #8:</b> the unauthenticated patient portal (score <code>25</code>, High) — direct, credential-free exposure of PHI outranks everything else. <b>Lowest priority, #1:</b> discharge paperwork left at a shared printer (score <code>3</code>, Low).</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Priority numbering runs low-to-high with score</b> — priority 1 is the least urgent finding, priority 8 is the most urgent.</p></div>
+      <div class="astep"><div class="num">5</div><p><b>Controls aren't one-size-fits-all.</b> The unencrypted billing spreadsheet needs both <code>Implement DLP</code> <i>and</i> <code>Implement email encryption</code> — DLP catches the mistake in the future, encryption protects data in transit if it happens again. The phishing finding needs <code>Implement mail filters</code> <i>and</i> <code>Implement SPF</code> — filtering catches malicious attachments, SPF prevents domain spoofing. Most other findings only need one control. <code>Acceptance</code> and several other listed controls (IAM program, IDS/IPS, MDM, FDE, file integrity monitoring, relocating devices) are intentional distractors — none of the eight findings call for them.</p></div>
+      <div class="astep"><div class="num">6</div><p><b>Takeaway.</b> Don't conflate severity with category — a Low-severity finding can still be a Confidentiality/Compliance issue, and a High-severity finding isn't automatically "worse" in category, just more urgent to fix first.</p></div>
     </div>
   </div>
 
@@ -1433,28 +1452,31 @@
 </div>
 
 <div class="exam-nav">
+  <span class="exam-qnum">Question 1 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('menu')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('defacement')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <script>
 /* ============ Findings data ============ */
 // score = likelihood x impact; band derived from score
 const FINDINGS = [
-  { id:"f5", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:3, impact:5 },
-  { id:"f1", text:"Medical imaging workstations are running an unsupported, end-of-life operating system.", likelihood:2, impact:4 },
-  { id:"f2", text:"A large volume of outbound DNS traffic is detected from the billing server to an unrecognized external host.", likelihood:2, impact:3 },
-  { id:"f3", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:1, impact:5 },
-  { id:"f6", text:"Copies of live patient records were found within the test and staging environments.", likelihood:2, impact:5 },
-  { id:"f4", text:"A spreadsheet containing patient billing records was sent to the wrong department distribution list.", likelihood:4, impact:5 },
-  { id:"f7", text:"Discharge paperwork containing patient information was left unattended at a nurses' station printer.", likelihood:2, impact:2 },
-  { id:"f8", text:"Personal USB drives were found connected to nursing station workstations.", likelihood:1, impact:2 }
+  { id:"f1", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:5, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f2", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:3, impact:4, category:"Confidentiality/Integrity" },
+  { id:"f3", text:"Clinical workstations have unrestricted access to browse external websites, including several known malicious domains.", likelihood:2, impact:2, category:"Confidentiality/Integrity" },
+  { id:"f4", text:"Server2 responds to a large volume of ICMP echo requests from an external source, exposing internal network details.", likelihood:2, impact:3, category:"Confidentiality" },
+  { id:"f5", text:"Copies of live patient records were found within the test and staging environments.", likelihood:2, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f6", text:"A spreadsheet containing patient billing records was sent over unencrypted email to the wrong department distribution list.", likelihood:4, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f7", text:"Discharge paperwork containing patient information was left unattended at a shared printer accessible to unauthorized staff.", likelihood:1, impact:3, category:"Confidentiality/Compliance" },
+  { id:"f8", text:"Unauthorized software was discovered installed on technician workstations.", likelihood:2, impact:4, category:"Integrity/Compliance" }
 ];
 FINDINGS.forEach(f=>{ f.score = f.likelihood * f.impact; });
 
@@ -1463,7 +1485,7 @@ function bandFor(score){
   if(score>=5) return "Medium (5-9)";
   return "Low (0-4)";
 }
-FINDINGS.forEach(f=>{ f.band = bandFor(f.score); });
+FINDINGS.forEach(f=>{ f.severity = bandFor(f.score); f.band = f.category; });
 
 // priority rank = order by score ascending (1 = lowest risk, 8 = highest risk)
 const RANKED = [...FINDINGS].sort((a,b)=>a.score-b.score);
@@ -1474,34 +1496,34 @@ const DISPLAY_ORDER = ["f1","f2","f3","f4","f5","f6","f7","f8"];
 const findingById = Object.fromEntries(FINDINGS.map(f=>[f.id,f]));
 
 const CONTROL_OPTIONS = [
-  "Apply vendor security patches / upgrade OS",
-  "Implement network segmentation",
-  "Implement IDS/IPS",
+  "Require two-factor authentication",
+  "Acceptance",
+  "Implement web content filter",
+  "Require data deidentification",
   "Implement DLP",
-  "Implement email filtering",
-  "Require security awareness training",
-  "Implement SPF/DKIM/DMARC",
-  "Require multi-factor authentication",
-  "Implement web application firewall",
-  "Restrict test/staging data to synthetic or masked records",
-  "Implement data deidentification",
-  "Implement clean desk policy",
-  "Implement full disk encryption",
-  "Disable USB ports / implement device control policy",
-  "Implement approved software listing",
+  "Filter echo request replies",
+  "Implement email encryption",
+  "Implement FDE on DB and file servers",
+  "Implement mail filters",
+  "Implement IAM program",
+  "Implement IDS/IPS",
   "Implement file integrity monitoring",
-  "Acceptance"
+  "Implement approved software listing",
+  "Implement MDM solution",
+  "Implement PIN to print",
+  "Relocate devices to secured locations",
+  "Implement SPF"
 ];
 
 const EXPECTED_CONTROLS = {
-  f1: ["Apply vendor security patches / upgrade OS","Implement network segmentation"],
-  f2: ["Implement IDS/IPS","Implement network segmentation"],
-  f3: ["Implement email filtering","Require security awareness training","Implement SPF/DKIM/DMARC"],
-  f4: ["Implement DLP","Require security awareness training"],
-  f5: ["Require multi-factor authentication","Implement web application firewall"],
-  f6: ["Restrict test/staging data to synthetic or masked records","Implement data deidentification"],
-  f7: ["Implement clean desk policy"],
-  f8: ["Disable USB ports / implement device control policy","Implement approved software listing"]
+  f1: ["Require two-factor authentication"],
+  f2: ["Implement mail filters","Implement SPF"],
+  f3: ["Implement web content filter"],
+  f4: ["Filter echo request replies"],
+  f5: ["Require data deidentification"],
+  f6: ["Implement DLP","Implement email encryption"],
+  f7: ["Implement PIN to print"],
+  f8: ["Implement approved software listing"]
 };
 
 /* ============ Document contents ============ */
@@ -1520,7 +1542,7 @@ const DOCS = {
   matrix: {
     title: "Risk Matrix",
     body: () => {
-      let html = `<p>Risk Score = Likelihood × Impact. Use the score to determine the categorization band.</p>
+      let html = `<p>Risk Score = Likelihood × Impact. Use the score to determine remediation priority (highest score = highest priority). This score does not determine Risk Categorization — that's based on which security property (Confidentiality, Integrity, Availability) and compliance obligation each finding puts at risk.</p>
       <table class="matrix-table"><tr><th></th>`;
       for(let i=1;i<=5;i++) html += `<th>Impact ${i}</th>`;
       html += `</tr>`;
@@ -1604,9 +1626,14 @@ DISPLAY_ORDER.forEach(id=>{
     <td>
       <select class="band-select">
         <option value="">Select</option>
-        <option>High (10-25)</option>
-        <option>Medium (5-9)</option>
-        <option>Low (0-4)</option>
+        <option>Confidentiality</option>
+        <option>Integrity</option>
+        <option>Availability</option>
+        <option>Compliance</option>
+        <option>Confidentiality/Integrity</option>
+        <option>Confidentiality/Compliance</option>
+        <option>Availability/Compliance</option>
+        <option>Integrity/Compliance</option>
       </select>
       <div class="row-fb" data-fb="band"></div>
     </td>`;
@@ -1700,9 +1727,8 @@ function resetRiskSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Website Defacement Investigation</div>
-      <div class="qnum">Question 2 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -1754,7 +1780,7 @@ function resetRiskSim(){
         <label>Which source IP address should the analyst be most concerned about?</label>
         <select id="ans-ip">
           <option value="">Select</option>
-          <option>88.201.5.64</option>
+          <option>32.111.16.37</option>
           <option>10.20.30.15</option>
           <option>10.20.30.22</option>
           <option>71.44.19.203</option>
@@ -1789,8 +1815,8 @@ function resetRiskSim(){
     <div class="analysis" id="def-analysis">
       <h3>Investigation Analysis</h3>
       <div class="astep"><div class="num">1</div><p><b>Baseline the normal pattern.</b> dkim's legitimate edits all come from <code>10.20.30.0/24</code> — the office range — during business hours, writing pages like <code>team.html</code> and <code>contact.html</code>.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>The outlier.</b> At <code>20:15</code>, dkim's account logs in from <code>88.201.5.64</code> — an external IP, well outside the office range, at an unusual hour — and writes <code>index.html</code>, the site's actual homepage. That's the source IP to be concerned about.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Indicator of compromise.</b> The netstat and HTTP logs confirm <code>88.201.5.64</code> connected on port 22 and pulled the homepage right after. The write to <code>index.html</code> — the page that visibly changed — is the actual indicator, not the unrelated failed logins from <code>71.44.19.203</code> or the 404s from <code>203.0.44.9</code> (someone just mistyped a filename).</p></div>
+      <div class="astep"><div class="num">2</div><p><b>The outlier.</b> At <code>20:15</code>, dkim's account logs in from <code>32.111.16.37</code> — an external IP, well outside the office range, at an unusual hour — and writes <code>index.html</code>, the site's actual homepage. That's the source IP to be concerned about.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Indicator of compromise.</b> The netstat and HTTP logs confirm <code>32.111.16.37</code> connected on port 22 and pulled the homepage right after. The write to <code>index.html</code> — the page that visibly changed — is the actual indicator, not the unrelated failed logins from <code>71.44.19.203</code> or the 404s from <code>203.0.44.9</code> (someone just mistyped a filename).</p></div>
       <div class="astep"><div class="num">4</div><p><b>Corrective actions.</b> <b>Change the password on the dkim account</b> (the credential was used from an unexpected location) and <b>Block external SFTP access</b> (the actual exposure that let it happen). Shutting down the file transfer server or deleting the account are disproportionate — dkim still needs to edit the site from the office; blocking all of <code>10.20.30.*</code> would lock out the legitimate internal logins too.</p></div>
     </div>
   </div>
@@ -1798,14 +1824,17 @@ function resetRiskSim(){
 </div>
 
 <div class="exam-nav">
+  <span class="exam-qnum">Question 2 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('risk')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('exfil')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <script>
@@ -1821,10 +1850,10 @@ const TABS = {
 2026-02-14 11:06:10 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
 2026-02-14 11:08:45 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./contact.html written]
 2026-02-14 11:12:19 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.22] [username = dkim]
-2026-02-14 20:15:37 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="ip-flag">88.201.5.64</span>] [username = dkim]
+2026-02-14 20:15:37 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="ip-flag">32.111.16.37</span>] [username = dkim]
 2026-02-14 20:16:02 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
 2026-02-14 20:17:50 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [<span class="file-flag">./index.html written</span>]
-2026-02-14 20:19:03 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 88.201.5.64] [username = dkim]
+2026-02-14 20:19:03 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 32.111.16.37] [username = dkim]
 2026-02-14 20:45:11 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (failed login) [IP = 71.44.19.203] [username = dkim]
 2026-02-15 08:02:14 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.40</span>] [username = dkim]
 2026-02-15 08:04:00 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
@@ -1841,7 +1870,7 @@ TCP    127.0.0.1:1500         127.0.0.1:51100        ESTABLISHED   900
 TCP    127.0.0.1:51022        127.0.0.1:1500         ESTABLISHED   4700
 TCP    127.0.0.1:51200        127.0.0.1:1500         ESTABLISHED   4100
 TCP    127.0.0.1:51201        127.0.0.1:1501         ESTABLISHED   4100
-TCP    127.0.0.1:40010        <span class="ip-flag">88.201.5.64:22</span>       ESTABLISHED   4820
+TCP    127.0.0.1:40010        <span class="ip-flag">32.111.16.37:22</span>       ESTABLISHED   4820
 TCP    127.0.0.1:40011        10.20.30.15:22         ESTABLISHED   5010
 TCP    127.0.0.1:40012        10.20.30.22:22         ESTABLISHED   5000
 TCP    127.0.0.1:40013        71.44.19.203:22        TIME_WAIT     0
@@ -1853,7 +1882,7 @@ TCP    127.0.0.1:40015        199.83.14.90:22        SYN_SENT      4870`
     content: `10.20.30.15    - "" - [2026-02-14 09:14:20 "GET https://mycorp.io/team.html" HTTP/1.1 200]
 10.20.30.22    - "" - [2026-02-14 11:09:02 "GET https://mycorp.io/contact.html" HTTP/1.1 200]
 203.0.44.9     - "" - [2026-02-14 15:02:11 "GET https://mycorp.io" HTTP/1.1 200]
-<span class="ip-flag">88.201.5.64</span>    - "" - [2026-02-14 20:18:10 <span class="file-flag">"GET https://mycorp.io" HTTP/1.1 200</span>]
+<span class="ip-flag">32.111.16.37</span>    - "" - [2026-02-14 20:18:10 <span class="file-flag">"GET https://mycorp.io" HTTP/1.1 200</span>]
 71.44.19.203   - "" - [2026-02-14 20:46:02 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
 71.44.19.203   - "" - [2026-02-14 20:46:15 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
 71.44.19.203   - "" - [2026-02-14 20:46:29 "GET https://mycorp.io/teem.html" HTTP/1.1 404]
@@ -1897,7 +1926,7 @@ ACTIONS.forEach(a=>{
 });
 
 /* ============ Grading ============ */
-const CORRECT_IP = "88.201.5.64";
+const CORRECT_IP = "32.111.16.37";
 const CORRECT_IOC = "Modified index.html file";
 
 function checkDefacement(){
@@ -1957,9 +1986,8 @@ function resetDefacementSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Data Exfiltration Investigation</div>
-      <div class="qnum">Question 3 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -2010,14 +2038,14 @@ function resetDefacementSim(){
         <label>Select the command that generated the output in tab 1:</label>
         <select id="ans-cmd1">
           <option value="">Select command</option>
-          <option>netstat -b</option>
-          <option>tasklist</option>
+          <option>cmd</option>
+          <option>taskkill /FI</option>
+          <option>ipconfig /reset</option>
           <option>arp -a</option>
           <option>nslookup</option>
-          <option>ipconfig /all</option>
-          <option>taskkill /IM</option>
-          <option>route print</option>
-          <option>netsh advfirewall show</option>
+          <option>netstat -bo</option>
+          <option>tasklist</option>
+          <option>net stop</option>
         </select>
         <div class="fb" id="fb-cmd1"></div>
       </div>
@@ -2025,14 +2053,14 @@ function resetDefacementSim(){
         <label>Select the command that generated the output in tab 2:</label>
         <select id="ans-cmd2">
           <option value="">Select command</option>
-          <option>netstat -b</option>
-          <option>tasklist</option>
+          <option>cmd</option>
+          <option>taskkill /FI</option>
+          <option>ipconfig /reset</option>
           <option>arp -a</option>
           <option>nslookup</option>
-          <option>ipconfig /all</option>
-          <option>taskkill /IM</option>
-          <option>route print</option>
-          <option>netsh advfirewall show</option>
+          <option>netstat -bo</option>
+          <option>tasklist</option>
+          <option>net stop</option>
         </select>
         <div class="fb" id="fb-cmd2"></div>
       </div>
@@ -2050,24 +2078,27 @@ function resetDefacementSim(){
 
     <div class="analysis" id="ex-analysis">
       <h3>Investigation Analysis</h3>
-      <div class="astep"><div class="num">1</div><p><b>Tab 1</b> is <code>netstat -b</code> output — the columns (Proto / Local address / Foreign address / State / PID) plus the owning executable in brackets under each connection is exactly what <code>-b</code> adds to netstat.</p></div>
+      <div class="astep"><div class="num">1</div><p><b>Tab 1</b> is <code>netstat -bo</code> output — the columns (Proto / Local address / Foreign address / State / PID) plus the owning executable in brackets under each connection, and the PID column, is exactly what <code>-bo</code> adds to netstat.</p></div>
       <div class="astep"><div class="num">2</div><p><b>Tab 2</b> is <code>tasklist</code> output — Image Name / PID / Session Name / Session# / Mem Usage is tasklist's default column layout, and its PIDs line up with the ones shown in tab 1.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>The suspicious process.</b> In tab 1, <code>ftpclient.exe</code> holds an ESTABLISHED connection to an external IP on port 22 — an ongoing outbound file-transfer session, not a one-off request. Tab 2 shows it running under two different PIDs, which is unusual for a tool that should only run when someone manually initiates a transfer.</p></div>
-      <div class="astep"><div class="num">4</div><p><b>Confirming it.</b> Tab 3's current hash for <code>ftpclient.exe</code> doesn't match tab 4's baseline hash for the same file — every other file's hash is identical between the two tabs. A changed hash means the binary was replaced or modified, confirming <code>ftpclient.exe</code> is the file responsible for the exfiltration.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>The suspicious process.</b> In tab 1, a second instance of <code>cmd.exe</code> holds an ESTABLISHED connection to an external IP on port 22 — command-line access reaching out to the internet is not normal behavior. Tab 2 confirms two separate <code>cmd.exe</code> processes running under different PIDs, one with far more memory usage than a typical command prompt.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Confirming it.</b> Tab 3's current hash for <code>cmd.exe</code> doesn't match tab 4's baseline hash for the same file — every other file's hash is identical between the two tabs. A changed hash means the binary was replaced or modified, confirming <code>cmd.exe</code> is the file responsible for the exfiltration.</p></div>
     </div>
   </div>
 
 </div>
 
 <div class="exam-nav">
+  <span class="exam-qnum">Question 3 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('defacement')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('phish')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <script>
@@ -2082,15 +2113,15 @@ TCP    0.0.0.0:22              0.0.0.0:0              LISTENING     1000
 TCP    0.0.0.0:23              0.0.0.0:0              LISTENING     1235
 TCP    0.0.0.0:443             0.0.0.0:0              LISTENING     1466
 TCP    0.0.0.0:80              0.0.0.0:0              LISTENING     1566
-TCP    127.0.0.1:1960          127.0.0.1:22           ESTABLISHED   2001
-  [ftpclient.exe]
-TCP    10.0.5.14:38666         <span class="hl">203.0.113.44:22</span>        ESTABLISHED   3918
-  [<span class="hl">ftpclient.exe</span>]
+TCP    127.0.0.1:1500          127.0.0.1:22           ESTABLISHED   2001
+  [svchost.exe]
+TCP    10.0.5.14:38666         <span class="hl">203.0.113.44:22</span>        ESTABLISHED   3467
+  [<span class="hl">cmd.exe</span>]
 TCP    10.0.5.14:8447          91.198.20.10:https     ESTABLISHED   2677
   [svchost.exe]
-TCP    10.0.5.14:55356         45.33.10.7:https       ESTABLISHED   3467
-  [cmd.exe]
-TCP    10.0.5.14:37654         10.0.5.30:http         ESTABLISHED   1722
+TCP    10.0.5.14:55356         45.33.10.7:https       ESTABLISHED   1722
+  [ftpclient.exe]
+TCP    10.0.5.14:37654         10.0.5.30:http         ESTABLISHED   1560
   [notepad.exe]
 TCP    10.0.5.14:55357         66.55.16.37:22         TIME_WAIT     0
 TCP    10.0.5.14:52744         66.55.16.37:22         TIME_WAIT     0
@@ -2100,24 +2131,25 @@ TCP    10.0.5.14:56751         66.55.16.37:22         TIME_WAIT     0`
     label: "2",
     content: `<span class="hdr">Image Name</span>                    PID     Session Name     Session#   Mem Usage
 ========================     =====   ============     ========   ==========
-cmd.exe                       3467    Console          0          18,020 K
-ftpclient.exe                 2001    Console          0          17 K
-<span class="hl">ftpclient.exe</span>                 <span class="hl">3918</span>    Console          0          1,788 K
+svchost.exe                   2001    Console          0          17 K
+cmd.exe                       1600    Console          0          3,020 K
+<span class="hl">cmd.exe</span>                       <span class="hl">3467</span>    Console          0          18,020 K
+ftpclient.exe                 1722    Console          0          1,788 K
 svchost.exe                   2677    Console          0          188 K
 calc.exe                      1677    Console          0          11 K
-notepad.exe                   1722    Console          0          9 K`
+notepad.exe                   1560    Console          0          9 K`
   },
   t3: {
     label: "3",
     content: `<span class="hdr">&gt; Get-FileHash -Algorithm SHA256</span>
 
 Algorithm   Hash                                       File
-SHA256      9f2a1b7c4e6d3a805f19b6c2e7d4a1f0d3c8e7f1   cmd.exe
+SHA256      <span class="hl">d84f1a2e9c6b3d7f0a5e8c1b4d7f2a90</span>6a2f9c4e   <span class="hl">cmd.exe</span>
 SHA256      3c8e7f1a2b9d4c6e0f5a3b7c1d8e2f609f2a1b7c   calc.exe
 SHA256      7b4d9e2c1f6a3b8d5e0c9f2a4b7d1e633c8e7f1a   explorer.exe
 SHA256      1e5c8a3f7b2d9e4c6f0a8b3d5e7c1f927b4d9e2c   notes.txt
 SHA256      6a2f9c4e8b1d3a7f5c0e9b2d4a6f8c151e5c8a3f   invoice.dat
-SHA256      <span class="hl">d84f1a2e9c6b3d7f0a5e8c1b4d7f2a90</span>6a2f9c4e   <span class="hl">ftpclient.exe</span>
+SHA256      10ad132ffed0217c6c3854a22bab215c69f2a1b7c   ftpclient.exe
 SHA256      4b7e1c9a3f6d8b2e5c0a9f3b7d1e4c86d84f1a2e   svchost.exe`
   },
   t4: {
@@ -2125,12 +2157,12 @@ SHA256      4b7e1c9a3f6d8b2e5c0a9f3b7d1e4c86d84f1a2e   svchost.exe`
     content: `<span class="hdr">The baseline hash signatures are:</span>
 
 Hash                                       File
-9f2a1b7c4e6d3a805f19b6c2e7d4a1f0d3c8e7f1   cmd.exe
+<span class="hl">a13f8c2e6b9d4a7f1c5e0b3d8f2a4c676a2f9c4e</span>   <span class="hl">cmd.exe</span>
 3c8e7f1a2b9d4c6e0f5a3b7c1d8e2f609f2a1b7c   calc.exe
 7b4d9e2c1f6a3b8d5e0c9f2a4b7d1e633c8e7f1a   explorer.exe
 1e5c8a3f7b2d9e4c6f0a8b3d5e7c1f927b4d9e2c   notes.txt
 6a2f9c4e8b1d3a7f5c0e9b2d4a6f8c151e5c8a3f   invoice.dat
-<span class="hl">a13f8c2e6b9d4a7f1c5e0b3d8f2a4c676a2f9c4e</span>   <span class="hl">ftpclient.exe</span>
+10ad132ffed0217c6c3854a22bab215c69f2a1b7c   ftpclient.exe
 4b7e1c9a3f6d8b2e5c0a9f3b7d1e4c86d84f1a2e   svchost.exe`
   }
 };
@@ -2162,9 +2194,9 @@ FILES.forEach(f=>{
 });
 
 /* ============ Grading ============ */
-const CORRECT_CMD1 = "netstat -b";
+const CORRECT_CMD1 = "netstat -bo";
 const CORRECT_CMD2 = "tasklist";
-const CORRECT_FILE = "ftpclient.exe";
+const CORRECT_FILE = "cmd.exe";
 
 function checkExfil(){
   let correct=0, total=3;
@@ -2217,9 +2249,8 @@ function resetExfilSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Phishing Incident Response</div>
-      <div class="qnum">Question 4 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -2440,14 +2471,17 @@ function resetExfilSim(){
 
 <!-- Phishing email modal -->
 <div class="exam-nav">
+  <span class="exam-qnum">Question 4 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('exfil')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('compliance')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <div class="modal-overlay" id="email-overlay">
@@ -2827,9 +2861,8 @@ function resetPhishSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Server Hardening Compliance Review</div>
-      <div class="qnum">Question 5 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -2914,14 +2947,17 @@ function resetPhishSim(){
 </div>
 
 <div class="exam-nav">
+  <span class="exam-qnum">Question 5 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('phish')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('network')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <div class="next-toast" id="next-toast">This is the last question set up in this simulation right now.</div>
@@ -3294,9 +3330,8 @@ function nextQuestion(){ finishExam(); }
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Network Hardening Discovery</div>
-      <div class="qnum">Question 6 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -3481,14 +3516,17 @@ function nextQuestion(){ finishExam(); }
 </div>
 
 <div class="exam-nav">
+  <span class="exam-qnum">Question 6 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('compliance')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('scan')">
-    Next Question
+    Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <script>
@@ -3664,9 +3702,8 @@ function resetNetworkSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">D340 · Cyber Defense &amp; Countermeasures</div>
+      <div class="course">CompTIA CySA+ Exam</div>
       <div class="sub">Simulation — Vulnerability Scan Validation &amp; Remediation</div>
-      <div class="qnum">Question 7 of 7</div>
     </div>
   </div>
   <div class="ticket">
@@ -3809,6 +3846,8 @@ function resetNetworkSim(){
 
 <!-- report modal -->
 <div class="exam-nav">
+  <span class="exam-qnum">Question 7 of 7</span>
+  <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('network')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
@@ -3817,6 +3856,7 @@ function resetNetworkSim(){
     Finish Exam
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+  </div>
 </div>
 
 <div class="modal-overlay" id="report-overlay">
