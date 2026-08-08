@@ -1412,9 +1412,10 @@
     <div class="analysis" id="risk-analysis">
       <h3>Risk Assessment Analysis</h3>
       <div class="astep"><div class="num">1</div><p><b>Score = Likelihood × Impact.</b> The audit report gives each finding a likelihood and impact rating (1–5); cross-referencing those against the risk matrix gives the score, and the score determines both priority order and categorization band.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>Highest priority: unauthenticated patient portal access</b> (score <code>25</code>, Critical) — direct, credential-free exposure of PHI is the most urgent finding regardless of how many other issues exist.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Controls aren't one-size-fits-all.</b> A legacy-OS finding needs patching <i>and</i> segmentation; a phishing finding needs filtering <i>and</i> awareness training. Some findings only need one control (e.g. a clean desk policy for paperwork left at a printer); "Acceptance" and unused controls in the list are intentional distractors.</p></div>
-      <div class="astep"><div class="num">4</div><p><b>Takeaway.</b> Prioritization follows risk score, not how alarming a finding sounds — a well-understood human-error finding (misdirected email) can rank below a technical finding with a higher likelihood × impact product.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Highest risk, priority 8:</b> the misdirected billing spreadsheet (score <code>20</code>, High) — a guaranteed, already-occurred exposure of patient billing data to the wrong recipients outweighs findings that are only a potential exposure. <b>Lowest risk, priority 1:</b> personal USB drives on nursing workstations (score <code>2</code>, Low).</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Priority numbering runs low-to-high with score</b> — priority 1 is the least urgent finding, priority 8 is the most urgent. Don't reverse this: a higher priority number always means a higher computed risk score.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Controls aren't one-size-fits-all.</b> A legacy-OS finding needs patching <i>and</i> segmentation; a phishing finding needs filtering <i>and</i> awareness training. Some findings only need one control (e.g. a clean desk policy for paperwork left at a printer); "Acceptance" and unused controls in the list are intentional distractors.</p></div>
+      <div class="astep"><div class="num">5</div><p><b>Takeaway.</b> Prioritization follows risk score, not how alarming a finding sounds — a well-understood human-error finding (misdirected email) can rank below a technical finding with a higher likelihood × impact product.</p></div>
     </div>
   </div>
 
@@ -1446,27 +1447,26 @@
 /* ============ Findings data ============ */
 // score = likelihood x impact; band derived from score
 const FINDINGS = [
-  { id:"f5", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:5, impact:5 },
-  { id:"f1", text:"Medical imaging workstations are running an unsupported, end-of-life operating system.", likelihood:4, impact:4 },
-  { id:"f2", text:"A large volume of outbound DNS traffic is detected from the billing server to an unrecognized external host.", likelihood:3, impact:5 },
-  { id:"f3", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:4, impact:3 },
-  { id:"f6", text:"Copies of live patient records were found within the test and staging environments.", likelihood:3, impact:3 },
-  { id:"f4", text:"A spreadsheet containing patient billing records was sent to the wrong department distribution list.", likelihood:2, impact:3 },
+  { id:"f5", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:3, impact:5 },
+  { id:"f1", text:"Medical imaging workstations are running an unsupported, end-of-life operating system.", likelihood:2, impact:4 },
+  { id:"f2", text:"A large volume of outbound DNS traffic is detected from the billing server to an unrecognized external host.", likelihood:2, impact:3 },
+  { id:"f3", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:1, impact:5 },
+  { id:"f6", text:"Copies of live patient records were found within the test and staging environments.", likelihood:2, impact:5 },
+  { id:"f4", text:"A spreadsheet containing patient billing records was sent to the wrong department distribution list.", likelihood:4, impact:5 },
   { id:"f7", text:"Discharge paperwork containing patient information was left unattended at a nurses' station printer.", likelihood:2, impact:2 },
-  { id:"f8", text:"Personal USB drives were found connected to nursing station workstations.", likelihood:3, impact:1 }
+  { id:"f8", text:"Personal USB drives were found connected to nursing station workstations.", likelihood:1, impact:2 }
 ];
 FINDINGS.forEach(f=>{ f.score = f.likelihood * f.impact; });
 
 function bandFor(score){
-  if(score>=16) return "Critical";
-  if(score>=11) return "High";
-  if(score>=6) return "Medium";
-  return "Low";
+  if(score>=10) return "High (10-25)";
+  if(score>=5) return "Medium (5-9)";
+  return "Low (0-4)";
 }
 FINDINGS.forEach(f=>{ f.band = bandFor(f.score); });
 
-// priority rank = order by score descending (1 = highest score)
-const RANKED = [...FINDINGS].sort((a,b)=>b.score-a.score);
+// priority rank = order by score ascending (1 = lowest risk, 8 = highest risk)
+const RANKED = [...FINDINGS].sort((a,b)=>a.score-b.score);
 RANKED.forEach((f,i)=>{ f.priority = i+1; });
 
 // display order (shuffled from priority order, matching how these tables are usually presented un-sorted)
@@ -1529,16 +1529,16 @@ const DOCS = {
         for(let i=1;i<=5;i++){
           const s = l*i;
           const band = bandFor(s);
-          html += `<td class="band-${band.toLowerCase()}">${s}</td>`;
+          const tierClass = band.startsWith("High") ? "band-high" : band.startsWith("Medium") ? "band-medium" : "band-low";
+          html += `<td class="${tierClass}">${s}</td>`;
         }
         html += `</tr>`;
       }
       html += `</table>
       <p style="margin-top:14px;">
-        <span class="band-low" style="padding:2px 8px;border-radius:4px;">1–5 Low</span> &nbsp;
-        <span class="band-medium" style="padding:2px 8px;border-radius:4px;">6–10 Medium</span> &nbsp;
-        <span class="band-high" style="padding:2px 8px;border-radius:4px;">11–15 High</span> &nbsp;
-        <span class="band-critical" style="padding:2px 8px;border-radius:4px;">16–25 Critical</span>
+        <span class="band-low" style="padding:2px 8px;border-radius:4px;">0–4 Low</span> &nbsp;
+        <span class="band-medium" style="padding:2px 8px;border-radius:4px;">5–9 Medium</span> &nbsp;
+        <span class="band-high" style="padding:2px 8px;border-radius:4px;">10–25 High</span>
       </p>`;
       return html;
     }
@@ -1550,13 +1550,12 @@ const DOCS = {
       <table>
         <thead><tr><th>Category</th><th>Required Remediation Window</th></tr></thead>
         <tbody>
-          <tr><td>Critical</td><td>Within 48 hours of confirmation</td></tr>
-          <tr><td>High</td><td>Within 7 calendar days</td></tr>
-          <tr><td>Medium</td><td>Within 30 calendar days</td></tr>
-          <tr><td>Low</td><td>Within 90 calendar days, or documented risk acceptance</td></tr>
+          <tr><td>High (10-25)</td><td>Within 7 calendar days</td></tr>
+          <tr><td>Medium (5-9)</td><td>Within 30 calendar days</td></tr>
+          <tr><td>Low (0-4)</td><td>Within 90 calendar days, or documented risk acceptance</td></tr>
         </tbody>
       </table>
-      <p style="margin-top:12px;">Per hospital policy, any finding involving direct, unauthenticated exposure of Protected Health Information (PHI) is treated as Critical regardless of computed score, and must be escalated to the CISO immediately upon discovery.</p>`
+      <p style="margin-top:12px;">Per hospital policy, any finding involving direct, unauthenticated exposure of Protected Health Information (PHI) is treated as High regardless of computed score, and must be escalated to the CISO immediately upon discovery.</p>`
   }
 };
 
@@ -1605,10 +1604,9 @@ DISPLAY_ORDER.forEach(id=>{
     <td>
       <select class="band-select">
         <option value="">Select</option>
-        <option>Critical</option>
-        <option>High</option>
-        <option>Medium</option>
-        <option>Low</option>
+        <option>High (10-25)</option>
+        <option>Medium (5-9)</option>
+        <option>Low (0-4)</option>
       </select>
       <div class="row-fb" data-fb="band"></div>
     </td>`;
