@@ -1024,11 +1024,11 @@
 
   body{padding-bottom:110px!important;}
 
-  /* Fix leftover .brief layout conflicts from the merge: only the phishing
-     screen needs the two-column grid (title + "View Phishing Email" button) */
-  .brief{display:block!important;}
-  .brief.brief-grid{display:grid!important;grid-template-columns:1fr auto;gap:18px;align-items:center;}
-  .brief h1{justify-content:flex-end!important;text-align:right;}
+  /* Fix leftover .brief layout conflicts from the merge: single-row layout everywhere,
+     title left, action buttons right, wraps on narrow screens */
+  .brief{display:flex!important;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 18px;}
+  .brief.brief-grid{display:flex!important;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 18px;}
+  .brief h1{justify-content:flex-start!important;text-align:left;margin:0!important;}
   .doc-btns{display:flex;gap:10px;flex-wrap:wrap;}
   .doc-btn{
     display:flex;align-items:center;gap:9px;background:linear-gradient(180deg,#1a2634,#131c27);
