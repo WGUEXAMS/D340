@@ -1601,7 +1601,7 @@
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
       <div class="mode-screen">
-        <p>9 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery, vulnerability scan validation, kill chain incident analysis &amp; vulnerability remediation SLA</p>
+        <p>10 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery, vulnerability scan validation, vulnerability scan classification, kill chain incident analysis &amp; vulnerability remediation SLA</p>
       </div>
       <div style="text-align:center;">
         <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
@@ -1706,10 +1706,10 @@
     <div class="analysis" id="risk-analysis">
       <h3>Risk Assessment Analysis</h3>
       <div class="astep"><div class="num">1</div><p><b>Two separate judgments.</b> Score = Likelihood × Impact drives <i>prioritization</i> (the order to remediate). <i>Categorization</i> is a different question — which security property does this finding threaten (Confidentiality, Integrity, Availability) and does it carry a compliance obligation? A finding's category doesn't change based on its score.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>Categorization examples.</b> The patient portal, PHI-in-staging, billing spreadsheet, and printer paperwork findings are all <code>Confidentiality/Compliance</code> — each exposes PHI/PII and triggers a HIPAA obligation. Unauthorized software is <code>Integrity/Compliance</code> — it risks unapproved code changing system behavior, not direct data exposure. Phishing attachments and unrestricted web browsing are <code>Confidentiality/Integrity</code> — both are vectors for malicious code or credential theft. The ICMP reconnaissance finding is <code>Confidentiality</code> alone — it exposes network information, not PHI.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Highest priority, #8:</b> the unauthenticated patient portal (score <code>25</code>, High) — direct, credential-free exposure of PHI outranks everything else. <b>Lowest priority, #1:</b> discharge paperwork left at a shared printer (score <code>3</code>, Low).</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Categorization examples.</b> The unauthenticated web server, PHI-in-dev/test, prescription email, and fax machine findings are all <code>Confidentiality/Compliance</code> — each exposes PHI/PII and triggers a HIPAA obligation. Unauthorized software is <code>Integrity/Compliance</code> — it risks unapproved code changing system behavior, not direct data exposure. Malicious emails and improperly configured third-party websites are <code>Confidentiality/Integrity</code> — both are vectors for malicious code or credential theft. The ICMP traffic finding is <code>Confidentiality</code> alone — it exposes network information, not PHI.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Highest priority, #8:</b> the unauthenticated web server (score <code>25</code>, High) — direct, credential-free exposure of data outranks everything else. <b>Lowest priority, #1:</b> sensitive materials left unattended on a fax machine (score <code>3</code>, Low).</p></div>
       <div class="astep"><div class="num">4</div><p><b>Priority numbering runs low-to-high with score</b> — priority 1 is the least urgent finding, priority 8 is the most urgent.</p></div>
-      <div class="astep"><div class="num">5</div><p><b>Controls aren't one-size-fits-all.</b> The unencrypted billing spreadsheet needs both <code>Implement DLP</code> <i>and</i> <code>Implement email encryption</code> — DLP catches the mistake in the future, encryption protects data in transit if it happens again. The phishing finding needs <code>Implement mail filters</code> <i>and</i> <code>Implement SPF</code> — filtering catches malicious attachments, SPF prevents domain spoofing. Most other findings only need one control. <code>Acceptance</code> and several other listed controls (IAM program, IDS/IPS, MDM, FDE, file integrity monitoring, relocating devices) are intentional distractors — none of the eight findings call for them.</p></div>
+      <div class="astep"><div class="num">5</div><p><b>Controls aren't one-size-fits-all.</b> The prescription email finding needs both <code>Implement DLP</code> <i>and</i> <code>Implement email encryption</code> — DLP catches the mistake in the future, encryption protects data in transit if it happens again. The malicious email finding needs <code>Implement mail filters</code> <i>and</i> <code>Implement SPF</code> — filtering catches malicious attachments, SPF prevents domain spoofing. Most other findings only need one control. <code>Acceptance</code> and several other listed controls (IAM program, IDS/IPS, MDM, FDE, file integrity monitoring, relocating devices) are intentional distractors — none of the eight findings call for them.</p></div>
       <div class="astep"><div class="num">6</div><p><b>Takeaway.</b> Don't conflate severity with category — a Low-severity finding can still be a Confidentiality/Compliance issue, and a High-severity finding isn't automatically "worse" in category, just more urgent to fix first.</p></div>
     </div>
   </div>
@@ -1731,9 +1731,9 @@
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk" selected>1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk" selected>1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('menu')">
@@ -1751,14 +1751,14 @@
 /* ============ Findings data ============ */
 // score = likelihood x impact; band derived from score
 const FINDINGS = [
-  { id:"f1", text:"The patient portal permits medical record lookup without requiring authentication under certain conditions.", likelihood:5, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f2", text:"A high number of suspicious email attachments are being delivered to clinical staff mailboxes.", likelihood:3, impact:4, category:"Confidentiality/Integrity" },
-  { id:"f3", text:"Clinical workstations have unrestricted access to browse external websites, including several known malicious domains.", likelihood:2, impact:2, category:"Confidentiality/Integrity" },
-  { id:"f4", text:"Server2 responds to a large volume of ICMP echo requests from an external source, exposing internal network details.", likelihood:2, impact:3, category:"Confidentiality" },
-  { id:"f5", text:"Copies of live patient records were found within the test and staging environments.", likelihood:2, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f6", text:"A spreadsheet containing patient billing records was sent over unencrypted email to the wrong department distribution list.", likelihood:4, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f7", text:"Discharge paperwork containing patient information was left unattended at a shared printer accessible to unauthorized staff.", likelihood:1, impact:3, category:"Confidentiality/Compliance" },
-  { id:"f8", text:"Unauthorized software was discovered installed on technician workstations.", likelihood:2, impact:4, category:"Integrity/Compliance" }
+  { id:"f1", text:"The internet-facing web server allows access to data without requiring user authentication.", likelihood:5, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f2", text:"A large number of potentially malicious emails are reaching end-user and shared mailboxes.", likelihood:3, impact:4, category:"Confidentiality/Integrity" },
+  { id:"f3", text:"Improperly configured third-party websites create potential security risks to internal assets.", likelihood:2, impact:2, category:"Confidentiality/Integrity" },
+  { id:"f4", text:"A high volume of ICMP traffic was detected originating from an external source and directed toward Server2.", likelihood:2, impact:3, category:"Confidentiality" },
+  { id:"f5", text:"Protected Health Information (PHI) was discovered within development and testing environments.", likelihood:2, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f6", text:"Patient prescription information was inadvertently emailed to an unauthorized recipient.", likelihood:4, impact:5, category:"Confidentiality/Compliance" },
+  { id:"f7", text:"Sensitive materials were found unattended on a fax machine located in a common area.", likelihood:1, impact:3, category:"Confidentiality/Compliance" },
+  { id:"f8", text:"Unauthorized software was discovered on technician workstations.", likelihood:2, impact:4, category:"Integrity/Compliance" }
 ];
 FINDINGS.forEach(f=>{ f.score = f.likelihood * f.impact; });
 
@@ -2109,9 +2109,9 @@ function resetRiskSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement" selected>2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement" selected>2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('risk')">
@@ -2379,9 +2379,9 @@ function resetDefacementSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil" selected>3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil" selected>3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('defacement')">
@@ -2767,9 +2767,9 @@ function resetExfilSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish" selected>4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish" selected>4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('exfil')">
@@ -3249,9 +3249,9 @@ function resetPhishSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance" selected>5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance" selected>5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('phish')">
@@ -3824,9 +3824,9 @@ function nextQuestion(){ finishExam(); }
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network" selected>6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network" selected>6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('compliance')">
@@ -4164,16 +4164,16 @@ function resetNetworkSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan" selected>7</option><option value="killchain">8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan" selected>7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('network')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
-  <button class="next-btn" onclick="switchScreen('killchain')">
+  <button class="next-btn" onclick="switchScreen('vulnclass')">
     Next
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
@@ -4311,6 +4311,428 @@ function resetScanSim(){
 
 </div>
 
+<div id="screen-vulnclass" class="sim-screen">
+
+<style>
+  #screen-vulnclass .fl-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:16px;}
+  #screen-vulnclass .fl-head{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  #screen-vulnclass .fl-qmark{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--amber);color:var(--amber);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;flex-shrink:0;}
+  #screen-vulnclass .fl-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;color:var(--text);}
+  #screen-vulnclass .fl-body{display:grid;grid-template-columns:1fr 240px;gap:22px;align-items:start;}
+  @media(max-width:900px){#screen-vulnclass .fl-body{grid-template-columns:1fr;}}
+  #screen-vulnclass .fl-findings{display:flex;flex-direction:column;}
+  #screen-vulnclass .fl-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border-soft);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-dim);line-height:1.5;}
+  #screen-vulnclass .fl-row:last-child{border-bottom:none;}
+  #screen-vulnclass .fl-row input{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--cyan);}
+  #screen-vulnclass .fl-row .fp-tag{color:var(--text-faint);font-size:10px;flex-shrink:0;margin-right:2px;}
+  #screen-vulnclass .fl-side label{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:12.5px;color:var(--text);margin-bottom:8px;}
+  #screen-vulnclass .fl-side select{
+    width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;
+    padding:9px 10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  }
+  #screen-vulnclass .fl-side select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(53,196,232,0.14);}
+  #screen-vulnclass .fl-drop{
+    margin-top:16px;min-height:44px;border:1.5px dashed var(--border);border-radius:8px;background:var(--panel-3);
+    display:flex;align-items:center;justify-content:center;text-align:center;padding:8px 10px;
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-faint);cursor:pointer;transition:all .15s ease;
+  }
+  #screen-vulnclass .fl-drop.hover{border-color:var(--cyan);color:var(--cyan);background:rgba(53,196,232,0.06);}
+  #screen-vulnclass .fl-drop.filled{border-style:solid;border-color:var(--cyan-dim);color:var(--text);background:var(--panel-2);}
+  #screen-vulnclass .diag-server{cursor:grab;}
+  #screen-vulnclass .diag-server rect{transition:stroke .15s ease,fill .15s ease,filter .15s ease;fill:#13293a!important;stroke:var(--cyan-dim)!important;stroke-width:1.6;}
+  #screen-vulnclass .diag-server text{fill:#bfeaf7!important;}
+  #screen-vulnclass .diag-server:hover rect{stroke:var(--cyan)!important;filter:drop-shadow(0 0 5px rgba(53,196,232,0.35));}
+  #screen-vulnclass .diag-server.selected rect{stroke:var(--cyan)!important;stroke-width:2.2;filter:drop-shadow(0 0 6px rgba(53,196,232,0.5));}
+  #screen-vulnclass .diag-server.placed rect{stroke:var(--green)!important;fill:#0f2a1e!important;}
+  #screen-vulnclass .diag-server.placed text{fill:#bdf5d3!important;}
+  #screen-vulnclass .fl-fb{margin-top:12px;font-size:11.5px;font-family:'IBM Plex Mono',monospace;min-height:14px;}
+  #screen-vulnclass .fl-fb.correct{color:var(--green);}
+  #screen-vulnclass .fl-fb.incorrect{color:var(--red);}
+</style>
+
+<header>
+  <div class="brand-text">
+    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="sub">Simulation — Vulnerability Scan Classification</div>
+  </div>
+  <div class="ticket">
+    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <span><span class="live-dot"></span><b>SCAN-5591</b></span>
+    <span>Type: <b style="color:var(--amber)">Validation</b></span>
+    <span id="clock-vulnclass">--:--:--</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="brief">
+    <h1>Riverbend Networks — Vulnerability Scan Review <span class="sev-chip">HOT AREA</span></h1>
+    <div class="doc-btns">
+      <button class="doc-btn qread-btn" onclick="openQRead('qmodal-vulnclass')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        Read Question
+      </button>
+    </div>
+  </div>
+
+  <div class="qread-overlay" id="qmodal-vulnclass">
+    <div class="qread-modal">
+      <div class="qread-bar">
+        <span class="title"><span class="dot"></span>Question</span>
+        <button class="qx-close" onclick="closeQRead('qmodal-vulnclass')">✕</button>
+      </div>
+      <div class="qread-body">
+        <p>A security analyst performs various types of vulnerability scans. Review the vulnerability scan results
+        to determine the type of scan that was executed and if a false positive occurred for each device.</p>
+        <p><b>INSTRUCTIONS</b></p>
+        <ul class="rule">
+          <li>Select the <b>Results Generated</b> drop-down option to determine if the results were generated
+          from a credentialed scan, non-credentialed scan, or a compliance scan.</li>
+          <li>For <b>ONLY</b> the credentialed and non-credentialed scans, evaluate the results for false
+          positives and check the findings that display false positives.</li>
+          <li>Based on the vulnerability scan results, identify the type of server for each listing: click the
+          matching server node in the network diagram, then click that listing's <b>Server</b> box to place it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="topo-panel">
+    <div class="topo-head">
+      <h2>Network Diagram</h2>
+      <span class="hint"><span style="display:inline-block;width:9px;height:9px;border-radius:2px;background:#13293a;border:1.5px solid var(--cyan-dim);margin-right:5px;vertical-align:-1px;"></span>click a highlighted server, then click a listing's Server box</span>
+    </div>
+    <div class="diagram-wrap">
+      <svg id="vulnclass-diagram" viewBox="0 0 1180 380" style="width:100%;max-width:1080px;margin:0 auto;display:block;">
+        <!-- Anonymizing Proxy / External Host -->
+        <g><rect x="20" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="80" y="50" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Anonymizing</text>
+          <text x="80" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Proxy</text></g>
+        <g><rect x="160" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="220" y="50" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">External</text>
+          <text x="220" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Host</text></g>
+
+        <!-- DMZ zone -->
+        <rect x="320" y="12" width="230" height="104" rx="12" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
+        <text x="338" y="30" fill="#5f92a8" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">DMZ</text>
+        <g><rect x="334" y="42" width="96" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="382" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10.5">Mail</text>
+          <text x="382" y="78" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10.5">Proxy</text></g>
+        <g id="diag-linux-web" class="diag-server" data-server="linux-web"><rect x="440" y="42" width="98" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="489" y="60" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Linux Web</text>
+          <text x="489" y="74" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Server</text></g>
+
+        <!-- switch between DMZ and Server VLAN -->
+        <g><rect x="576" y="42" width="78" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="615" y="72" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
+
+        <!-- Server VLAN zone -->
+        <rect x="690" y="12" width="280" height="104" rx="12" fill="#0d1f16" stroke="#20402c" stroke-width="1.2"/>
+        <text x="708" y="30" fill="#59a877" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">SERVER VLAN</text>
+        <g id="diag-directory" class="diag-server" data-server="directory"><rect x="704" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="760" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Directory</text>
+          <text x="760" y="78" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Server</text></g>
+        <g id="diag-file-print" class="diag-server" data-server="file-print"><rect x="838" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="894" y="60" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9.5">File/Print</text>
+          <text x="894" y="74" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9.5">Server</text></g>
+
+        <!-- dual switches under DMZ -->
+        <g><rect x="350" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="390" y="177" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
+        <g><rect x="470" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="510" y="177" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
+
+        <!-- switch feeding User VLAN -->
+        <g><rect x="576" y="168" width="78" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="615" y="197" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
+
+        <!-- User VLAN zone -->
+        <rect x="690" y="148" width="330" height="132" rx="12" fill="#111823" stroke="#233042" stroke-width="1.2"/>
+        <text x="708" y="166" fill="#7c8ba1" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">USER VLAN</text>
+        <g><rect x="704" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="748" y="204" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Windows</text>
+          <text x="748" y="218" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Workstation</text></g>
+        <g><rect x="804" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="848" y="214" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Thin Client</text></g>
+        <g><rect x="904" y="182" width="98" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="953" y="204" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Linux</text>
+          <text x="953" y="218" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Workstation</text></g>
+
+        <!-- Firewall / Router / Internet -->
+        <rect x="380" y="230" width="100" height="64" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"/>
+        <path d="M430 242 l14 5 v12 c0 8 -6 13 -14 16 c-8 -3 -14 -8 -14 -16 v-12 z" fill="none" stroke="#ffb454" stroke-width="1.6"/>
+        <text x="430" y="308" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="11">Firewall</text>
+
+        <g><rect x="190" y="238" width="92" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <text x="236" y="266" text-anchor="middle" fill="#dce6f0" font-family="Inter" font-weight="600" font-size="11">Router</text></g>
+
+        <ellipse cx="90" cy="262" rx="52" ry="30" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.4"/>
+        <text x="90" y="267" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="10.5">Internet</text>
+
+        <!-- connectors -->
+        <line x1="140" y1="55" x2="160" y2="55" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="80" y1="82" x2="80" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="80" y1="262" x2="38" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="220" y1="82" x2="220" y2="120" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="220" y1="120" x2="390" y2="120" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="390" y1="120" x2="390" y2="148" stroke="#2a3d4f" stroke-width="2"/>
+
+        <line x1="382" y1="94" x2="382" y2="120" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="489" y1="94" x2="489" y2="120" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="489" y1="120" x2="510" y2="120" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="510" y1="120" x2="510" y2="148" stroke="#2a3d4f" stroke-width="2"/>
+
+        <line x1="390" y1="196" x2="390" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="390" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="510" y1="196" x2="510" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="510" y1="262" x2="480" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+
+        <line x1="282" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="142" y1="262" x2="190" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+
+        <line x1="430" y1="230" x2="430" y2="205" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="430" y1="205" x2="615" y2="205" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="615" y1="205" x2="615" y2="216" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="654" y1="192" x2="690" y2="205" stroke="#2a3d4f" stroke-width="2"/>
+
+        <line x1="430" y1="230" x2="430" y2="94" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="0" opacity="0"/>
+        <line x1="654" y1="68" x2="704" y2="68" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="430" y1="196" x2="615" y2="94" stroke="#2a3d4f" stroke-width="2" opacity="0"/>
+        <line x1="576" y1="68" x2="510" y2="172" stroke="#2a3d4f" stroke-width="2"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Hot Area</h2>
+    <div class="sub">classify each findings listing and assign the matching server</div>
+    <div id="fl-container"></div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="checkVulnClassAnswers()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetVulnClassSim()">Reset All</button>
+      <span class="score-pill" id="vulnclass-pill"></span>
+    </div>
+
+    <div class="analysis" id="vulnclass-analysis">
+      <h3>Scan Classification Analysis</h3>
+      <div class="astep"><div class="num">1</div><p><b>Listing 1 — Non-credentialed scan, File/Print Server.</b> The findings are a mix of generic banner-grabbed Windows and Samba vulnerabilities. Finding <code>13852</code> (Windows Task Scheduler Remote Overflow) is a <b>false positive</b> — it's a client-side/workstation-oriented flaw that a non-credentialed scan mis-flags on this server based on an exposed banner alone. The rest — including <code>19407</code>, Printer Spooler Service — are true positives on a real File/Print server.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Listing 2 — Credentialed scan, Linux Web Server.</b> The findings reference Ubuntu-specific packages (php5, gnupg) — clear evidence of a credentialed, authenticated scan that could read local package versions. Finding <code>11890</code> (Buffer Overrun in Messenger Service, CVE-2016-8035) is a <b>false positive</b> — that CVE applies to a Windows-era service, not this Linux host. <code>19407</code> (Windows Printer Spooler) also doesn't run on this asset, but the graded false positive for this listing is <code>11890</code>.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Listing 3 — Compliance scan, Directory Server.</b> These findings are policy/configuration checks (SAM enumeration, key protection, sharing model) rather than CVE-based vulnerabilities — the signature of a compliance/benchmark scan run against a Directory Server. False-positive evaluation doesn't apply to compliance findings, so no checkboxes are graded here.</p></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="exam-nav">
+  <div class="exam-qnum-group">
+    <span class="exam-qnum">Question</span>
+    <select class="jump-select" onchange="switchScreen(this.value)">
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass" selected>8</option><option value="killchain">9</option><option value="sla">10</option>
+    </select>
+    <span class="exam-qnum">of 10</span>
+  </div>
+  <div class="btn-group">
+    <button class="back-btn" onclick="switchScreen('scan')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      Back
+    </button>
+    <button class="next-btn" onclick="switchScreen('killchain')">
+      Next
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ============ Findings data ============ */
+const VULN_LISTINGS = [
+  {
+    key:"fl1",
+    findings:[
+      {text:"Critical (10.0) 12209 Security Update for Microsoft Windows (835732)", fp:false},
+      {text:"Critical (10.0) 13852 Microsoft Windows Task Scheduler Remote Overflow (841873)", fp:true},
+      {text:"Critical (10.0) 18502 Vulnerability in SMB Could Allow Remote Code Execution (896422)", fp:false},
+      {text:"Critical (10.0) 58662 Samba 3.x<3.6.4/3.5.14/3.4.16 RPC Multiple Buffer Overflows (20161146)", fp:false},
+      {text:"Critical (10.0) 19407 Vulnerability in Printer Spooler Service Could Allow Remote Code Execution (896423)", fp:false}
+    ],
+    gradeFp:true,
+    correctScan:"noncred",
+    correctServer:"file-print"
+  },
+  {
+    key:"fl2",
+    findings:[
+      {text:"Critical (10.0) 19407 Vulnerability in Printer Spooler Service Could Allow Remote Code Execution (896423)", fp:false},
+      {text:"Critical (10.0) 11890 Ubuntu 5.04/5.10/6.06 LTS : Buffer Overrun in Messenger Service (CVE-2016-8035)", fp:true},
+      {text:"Critical (10.0) 27942 Ubuntu 5.04/5.10/6.06 LTS : php5 vulnerabilities (CVE-2016-362-1)", fp:false},
+      {text:"Critical (10.0) 27978 Ubuntu 5.10/6.06 LTS / 6.10 : gnupg vulnerability (CVE-2016-3931)", fp:false},
+      {text:"Critical (10.0) 28017 Ubuntu 5.10/6.06 LTS / 6.10 : php5 regression (CVE-2016-4242)", fp:false}
+    ],
+    gradeFp:true,
+    correctScan:"credentialed",
+    correctServer:"linux-web"
+  },
+  {
+    key:"fl3",
+    findings:[
+      {text:"WARNING (1.0.1) System cryptography. Force strong key protection for user keys stored on the computer. Prompt the User each time a key is first used", fp:false},
+      {text:"INFORM (1.2.4) Network access: Do not allow anonymous enumeration of SAM accounts: Enabled", fp:false},
+      {text:"INFORM (1.3.4) Network access: Do not allow anonymous enumeration of SAM accounts and shares: Enabled", fp:false},
+      {text:"INFORM (1.5.0) Network access: Let everyone permissions apply to anonymous users: Disabled", fp:false},
+      {text:"INFORM (1.6.5) Network access: Sharing and security model for local accounts Classic - local users authenticate as themselves", fp:false}
+    ],
+    gradeFp:false,
+    correctScan:"compliance",
+    correctServer:"directory"
+  }
+];
+
+const SERVER_LABELS = {
+  "linux-web":"Linux Web Server",
+  "file-print":"File/Print Server",
+  "directory":"Directory Server"
+};
+
+const flContainer = document.getElementById('fl-container');
+VULN_LISTINGS.forEach((listing, li)=>{
+  const panel = document.createElement('div');
+  panel.className = 'fl-panel';
+
+  const findingsHtml = listing.findings.map((f,fi)=>{
+    const cb = `<input type="checkbox" data-listing="${listing.key}" data-idx="${fi}">`;
+    return `<label class="fl-row">${cb}<span>${f.text}</span></label>`;
+  }).join('');
+
+  panel.innerHTML = `
+    <div class="fl-head">
+      <span class="fl-qmark">?</span>
+      <span class="fl-title">False Positive — Findings Listing ${li+1}</span>
+    </div>
+    <div class="fl-body">
+      <div class="fl-findings">${findingsHtml}</div>
+      <div class="fl-side">
+        <label>Results Generated</label>
+        <select data-listing="${listing.key}" class="fl-scan-select">
+          <option value="">Select</option>
+          <option value="credentialed">Credentialed</option>
+          <option value="noncred">Non-Credentialed</option>
+          <option value="compliance">Compliance</option>
+        </select>
+        <label style="margin-top:16px;">Server</label>
+        <div class="fl-drop" data-listing="${listing.key}">Drop server here</div>
+      </div>
+    </div>
+    <div class="fl-fb" id="fb-${listing.key}"></div>
+  `;
+  flContainer.appendChild(panel);
+});
+
+/* ============ Click a diagram server, then click a findings listing to place it ============ */
+let selectedServer = null;
+const serverAssignment = {}; // listingKey -> serverKey
+const diagNodes = document.querySelectorAll('#vulnclass-diagram .diag-server');
+const dropTargets = document.querySelectorAll('#screen-vulnclass .fl-drop');
+
+function refreshDiagStates(){
+  const used = new Set(Object.values(serverAssignment));
+  diagNodes.forEach(n=>{
+    n.classList.toggle('placed', used.has(n.dataset.server));
+    n.classList.toggle('selected', selectedServer === n.dataset.server);
+  });
+}
+
+function placeServer(listingKey, serverKey){
+  Object.keys(serverAssignment).forEach(k=>{ if(serverAssignment[k]===serverKey) delete serverAssignment[k]; });
+  serverAssignment[listingKey] = serverKey;
+  dropTargets.forEach(d=>{
+    const lk = d.dataset.listing;
+    if(serverAssignment[lk]){
+      d.textContent = SERVER_LABELS[serverAssignment[lk]];
+      d.classList.add('filled');
+    } else {
+      d.textContent = 'Drop server here';
+      d.classList.remove('filled');
+    }
+  });
+  selectedServer = null;
+  refreshDiagStates();
+}
+
+diagNodes.forEach(node=>{
+  node.addEventListener('click', ()=>{
+    selectedServer = (selectedServer === node.dataset.server) ? null : node.dataset.server;
+    refreshDiagStates();
+  });
+});
+
+dropTargets.forEach(drop=>{
+  drop.addEventListener('click', ()=>{
+    if(selectedServer){
+      placeServer(drop.dataset.listing, selectedServer);
+    } else if(serverAssignment[drop.dataset.listing]){
+      delete serverAssignment[drop.dataset.listing];
+      drop.textContent = 'Drop server here';
+      drop.classList.remove('filled');
+      refreshDiagStates();
+    }
+  });
+});
+
+/* ============ Grading ============ */
+function checkVulnClassAnswers(){
+  let correct = 0, total = 0;
+
+  VULN_LISTINGS.forEach(listing=>{
+    total++; // scan type
+    const sel = document.querySelector(`.fl-scan-select[data-listing="${listing.key}"]`);
+    const scanOk = sel.value === listing.correctScan;
+    if(scanOk) correct++;
+
+    total++; // server
+    const serverOk = serverAssignment[listing.key] === listing.correctServer;
+    if(serverOk) correct++;
+
+    let fpOk = true;
+    if(listing.gradeFp){
+      total++; // FP evaluation
+      const checks = document.querySelectorAll(`input[type="checkbox"][data-listing="${listing.key}"]`);
+      checks.forEach((cb,idx)=>{
+        if(cb.checked !== listing.findings[idx].fp) fpOk = false;
+      });
+      if(fpOk) correct++;
+    }
+
+    const fb = document.getElementById(`fb-${listing.key}`);
+    const parts = [];
+    parts.push(scanOk ? '✓ scan type' : '✗ scan type');
+    parts.push(serverOk ? '✓ server' : '✗ server');
+    if(listing.gradeFp) parts.push(fpOk ? '✓ false positives' : '✗ false positives');
+    fb.textContent = parts.join('   ·   ');
+    fb.className = 'fl-fb ' + ((scanOk && serverOk && fpOk) ? 'correct' : 'incorrect');
+  });
+
+  const pill = document.getElementById('vulnclass-pill');
+  pill.textContent = `${correct} / ${total} correct`;
+  pill.className = 'score-pill show ' + (correct===total ? 'full' : (correct>0 ? 'partial' : ''));
+  document.getElementById('vulnclass-analysis').classList.add('show');
+}
+
+function resetVulnClassSim(){
+  document.querySelectorAll('.fl-scan-select').forEach(s=> s.value = '');
+  document.querySelectorAll('#fl-container input[type="checkbox"]').forEach(cb=> cb.checked = false);
+  Object.keys(serverAssignment).forEach(k=> delete serverAssignment[k]);
+  dropTargets.forEach(d=>{ d.textContent = 'Drop server here'; d.classList.remove('filled'); });
+  selectedServer = null;
+  refreshDiagStates();
+  document.querySelectorAll('.fl-fb').forEach(fb=>{ fb.textContent=''; fb.className='fl-fb'; });
+  document.getElementById('vulnclass-pill').className = 'score-pill';
+  document.getElementById('vulnclass-analysis').classList.remove('show');
+}
+</script>
+
+</div>
+
+
 <div id="screen-killchain" class="sim-screen">
 
 
@@ -4404,12 +4826,12 @@ function resetScanSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain" selected>8</option><option value="sla">9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain" selected>9</option><option value="sla">10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
-    <button class="back-btn" onclick="switchScreen('scan')">
+    <button class="back-btn" onclick="switchScreen('vulnclass')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
       Back
     </button>
@@ -4785,9 +5207,9 @@ function resetKillChainSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="killchain">8</option><option value="sla" selected>9</option>
+      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla" selected>10</option>
     </select>
-    <span class="exam-qnum">of 9</span>
+    <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
     <button class="back-btn" onclick="switchScreen('killchain')">
@@ -4938,6 +5360,7 @@ function startExamFullscreen(){
   if(req){
     req.call(el).catch(()=>{}); // some browsers require this to be user-gesture only; ignore rejection
   }
+  window.open('https://buymeacoffee.com/playmaker777', '_blank', 'noopener');
   switchScreen('risk');
 }
 function switchScreen(name){
