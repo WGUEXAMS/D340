@@ -1626,6 +1626,8 @@
     cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .15s ease;
   }
   .prevnext-btn:hover{background:rgba(255,255,255,0.18);}
+  .prevnext-btn:disabled{cursor:default;}
+  .prevnext-btn:disabled:hover{background:rgba(255,255,255,0.08);}
   body.has-exam-chrome{padding-top:0!important;padding-bottom:0!important;overflow:hidden;height:100vh;}
   body.has-exam-chrome #examScroll{
     position:fixed;top:100px;bottom:76px;left:0;right:0;overflow-y:auto;overflow-x:hidden;
@@ -1720,9 +1722,6 @@
         <h1>CompTIA CySA+ Exam</h1>
         <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
       </div>
-      <div class="mode-screen">
-        <p>10 questions &middot; risk assessment action plan, website defacement investigation, data exfiltration investigation, phishing incident response, server hardening compliance, network hardening discovery, vulnerability scan validation, vulnerability scan classification, kill chain incident analysis &amp; vulnerability remediation SLA</p>
-      </div>
       <div style="text-align:center;">
         <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
           <span>&#9749;</span> Buy me a coffee
@@ -1734,393 +1733,6 @@
     Begin Exam
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
-</div>
-
-<div id="screen-risk" class="sim-screen">
-
-
-<header>
-  <div class="brand">
-    <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
-      <div class="sub">Simulation — Risk Assessment Action Plan</div>
-    </div>
-  </div>
-  <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
-    <span><span class="live-dot"></span><b>RA-4402</b></span>
-    <span>Sector: <b style="color:var(--amber)">Healthcare</b></span>
-    <span id="clock-risk">--:--:--</span>
-  </div>
-</header>
-
-<div class="wrap">
-
-  <div class="brief">
-    <h1>Riverbend Medical Center — Risk Assessment <span class="sev-chip">ACTION PLAN DUE</span></h1>
-    <div class="qread-overlay" id="qmodal-risk">
-      <div class="qread-modal">
-        <div class="qread-bar">
-          <span class="title"><span class="dot"></span>Question</span>
-          <button class="qx-close" onclick="closeQRead('qmodal-risk')">✕</button>
-        </div>
-        <div class="qread-body">
-          <p>
-            Riverbend Medical Center must build an action plan from a recent risk assessment. The plan needs
-            <b style="color:var(--text)">risk categorization</b> (which security property — Confidentiality, Integrity,
-            Availability — and compliance obligation each finding threatens), <b style="color:var(--text)">risk
-            prioritization</b> (ranked by risk score, highest first), and <b style="color:var(--text)">implementation
-            of controls</b>. Review the three documents below, then complete the Risk Categorization and Controls tabs.
-            Some findings need more than one control; some controls may be used more than once or not at all.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="doc-btns">
-<button class="doc-btn qread-btn" onclick="openQRead('qmodal-risk')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
-      Read Question
-    </button>
-      <button class="doc-btn" onclick="openDoc('audit')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
-        Audit Report
-      </button>
-      <button class="doc-btn" onclick="openDoc('matrix')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-        Risk Matrix
-      </button>
-      <button class="doc-btn" onclick="openDoc('sla')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-        SLA Expectations
-      </button>
-    </div>
-  </div>
-
-  <div class="term-panel">
-    <div class="term-tabs" id="rp-tabs"></div>
-
-    <div class="tab-panel active" id="panel-categorization">
-      <table class="rtable">
-        <thead><tr><th style="width:120px;">Risk Prioritization</th><th>Risk Finding</th><th style="width:220px;">Risk Categorization</th></tr></thead>
-        <tbody id="cat-body"></tbody>
-      </table>
-    </div>
-
-    <div class="tab-panel" id="panel-controls">
-      <table class="rtable">
-        <thead><tr><th>Risk Finding</th><th colspan="3">Control(s) to Implement</th></tr></thead>
-        <tbody id="ctrl-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>Submit Action Plan</h2>
-    <div class="sub">grades both the Risk Categorization and Controls tabs together</div>
-    <div class="actions">
-      <button class="btn btn-primary" onclick="checkRiskPlan()">Submit</button>
-      <button class="btn btn-ghost" onclick="resetRiskSim()">Reset All</button>
-      <span class="score-pill" id="risk-pill"></span>
-    </div>
-
-    <div class="analysis" id="risk-analysis">
-      <h3>Risk Assessment Analysis</h3>
-      <div class="astep"><div class="num">1</div><p><b>Two separate judgments.</b> Score = Likelihood × Impact drives <i>prioritization</i> (the order to remediate). <i>Categorization</i> is a different question — which security property does this finding threaten (Confidentiality, Integrity, Availability) and does it carry a compliance obligation? A finding's category doesn't change based on its score.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>Categorization examples.</b> The unauthenticated web server, PHI-in-dev/test, prescription email, and fax machine findings are all <code>Confidentiality/Compliance</code> — each exposes PHI/PII and triggers a HIPAA obligation. Unauthorized software is <code>Integrity/Compliance</code> — it risks unapproved code changing system behavior, not direct data exposure. Malicious emails and improperly configured third-party websites are <code>Confidentiality/Integrity</code> — both are vectors for malicious code or credential theft. The ICMP traffic finding is <code>Confidentiality</code> alone — it exposes network information, not PHI.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Highest priority, #8:</b> the unauthenticated web server (score <code>25</code>, High) — direct, credential-free exposure of data outranks everything else. <b>Lowest priority, #1:</b> sensitive materials left unattended on a fax machine (score <code>3</code>, Low).</p></div>
-      <div class="astep"><div class="num">4</div><p><b>Priority numbering runs low-to-high with score</b> — priority 1 is the least urgent finding, priority 8 is the most urgent.</p></div>
-      <div class="astep"><div class="num">5</div><p><b>Controls aren't one-size-fits-all.</b> The prescription email finding needs both <code>Implement DLP</code> <i>and</i> <code>Implement email encryption</code> — DLP catches the mistake in the future, encryption protects data in transit if it happens again. The malicious email finding needs <code>Implement mail filters</code> <i>and</i> <code>Implement SPF</code> — filtering catches malicious attachments, SPF prevents domain spoofing. Most other findings only need one control. <code>Acceptance</code> and several other listed controls (IAM program, IDS/IPS, MDM, FDE, file integrity monitoring, relocating devices) are intentional distractors — none of the eight findings call for them.</p></div>
-      <div class="astep"><div class="num">6</div><p><b>Takeaway.</b> Don't conflate severity with category — a Low-severity finding can still be a Confidentiality/Compliance issue, and a High-severity finding isn't automatically "worse" in category, just more urgent to fix first.</p></div>
-    </div>
-  </div>
-
-</div>
-
-<!-- document modal -->
-<div class="modal-overlay" id="doc-overlay">
-  <div class="doc-modal">
-    <div class="doc-bar">
-      <span id="doc-title">Document</span>
-      <button onclick="closeDoc()">✕</button>
-    </div>
-    <div class="doc-body" id="doc-body"></div>
-  </div>
-</div>
-
-<div class="exam-nav">
-  <div class="exam-qnum-group">
-    <span class="exam-qnum">Question</span>
-    <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk" selected>1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
-    </select>
-    <span class="exam-qnum">of 10</span>
-  </div>
-  <div class="btn-group">
-  <button class="back-btn" onclick="switchScreen('menu')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
-    Back
-  </button>
-  <button class="next-btn" onclick="switchScreen('defacement')">
-    Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
-  </button>
-  </div>
-</div>
-
-<script>
-/* ============ Findings data ============ */
-// score = likelihood x impact; band derived from score
-const FINDINGS = [
-  { id:"f1", text:"The internet-facing web server allows access to data without requiring user authentication.", likelihood:5, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f2", text:"A large number of potentially malicious emails are reaching end-user and shared mailboxes.", likelihood:3, impact:4, category:"Confidentiality/Integrity" },
-  { id:"f3", text:"Improperly configured third-party websites create potential security risks to internal assets.", likelihood:2, impact:2, category:"Confidentiality/Integrity" },
-  { id:"f4", text:"A high volume of ICMP traffic was detected originating from an external source and directed toward Server2.", likelihood:2, impact:3, category:"Confidentiality" },
-  { id:"f5", text:"Protected Health Information (PHI) was discovered within development and testing environments.", likelihood:2, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f6", text:"Patient prescription information was inadvertently emailed to an unauthorized recipient.", likelihood:4, impact:5, category:"Confidentiality/Compliance" },
-  { id:"f7", text:"Sensitive materials were found unattended on a fax machine located in a common area.", likelihood:1, impact:3, category:"Confidentiality/Compliance" },
-  { id:"f8", text:"Unauthorized software was discovered on technician workstations.", likelihood:2, impact:4, category:"Integrity/Compliance" }
-];
-FINDINGS.forEach(f=>{ f.score = f.likelihood * f.impact; });
-
-function bandFor(score){
-  if(score>=10) return "High (10-25)";
-  if(score>=5) return "Medium (5-9)";
-  return "Low (0-4)";
-}
-FINDINGS.forEach(f=>{ f.severity = bandFor(f.score); f.band = f.category; });
-
-// priority rank = order by score ascending (1 = lowest risk, 8 = highest risk)
-const RANKED = [...FINDINGS].sort((a,b)=>a.score-b.score);
-RANKED.forEach((f,i)=>{ f.priority = i+1; });
-
-// display order (shuffled from priority order, matching how these tables are usually presented un-sorted)
-const DISPLAY_ORDER = ["f1","f2","f3","f4","f5","f6","f7","f8"];
-const findingById = Object.fromEntries(FINDINGS.map(f=>[f.id,f]));
-
-const CONTROL_OPTIONS = [
-  "Require two-factor authentication",
-  "Acceptance",
-  "Implement web content filter",
-  "Require data deidentification",
-  "Implement DLP",
-  "Filter echo request replies",
-  "Implement email encryption",
-  "Implement FDE on DB and file servers",
-  "Implement mail filters",
-  "Implement IAM program",
-  "Implement IDS/IPS",
-  "Implement file integrity monitoring",
-  "Implement approved software listing",
-  "Implement MDM solution",
-  "Implement PIN to print",
-  "Relocate devices to secured locations",
-  "Implement SPF"
-];
-
-const EXPECTED_CONTROLS = {
-  f1: ["Require two-factor authentication"],
-  f2: ["Implement mail filters","Implement SPF"],
-  f3: ["Implement web content filter"],
-  f4: ["Filter echo request replies"],
-  f5: ["Require data deidentification"],
-  f6: ["Implement DLP","Implement email encryption"],
-  f7: ["Implement PIN to print"],
-  f8: ["Implement approved software listing"]
-};
-
-/* ============ Document contents ============ */
-const DOCS = {
-  audit: {
-    title: "Audit Report — Riverbend Medical Center",
-    body: () => {
-      let rows = DISPLAY_ORDER.map(id=>{
-        const f = findingById[id];
-        return `<tr><td>${f.text}</td><td>${f.likelihood}</td><td>${f.impact}</td></tr>`;
-      }).join('');
-      return `<p>External auditors assessed each finding for <b>likelihood</b> (1–5) and <b>impact</b> (1–5) based on current controls and system exposure. Cross-reference these ratings with the Risk Matrix to determine each finding's score.</p>
-      <table><thead><tr><th>Finding</th><th>Likelihood</th><th>Impact</th></tr></thead><tbody>${rows}</tbody></table>`;
-    }
-  },
-  matrix: {
-    title: "Risk Matrix",
-    body: () => {
-      let html = `<p>Risk Score = Likelihood × Impact. Use the score to determine remediation priority (highest score = highest priority). This score does not determine Risk Categorization — that's based on which security property (Confidentiality, Integrity, Availability) and compliance obligation each finding puts at risk.</p>
-      <table class="matrix-table"><tr><th></th>`;
-      for(let i=1;i<=5;i++) html += `<th>Impact ${i}</th>`;
-      html += `</tr>`;
-      for(let l=5;l>=1;l--){
-        html += `<tr><th>Likelihood ${l}</th>`;
-        for(let i=1;i<=5;i++){
-          const s = l*i;
-          const band = bandFor(s);
-          const tierClass = band.startsWith("High") ? "band-high" : band.startsWith("Medium") ? "band-medium" : "band-low";
-          html += `<td class="${tierClass}">${s}</td>`;
-        }
-        html += `</tr>`;
-      }
-      html += `</table>
-      <p style="margin-top:14px;">
-        <span class="band-low" style="padding:2px 8px;border-radius:4px;">0–4 Low</span> &nbsp;
-        <span class="band-medium" style="padding:2px 8px;border-radius:4px;">5–9 Medium</span> &nbsp;
-        <span class="band-high" style="padding:2px 8px;border-radius:4px;">10–25 High</span>
-      </p>`;
-      return html;
-    }
-  },
-  sla: {
-    title: "SLA Expectations",
-    body: () => `
-      <h4>Remediation Windows by Risk Category</h4>
-      <table>
-        <thead><tr><th>Category</th><th>Required Remediation Window</th></tr></thead>
-        <tbody>
-          <tr><td>High (10-25)</td><td>Within 7 calendar days</td></tr>
-          <tr><td>Medium (5-9)</td><td>Within 30 calendar days</td></tr>
-          <tr><td>Low (0-4)</td><td>Within 90 calendar days, or documented risk acceptance</td></tr>
-        </tbody>
-      </table>
-      <p style="margin-top:12px;">Per hospital policy, any finding involving direct, unauthenticated exposure of Protected Health Information (PHI) is treated as High regardless of computed score, and must be escalated to the CISO immediately upon discovery.</p>`
-  }
-};
-
-function openDoc(key){
-  document.getElementById('doc-title').textContent = DOCS[key].title;
-  document.getElementById('doc-body').innerHTML = DOCS[key].body();
-  document.getElementById('doc-overlay').classList.add('show');
-}
-function closeDoc(){ document.getElementById('doc-overlay').classList.remove('show'); }
-document.getElementById('doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='doc-overlay') closeDoc(); });
-
-/* ============ Tabs ============ */
-const rpTabsEl = document.getElementById('rp-tabs');
-const RP_TABS = [
-  { key:"categorization", label:"Risk categorization" },
-  { key:"controls", label:"Controls" }
-];
-RP_TABS.forEach((t,i)=>{
-  const el = document.createElement('div');
-  el.className = 'term-tab' + (i===0?' active':'');
-  el.textContent = t.label; el.dataset.k = t.key;
-  el.onclick = ()=>showRpTab(t.key);
-  rpTabsEl.appendChild(el);
-});
-function showRpTab(key){
-  [...rpTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
-  document.getElementById('panel-categorization').classList.toggle('active', key==='categorization');
-  document.getElementById('panel-controls').classList.toggle('active', key==='controls');
-}
-
-/* ============ Build Risk Categorization table ============ */
-const catBody = document.getElementById('cat-body');
-DISPLAY_ORDER.forEach(id=>{
-  const f = findingById[id];
-  const tr = document.createElement('tr');
-  tr.dataset.id = id;
-  tr.innerHTML = `
-    <td>
-      <select class="priority-select">
-        <option value="">Select</option>
-        ${[1,2,3,4,5,6,7,8].map(n=>`<option value="${n}">${n}</option>`).join('')}
-      </select>
-      <div class="row-fb" data-fb="priority"></div>
-    </td>
-    <td>${f.text}</td>
-    <td>
-      <select class="band-select">
-        <option value="">Select</option>
-        <option>Confidentiality</option>
-        <option>Integrity</option>
-        <option>Availability</option>
-        <option>Compliance</option>
-        <option>Confidentiality/Integrity</option>
-        <option>Confidentiality/Compliance</option>
-        <option>Availability/Compliance</option>
-        <option>Integrity/Compliance</option>
-      </select>
-      <div class="row-fb" data-fb="band"></div>
-    </td>`;
-  catBody.appendChild(tr);
-});
-
-/* ============ Build Controls table ============ */
-const ctrlBody = document.getElementById('ctrl-body');
-DISPLAY_ORDER.forEach(id=>{
-  const f = findingById[id];
-  const row = document.createElement('tr');
-  row.dataset.id = id;
-  let cells = `<td>${f.text}</td>`;
-  for(let i=0;i<3;i++){
-    cells += `<td><select class="control-select" data-slot="${i}"><option value="">Select control</option>${CONTROL_OPTIONS.map(o=>`<option>${o}</option>`).join('')}</select></td>`;
-  }
-  row.innerHTML = cells;
-  ctrlBody.appendChild(row);
-
-  const fbRow = document.createElement('tr');
-  fbRow.innerHTML = `<td colspan="4"><div class="row-fb" data-fb-for="${id}"></div></td>`;
-  ctrlBody.appendChild(fbRow);
-});
-
-/* ============ Grading ============ */
-function checkRiskPlan(){
-  let correct=0, total=0;
-
-  // categorization tab
-  catBody.querySelectorAll('tr').forEach(tr=>{
-    const f = findingById[tr.dataset.id];
-    const pSel = tr.querySelector('.priority-select');
-    const bSel = tr.querySelector('.band-select');
-    const pFb = tr.querySelector('[data-fb="priority"]');
-    const bFb = tr.querySelector('[data-fb="band"]');
-
-    total += 2;
-    const pOk = parseInt(pSel.value,10) === f.priority;
-    const bOk = bSel.value === f.band;
-    if(pOk) correct++;
-    if(bOk) correct++;
-    pFb.textContent = pOk ? '✓' : '✗';
-    pFb.className = 'row-fb ' + (pOk?'correct':'incorrect');
-    bFb.textContent = bOk ? '✓' : '✗';
-    bFb.className = 'row-fb ' + (bOk?'correct':'incorrect');
-  });
-
-  // controls tab
-  ctrlBody.querySelectorAll('tr[data-id]').forEach(tr=>{
-    const id = tr.dataset.id;
-    const expected = new Set(EXPECTED_CONTROLS[id]);
-    const chosen = [...tr.querySelectorAll('.control-select')].map(s=>s.value).filter(v=>v);
-    const chosenSet = new Set(chosen);
-
-    total += 1;
-    const sameSize = chosenSet.size === expected.size;
-    const allMatch = sameSize && [...expected].every(c=>chosenSet.has(c));
-    if(allMatch) correct++;
-
-    const fb = ctrlBody.querySelector(`[data-fb-for="${id}"]`);
-    fb.textContent = allMatch ? '✓ correct control set' : '✗ incorrect control set';
-    fb.className = 'row-fb ' + (allMatch?'correct':'incorrect');
-  });
-
-  const pill = document.getElementById('risk-pill');
-  pill.textContent = `${correct} / ${total} correct`;
-  pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
-  document.getElementById('risk-analysis').classList.add('show');
-}
-
-function resetRiskSim(){
-  catBody.querySelectorAll('select').forEach(s=>s.value='');
-  catBody.querySelectorAll('.row-fb').forEach(fb=>{fb.textContent='';fb.className='row-fb';});
-  ctrlBody.querySelectorAll('select').forEach(s=>s.value='');
-  ctrlBody.querySelectorAll('.row-fb').forEach(fb=>{fb.textContent='';fb.className='row-fb';});
-  document.getElementById('risk-pill').className = 'score-pill';
-  document.getElementById('risk-analysis').classList.remove('show');
-  closeDoc();
-  showRpTab('categorization');
-}
-
-/* ============ Clock ============ */
-
-</script>
-
 </div>
 
 <div id="screen-defacement" class="sim-screen">
@@ -2229,12 +1841,12 @@ function resetRiskSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement" selected>2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement" selected>1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
-  <button class="back-btn" onclick="switchScreen('risk')">
+  <button class="back-btn" onclick="switchScreen('menu')">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Back
   </button>
@@ -2499,7 +2111,7 @@ function resetDefacementSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil" selected>3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil" selected>2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -2887,7 +2499,7 @@ function resetExfilSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish" selected>4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish" selected>3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -3369,7 +2981,7 @@ function resetPhishSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance" selected>5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance" selected>4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -3944,7 +3556,7 @@ function nextQuestion(){ finishExam(); }
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network" selected>6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network" selected>5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -4284,7 +3896,7 @@ function resetNetworkSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan" selected>7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan" selected>6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -4647,7 +4259,7 @@ function resetScanSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass" selected>8</option><option value="killchain">9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass" selected>7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -4946,7 +4558,7 @@ function resetVulnClassSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain" selected>9</option><option value="sla">10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain" selected>8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -4955,7 +4567,7 @@ function resetVulnClassSim(){
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
       Back
     </button>
-    <button class="next-btn" onclick="switchScreen('sla')">
+    <button class="next-btn" onclick="switchScreen('remediation')">
       Next
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
     </button>
@@ -5183,28 +4795,28 @@ function resetKillChainSim(){
 
 </div>
 
-<div id="screen-sla" class="sim-screen">
+<div id="screen-remediation" class="sim-screen">
 
 
 <header>
   <div class="brand-text">
     <div class="course">CompTIA CySA+ Exam</div>
-    <div class="sub">Simulation — Vulnerability Remediation SLA</div>
+    <div class="sub">Simulation — Vulnerability Remediation Timeframes</div>
   </div>
   <div class="ticket">
     <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
-    <span><span class="live-dot"></span><b>VULN-8817</b></span>
+    <span><span class="live-dot"></span><b>VULN-4402</b></span>
     <span>Type: <b style="color:var(--amber)">Remediation</b></span>
-    <span id="clock-sla">--:--:--</span>
+    <span id="clock-remediation">--:--:--</span>
   </div>
 </header>
 
 <div class="wrap">
 
   <div class="brief">
-    <h1>Cascade Freight Co. — Vulnerability Remediation <span class="sev-chip">SLA REVIEW</span></h1>
+    <h1>Systems Administration — Scan Output Review <span class="sev-chip">14-DAY WINDOW</span></h1>
     <div class="doc-btns">
-      <button class="doc-btn qread-btn" onclick="openSlaDoc('question')">
+      <button class="doc-btn qread-btn" onclick="openVrtDoc('question')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
         Read Question
       </button>
@@ -5212,114 +4824,128 @@ function resetKillChainSim(){
   </div>
 
   <div class="term-panel">
-    <div class="term-tabs" id="rem-tabs"></div>
-    <div class="tab-panel active" id="panel-sla">
+    <div class="term-tabs" id="vrt-tabs"></div>
+    <div class="tab-panel active" id="panel-vrt-timeframes">
       <table class="datatable">
         <thead><tr><th>CVSS Risk Level</th><th>Standard</th><th>PROD</th><th>UAT</th><th>DEV</th></tr></thead>
         <tbody>
-          <tr><td>CVSS &gt; 9.5</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">5 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
-          <tr><td>CVSS 7.0 – 9.5</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">12 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
-          <tr><td>CVSS 4.0 – 6.9</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">25 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
-          <tr><td>CVSS 0 – 3.9</td><td>Must be patched or remediated and verified by a subsequent scan within <b style="color:var(--text)">50 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td>CVSS &gt; 9.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">7 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
+          <tr><td>CVSS &gt; 7.9 &lt; 9.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">14 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td>CVSS &gt; 5.0 &lt; 7.9</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">30 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+          <tr><td>CVSS &gt; 0 &lt; 5.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">60 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
         </tbody>
       </table>
       <div class="sla-note">
-        <b>Any of these timeframes may be accelerated at the discretion of the CISO.</b><br>
-        If patching cannot be completed, or a vendor has not released a patch within the timeframe above, a compensating control must be put in place within the same timeframe and the exception process must be followed.
+        <b>Any of these timeframes may be accelerated at the discretion of the Chief Information Security Officer (CISO).</b><br>
+        If patching cannot be completed or a vendor has not made a patch available within the timeframe outlined above, compensating controls must be put in place within the timeframes listed above and the exception process must be followed.
       </div>
     </div>
-    <div class="tab-panel" id="panel-env">
+    <div class="tab-panel" id="panel-vrt-env">
       <table class="datatable">
-        <thead><tr><th>Environment</th><th>Location</th><th>Subnets</th><th>Domain</th><th>Publicly Accessible</th><th>NGFW</th><th>Load Balancer</th><th>MFA Required</th></tr></thead>
+        <thead><tr><th>Environment Name</th><th>Location</th><th>Subnets</th><th>Domain</th><th>Publicly Accessible</th><th>NGFW</th><th>Load Balancer</th><th>MFA Required</th></tr></thead>
         <tbody>
-          <tr><td>prod.cascadefreight.io</td><td>External</td><td>10.20.4.10<br>10.20.4.11<br>192.168.90.0/24<br>192.168.91.0/24</td><td>cascadefreight.io</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
-          <tr><td>dev.cascadefreight.io</td><td>Internal</td><td>192.168.94.0/24<br>192.168.95.0/24</td><td>cascadefreight.io</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-          <tr><td>uat.cascadefreight.io</td><td>External</td><td>192.168.80.0/24<br>192.168.81.0/24</td><td>cascadefreight.io</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td>prod.company.com</td><td>External</td><td>104.17.18.29<br>104.17.18.30<br>192.168.60.0/24<br>192.168.61.0/24</td><td>company.com</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><td>dev.company.com</td><td>Internal</td><td>192.168.76.0/24<br>192.168.75.0/24</td><td>company.com</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          <tr><td>uat.company.com</td><td>External</td><td>192.168.50.0/24<br>192.168.51.0/24</td><td>company.com</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="tab-panel" id="panel-output">
+    <div class="tab-panel" id="panel-vrt-output">
       <div class="finding">
-        <div class="frow"><b>Title</b><span>Apache Tomcat: Unsupported software version detected</span></div>
-        <div class="frow"><b>Description</b><span>The software version detected is no longer supported by the vendor.</span></div>
-        <div class="frow"><b>Affected asset</b><span>192.168.80.9</span></div>
+        <div class="frow"><b>Title</b><span>Microsoft IIS: Unsupported software version detected</span></div>
+        <div class="frow"><b>Description</b><span>The software version detected is no longer supported.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.76.5</span></div>
         <div class="frow"><b>Risk</b><span>Unpatched software</span></div>
-        <div class="frow"><b>Reference</b><span>CVE-2023-4110, CVSS 8.1</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2022-0155, CVSS 9.2</span></div>
       </div>
       <div class="finding">
-        <div class="frow"><b>Title</b><span>Sensitive cookie in HTTPS session without "Secure" attribute</span></div>
-        <div class="frow"><b>Description</b><span>The Secure attribute for sensitive cookies is not set, which could cause the cookie to be sent in plaintext over an HTTP session.</span></div>
-        <div class="frow"><b>Affected asset</b><span>192.168.94.12</span></div>
+        <div class="frow"><b>Title</b><span>Sensitive cookie in HTTPS session without "secure" attribute</span></div>
+        <div class="frow"><b>Description</b><span>The secure attribute for sensitive cookies in HTTPS sessions is not set, which could cause the user agent to send those cookies in plaintext over an HTTP session.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.76.6</span></div>
         <div class="frow"><b>Risk</b><span>Session sidejacking</span></div>
-        <div class="frow"><b>Reference</b><span>CVE-2021-0462, CVSS 6.5</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2021-0462, CVSS 7.4</span></div>
       </div>
       <div class="finding">
         <div class="frow"><b>Title</b><span>Untrusted SSL/TLS server X.509 certificate</span></div>
         <div class="frow"><b>Description</b><span>The server's TLS/SSL certificate is signed by a certificate authority that is untrusted or unknown.</span></div>
-        <div class="frow"><b>Affected asset</b><span>192.168.90.20</span></div>
-        <div class="frow"><b>Risk</b><span>May allow on-path attackers to insert a spoofed certificate for any distinguished name (DN).</span></div>
-        <div class="frow"><b>Reference</b><span>CVE-2020-0601, CVSS 4.5</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.50.5</span></div>
+        <div class="frow"><b>Risk</b><span>May allow on-path attackers to insert a spoofed certificate for any distinguished name (DN)</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2020-0601, CVSS 6.8</span></div>
       </div>
       <div class="finding">
-        <div class="frow"><b>Title</b><span>Elevated privileges not required for software installation</span></div>
-        <div class="frow"><b>Description</b><span>Standard user accounts can install software; a privileged-account requirement is not configured.</span></div>
-        <div class="frow"><b>Affected asset</b><span>192.168.95.14</span></div>
-        <div class="frow"><b>Risk</b><span>Enhanced risk of unauthorized or malicious software installation</span></div>
-        <div class="frow"><b>Reference</b><span>n/a, CVSS 7.8</span></div>
+        <div class="frow"><b>Title</b><span>Weak SSH cipher suite offered</span></div>
+        <div class="frow"><b>Description</b><span>The server offers deprecated symmetric ciphers during SSH key exchange, weakening the confidentiality of the session.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.50.6</span></div>
+        <div class="frow"><b>Risk</b><span>Cryptographic downgrade attack</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2019-6111, CVSS 4.3</span></div>
+      </div>
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Cross-Site Scripting (XSS) in web application login form</span></div>
+        <div class="frow"><b>Description</b><span>User-supplied input in the login form is reflected back to the browser without proper sanitization.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.60.5</span></div>
+        <div class="frow"><b>Risk</b><span>Session hijacking / credential theft</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2023-2222, CVSS 6.2</span></div>
+      </div>
+      <div class="finding">
+        <div class="frow"><b>Title</b><span>Missing HTTP security headers</span></div>
+        <div class="frow"><b>Description</b><span>The web server response is missing X-Frame-Options and Content-Security-Policy headers.</span></div>
+        <div class="frow"><b>Affected asset</b><span>192.168.60.6</span></div>
+        <div class="frow"><b>Risk</b><span>Clickjacking</span></div>
+        <div class="frow"><b>Reference</b><span>CVE-2018-1111, CVSS 3.5</span></div>
       </div>
     </div>
   </div>
 
   <div class="section">
     <h2>Remediation Decision</h2>
-    <div class="sub">cross-reference the SLA table, environment architecture, and scan output</div>
+    <div class="sub">cross-reference the timeframe table, environment architecture, and scan output</div>
     <div class="answer-grid">
       <div class="qbox">
-        <label>Select the server to be patched within 12 calendar days:</label>
-        <div class="chk-grid" id="server-checks"></div>
-        <div class="fb" id="fb-server"></div>
+        <label>Select the server to be patched within 14 calendar days:</label>
+        <div class="chk-grid" id="vrt-server-checks"></div>
+        <div class="fb" id="fb-vrt-server"></div>
       </div>
       <div class="qbox">
         <label>Select the appropriate technique and mitigation:</label>
-        <select id="ans-technique">
+        <select id="vrt-ans-technique">
           <option value="">Select</option>
           <option>Request exception; legacy protocol could have operational impact</option>
           <option>Patch; upload signed certificate from trusted third-party provider</option>
-          <option>Patch; issue a new certificate revocation update to the CA</option>
-          <option>Patch; upgrade Tomcat to current supported release</option>
-          <option>Request exception; vendor has not released a compatible patch yet</option>
-          <option>Compensating control; create new ACL on firewall to restrict access</option>
-          <option>Compensating control; implement secure session cookie flags</option>
+          <option>Patch; issue a CRL for the server to the CA</option>
+          <option>Patch; upgrade IIS to current release</option>
+          <option>Request exception; organization needs time to procure a PKI</option>
+          <option>Compensating control; create new ACL on firewall to block port 443</option>
+          <option>Compensating control; implement secure session tokens</option>
           <option>Compensating control; implement MFA on the application</option>
         </select>
-        <div class="fb" id="fb-technique"></div>
+        <div class="fb" id="fb-vrt-technique"></div>
       </div>
     </div>
     <div class="actions">
-      <button class="btn btn-primary" onclick="checkSlaAnswers()">Submit</button>
-      <button class="btn btn-ghost" onclick="resetSlaSim()">Reset All Answers</button>
-      <span class="score-pill" id="sla-pill"></span>
+      <button class="btn btn-primary" onclick="checkVrtAnswers()">Submit</button>
+      <button class="btn btn-ghost" onclick="resetVrtSim()">Reset All Answers</button>
+      <span class="score-pill" id="vrt-pill"></span>
     </div>
 
-    <div class="analysis" id="sla-analysis">
+    <div class="analysis" id="vrt-analysis">
       <h3>Remediation Analysis</h3>
-      <div class="astep"><div class="num">1</div><p><b>Match the CVSS score to a bracket.</b> The Tomcat finding is CVSS <code>8.1</code>, which falls in the <code>7.0–9.5</code> bracket — a 12-day remediation window that applies to PROD and UAT, but <i>not</i> DEV.</p></div>
-      <div class="astep"><div class="num">2</div><p><b>Confirm the environment applies.</b> The affected asset, <code>192.168.80.9</code>, falls within the <code>uat.cascadefreight.io</code> subnet (<code>192.168.80.0/24</code>) — UAT is in scope for this bracket, so this finding must be remediated within 12 days.</p></div>
-      <div class="astep"><div class="num">3</div><p><b>Why the other findings don't qualify for 12 days.</b> The sensitive-cookie finding (CVSS 6.5, 192.168.94.12) is in the 4.0–6.9 bracket — DEV is excluded from that bracket entirely, so no SLA clock applies at all. The TLS certificate finding (CVSS 4.5, 192.168.90.20) is PROD but falls in a lower bracket with a 25-day window. The privilege-escalation finding (CVSS 7.8, 192.168.95.14) would qualify for the 12-day bracket by score, but the asset is in DEV — which the 7.0–9.5 bracket doesn't cover.</p></div>
-      <div class="astep"><div class="num">4</div><p><b>Technique.</b> The finding is "unsupported software version" — the fix is to <b>patch; upgrade Tomcat to current supported release</b>, not a workaround or compensating control, since a supported version is directly available.</p></div>
+      <div class="astep"><div class="num">1</div><p><b>Rank the findings by severity.</b> Of the six findings, the Microsoft IIS unsupported-version finding on <code>192.168.76.5</code> has by far the highest CVSS score at <code>9.2</code> — well above every other finding in the output.</p></div>
+      <div class="astep"><div class="num">2</div><p><b>Confirm the environment.</b> <code>192.168.76.5</code> falls in the <code>192.168.76.0/24</code> subnet, which belongs to <code>dev.company.com</code> per the Environment tab.</p></div>
+      <div class="astep"><div class="num">3</div><p><b>Apply the timeframe table.</b> None of the six findings has a CVSS score that lands precisely in the &gt;7.9–9.0 bracket. Given that constraint, the highest-severity finding — CVSS <code>9.2</code> on <code>192.168.76.5</code> — is treated as the one requiring the most urgent action, so it's selected as the answer for the 14-day question.</p></div>
+      <div class="astep"><div class="num">4</div><p><b>Technique.</b> The finding is an unsupported IIS version — the direct fix is to <b>patch; upgrade IIS to current release</b>, rather than an exception or a compensating control, since a supported version is directly available.</p></div>
     </div>
   </div>
 
 </div>
 
 <!-- document modal -->
-<div class="modal-overlay" id="sla-doc-overlay">
+<div class="modal-overlay" id="vrt-doc-overlay">
   <div class="doc-modal">
     <div class="doc-bar">
-      <span id="sla-doc-title">Question</span>
-      <button onclick="closeSlaDoc()">✕</button>
+      <span id="vrt-doc-title">Question</span>
+      <button onclick="closeVrtDoc()">✕</button>
     </div>
-    <div class="doc-body" id="sla-doc-body"></div>
+    <div class="doc-body" id="vrt-doc-body"></div>
   </div>
 </div>
 
@@ -5327,7 +4953,7 @@ function resetKillChainSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="risk">1</option><option value="defacement">2</option><option value="exfil">3</option><option value="phish">4</option><option value="compliance">5</option><option value="network">6</option><option value="scan">7</option><option value="vulnclass">8</option><option value="killchain">9</option><option value="sla" selected>10</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
@@ -5345,101 +4971,99 @@ function resetKillChainSim(){
 
 <script>
 /* ============ Tabs ============ */
-const REM_TABS = [
-  { key:"sla", label:"Remediation Timeframes" },
+const VRT_TABS = [
+  { key:"timeframes", label:"Vulnerability remediation timeframes" },
   { key:"env", label:"Environment" },
   { key:"output", label:"Output" }
 ];
-const remTabsEl = document.getElementById('rem-tabs');
-REM_TABS.forEach((t,i)=>{
+const vrtTabsEl = document.getElementById('vrt-tabs');
+VRT_TABS.forEach((t,i)=>{
   const el = document.createElement('div');
   el.className = 'term-tab' + (i===0?' active':'');
   el.textContent = t.label; el.dataset.k = t.key;
-  el.onclick = ()=>showRemTab(t.key);
-  remTabsEl.appendChild(el);
+  el.onclick = ()=>showVrtTab(t.key);
+  vrtTabsEl.appendChild(el);
 });
-function showRemTab(key){
-  [...remTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
-  document.getElementById('panel-sla').classList.toggle('active', key==='sla');
-  document.getElementById('panel-env').classList.toggle('active', key==='env');
-  document.getElementById('panel-output').classList.toggle('active', key==='output');
+function showVrtTab(key){
+  [...vrtTabsEl.children].forEach(t=>t.classList.toggle('active', t.dataset.k===key));
+  document.getElementById('panel-vrt-timeframes').classList.toggle('active', key==='timeframes');
+  document.getElementById('panel-vrt-env').classList.toggle('active', key==='env');
+  document.getElementById('panel-vrt-output').classList.toggle('active', key==='output');
 }
 
 /* ============ Server checkboxes ============ */
-const SERVERS = ["192.168.80.9","192.168.80.10","192.168.94.12","192.168.95.14","192.168.90.20","192.168.91.15"];
-const CORRECT_SERVERS = new Set(["192.168.80.9"]);
-const serverChecks = document.getElementById('server-checks');
-SERVERS.forEach(ip=>{
+const VRT_SERVERS = ["192.168.50.5","192.168.50.6","192.168.60.5","192.168.60.6","192.168.76.5","192.168.76.6"];
+const VRT_CORRECT_SERVERS = new Set(["192.168.76.5"]);
+const vrtServerChecks = document.getElementById('vrt-server-checks');
+VRT_SERVERS.forEach(ip=>{
   const lbl = document.createElement('label');
   lbl.className = 'chk';
   lbl.innerHTML = `<input type="checkbox" value="${ip}"><span>${ip}</span>`;
-  serverChecks.appendChild(lbl);
+  vrtServerChecks.appendChild(lbl);
 });
 
 /* ============ Document modal ============ */
-const SLA_DOCS = {
+const VRT_DOCS = {
   question: {
     title: "Question",
     body: () => `
-      <p>A security analyst is reviewing the output of a vulnerability scan for Cascade Freight Co.</p>
+      <p>A systems administrator is reviewing the output of a vulnerability scan.</p>
       <p><b>INSTRUCTIONS</b></p>
-      <p>Review the information in each tab (Remediation Timeframes, Environment, Output). Based on the
-      organization's environment architecture and remediation standards, select the server to be patched
-      within 12 calendar days, and select the appropriate technique and mitigation.</p>`
+      <p>Review the information in each tab (Vulnerability remediation timeframes, Environment, Output).
+      Based on the organization's environment architecture and remediation standards, select the server to
+      be patched within 14 calendar days, and select the appropriate technique and mitigation.</p>`
   }
 };
-function openSlaDoc(key){
-  document.getElementById('sla-doc-title').textContent = SLA_DOCS[key].title;
-  document.getElementById('sla-doc-body').innerHTML = SLA_DOCS[key].body();
-  document.getElementById('sla-doc-overlay').classList.add('show');
+function openVrtDoc(key){
+  document.getElementById('vrt-doc-title').textContent = VRT_DOCS[key].title;
+  document.getElementById('vrt-doc-body').innerHTML = VRT_DOCS[key].body();
+  document.getElementById('vrt-doc-overlay').classList.add('show');
 }
-function closeSlaDoc(){ document.getElementById('sla-doc-overlay').classList.remove('show'); }
-document.getElementById('sla-doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='sla-doc-overlay') closeSlaDoc(); });
+function closeVrtDoc(){ document.getElementById('vrt-doc-overlay').classList.remove('show'); }
+document.getElementById('vrt-doc-overlay').addEventListener('click',(e)=>{ if(e.target.id==='vrt-doc-overlay') closeVrtDoc(); });
 
 /* ============ Grading ============ */
-const CORRECT_TECHNIQUE = "Patch; upgrade Tomcat to current supported release";
+const VRT_CORRECT_TECHNIQUE = "Patch; upgrade IIS to current release";
 
-function checkSlaAnswers(){
+function checkVrtAnswers(){
   let correct=0, total=2;
 
-  const checked = [...serverChecks.querySelectorAll('input:checked')].map(i=>i.value);
-  const serverOk = checked.length === CORRECT_SERVERS.size && checked.every(ip=>CORRECT_SERVERS.has(ip));
+  const checked = [...vrtServerChecks.querySelectorAll('input:checked')].map(i=>i.value);
+  const serverOk = checked.length === VRT_CORRECT_SERVERS.size && checked.every(ip=>VRT_CORRECT_SERVERS.has(ip));
   if(serverOk) correct++;
-  const fbServer = document.getElementById('fb-server');
+  const fbServer = document.getElementById('fb-vrt-server');
   fbServer.textContent = serverOk ? '✓ correct' : '✗ incorrect';
   fbServer.className = 'fb ' + (serverOk?'correct':'incorrect');
 
-  const techSel = document.getElementById('ans-technique');
-  const techOk = techSel.value === CORRECT_TECHNIQUE;
+  const techSel = document.getElementById('vrt-ans-technique');
+  const techOk = techSel.value === VRT_CORRECT_TECHNIQUE;
   if(techOk) correct++;
-  const fbTech = document.getElementById('fb-technique');
+  const fbTech = document.getElementById('fb-vrt-technique');
   fbTech.textContent = techOk ? '✓ correct' : '✗ incorrect';
   fbTech.className = 'fb ' + (techOk?'correct':'incorrect');
 
-  const pill = document.getElementById('sla-pill');
+  const pill = document.getElementById('vrt-pill');
   pill.textContent = `${correct} / ${total} correct`;
   pill.className = 'score-pill show ' + (correct===total?'full':(correct>0?'partial':''));
-  document.getElementById('sla-analysis').classList.add('show');
+  document.getElementById('vrt-analysis').classList.add('show');
 }
 
-function resetSlaSim(){
-  serverChecks.querySelectorAll('input').forEach(i=>i.checked=false);
-  document.getElementById('fb-server').textContent=''; document.getElementById('fb-server').className='fb';
-  document.getElementById('ans-technique').value='';
-  document.getElementById('fb-technique').textContent=''; document.getElementById('fb-technique').className='fb';
-  document.getElementById('sla-pill').className = 'score-pill';
-  document.getElementById('sla-analysis').classList.remove('show');
-  showRemTab('sla');
-  closeDoc();
+function resetVrtSim(){
+  vrtServerChecks.querySelectorAll('input').forEach(i=>i.checked=false);
+  document.getElementById('fb-vrt-server').textContent=''; document.getElementById('fb-vrt-server').className='fb';
+  document.getElementById('vrt-ans-technique').value='';
+  document.getElementById('fb-vrt-technique').textContent=''; document.getElementById('fb-vrt-technique').className='fb';
+  document.getElementById('vrt-pill').className = 'score-pill';
+  document.getElementById('vrt-analysis').classList.remove('show');
+  showVrtTab('timeframes');
+  closeVrtDoc();
 }
-
-/* ============ Clock ============ */
-
 </script>
 
 </div>
 
-<div class="completion-toast" id="completion-toast">You've completed both questions in this practice set.</div>
+
+<div class="completion-toast" id="completion-toast">You've completed all questions in this practice set.</div>
 
 
 <script>
@@ -5480,14 +5104,19 @@ function startExamFullscreen(){
   if(req){
     req.call(el).catch(()=>{}); // some browsers require this to be user-gesture only; ignore rejection
   }
-  switchScreen('risk');
+  switchScreen('defacement');
 }
 function switchScreen(name){
+  const prevActive = document.querySelector('.sim-screen.active');
+  const prevKey = prevActive ? prevActive.id.replace('screen-','') : null;
   document.querySelectorAll('.sim-screen').forEach(s=>s.classList.remove('active'));
   document.getElementById('screen-' + name).classList.add('active');
   window.scrollTo(0,0);
   if(name === 'menu' && document.fullscreenElement){
     document.exitFullscreen().catch(()=>{});
+  }
+  if(name === 'mcqbank' && prevKey !== 'mcqbank' && typeof renderMcqQuestion === 'function'){
+    renderMcqQuestion(0);
   }
   if(typeof updateExamChrome === 'function') updateExamChrome(name);
 }
@@ -5504,13 +5133,175 @@ function tickBothClocks(){
   const c = document.getElementById('clock-network'); if(c) c.textContent = now;
   const d = document.getElementById('clock-scan'); if(d) d.textContent = now;
   const e = document.getElementById('clock-defacement'); if(e) e.textContent = now;
-  const f = document.getElementById('clock-risk'); if(f) f.textContent = now;
   const g = document.getElementById('clock-exfil'); if(g) g.textContent = now;
   const h = document.getElementById('clock-killchain'); if(h) h.textContent = now;
-  const i = document.getElementById('clock-sla'); if(i) i.textContent = now;
+  const j = document.getElementById('clock-vulnclass'); if(j) j.textContent = now;
+  const k = document.getElementById('clock-remediation'); if(k) k.textContent = now;
 }
 tickBothClocks(); setInterval(tickBothClocks, 1000);
 </script>
+
+<div id="screen-mcqbank" class="sim-screen">
+
+<style>
+  #screen-mcqbank{background:#ffffff;min-height:100vh;}
+  #screen-mcqbank .mcq-wrap{max-width:820px;margin:0;padding:28px 20px 100px;text-align:left;}
+  #screen-mcqbank .mcq-card{margin-bottom:16px;}
+  #screen-mcqbank .mcq-num{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--cyan);font-weight:700;letter-spacing:0.4px;margin-bottom:8px;
+  }
+  #screen-mcqbank .mcq-stem{font-size:14.5px;line-height:1.6;margin-bottom:14px;color:var(--text);}
+  #screen-mcqbank .mcq-stem code{
+    background:var(--panel-3);padding:1px 5px;border-radius:4px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+  }
+  #screen-mcqbank .mcq-table{margin:12px 0;font-size:12px;}
+  #screen-mcqbank .mcq-table th, #screen-mcqbank .mcq-table td{padding:6px 10px;}
+  #screen-mcqbank .mcq-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:6px;}
+  #screen-mcqbank .mcq-opt{
+    display:flex;align-items:flex-start;gap:10px;padding:9px 12px;border:1px solid var(--border-soft);
+    border-radius:8px;cursor:pointer;transition:all .12s ease;font-size:13.5px;
+  }
+  #screen-mcqbank .mcq-opt:hover{border-color:var(--cyan-dim);background:var(--panel-2);}
+  #screen-mcqbank .mcq-opt input{margin-top:2px;accent-color:var(--cyan);flex-shrink:0;}
+</style>
+
+<div class="mcq-wrap">
+  <div id="mcq-question-area"></div>
+</div>
+
+</div>
+
+<script>
+const MCQ_DATA = [{"num": 420, "stem": "An incident response team is assessing attack vectors of malware that is encrypting data with ransomware. There are no indications of a network-based intrusion. Which of the following is the most likely root cause of the incident?", "options": ["USB drop", "LFI", "Cross-site forgery", "SQL injection"], "correct": [0], "exp": "With no network-intrusion indicators, remote paths like LFI, CSRF, and SQL injection don't fit. A USB drop is a classic offline delivery method for ransomware."}, {"num": 421, "stem": "To minimize the impact of a security incident in a heavily regulated company, a cybersecurity analyst has configured audit settings in the organization's cloud services. Which of the following security controls has the analyst configured?", "options": ["Preventive", "Corrective", "Directive", "Detective"], "correct": [3], "exp": "Audit settings record and surface events after they happen \u2014 they don't stop or fix anything, which is the definition of a detective control."}, {"num": 422, "stem": "A security analyst has just received an incident ticket regarding a ransomware attack. Which of the following would most likely help an analyst properly triage the ticket?", "options": ["Incident response plan", "Lessons learned", "Playbook", "Tabletop exercise"], "correct": [2], "exp": "A playbook gives concrete, step-by-step actions for a specific incident type, making it the most useful in-the-moment triage aid. The IR plan is higher-level, lessons learned come after, and tabletop exercises are training, not live tools."}, {"num": 423, "stem": "A user reports a message as suspicious to the IT security team. An analyst reviews the message and notices that the following text string becomes a hyperlink in an email:<br><code>%77%77%77%2e%69%63%65%2d%70%74%69%63%2e%63%6f%6d</code><br>Which of the following would most likely explain this behavior?", "options": ["The string contains obfuscated JavaScript shellcode", "The text is encoded and designed to bypass spam filters", "The email client has a parsing error elsewhere in the message", "The sandboxed PC used for testing has non-default configurations"], "correct": [1], "exp": "This is percent-encoding of a URL, a common way to disguise a malicious link from automated spam/content filters while it still resolves normally when clicked."}, {"num": 424, "stem": "Which of the following documents should link to the recovery point objectives and recovery time objectives on critical services?", "options": ["Disaster recovery plan", "Business impact analysis", "Playbook", "Backup plan"], "correct": [1], "exp": "RPO and RTO values originate from the Business Impact Analysis, which assesses criticality and tolerable downtime. The DR plan consumes those values rather than defining them."}, {"num": 425, "stem": "A security administrator is tasked with modifying the vulnerability scan process to reduce the network traffic but maintain thorough checks. Which of the following scanning approaches should be implemented?", "options": ["Credentialed scans", "Individual scans", "Security baseline scans", "Agent-based scans"], "correct": [3], "exp": "Agent-based scans run locally on the host and report results back, avoiding the network overhead that credentialed/network scans generate while still providing deep visibility."}, {"num": 426, "stem": "When undertaking a cloud migration of multiple SaaS applications, an organization's systems administrators struggled with the complexity of extending identity and access management to cloud-based assets. Which of the following service models would have reduced the complexity of this project?", "options": ["RADIUS", "SDN", "ZTNA", "SWG"], "correct": [2], "exp": "ZTNA applies identity-based, least-privilege access directly to cloud/SaaS resources without needing to extend legacy network-based IAM infrastructure into the cloud."}, {"num": 427, "stem": "Which of the following is the best way to provide realistic training for SOC analysts?", "options": ["Phishing assessments", "OpenVAS", "Attack simulation", "SOAR", "Honeypot"], "correct": [2], "exp": "Attack simulations recreate real incident conditions end-to-end, giving hands-on detection/response practice under realistic pressure \u2014 the other options are narrow tools, not training exercises."}, {"num": 428, "stem": "A security analyst provides the management team with an after-action report for a security incident. Which of the following is the management team most likely to review in order to correct validated issues with the incident response processes?", "options": ["Tabletop exercise", "Lessons learned", "Root cause analysis", "Forensic analysis"], "correct": [1], "exp": "The lessons-learned phase specifically evaluates what worked and didn't in the response process itself, feeding directly into policy and procedure updates."}, {"num": 429, "stem": "A security analyst is investigating an unusually high volume of requests received on a web server. Based on the following command and output:<br><code>access_log - [21/May4 13:19:06] \"GET /newyddion HTTP.1\" 404 -<br>access_log - [21/May4 13:19:06] \"GET 0 HTTP.1\" 404 -<br>access_log - [21/May4 13:19:06] \"GET /dopey HTTP.1\" 404 -<br>...</code><br>Which of the following best describes the activity that the analyst will confirm?", "options": ["SQL injection", "Directory brute force", "Remote command execution", "Cross-site scripting"], "correct": [1], "exp": "A burst of requests to many distinct, unrelated paths that each return 404 is the classic signature of automated directory/path enumeration, not a payload-based attack like SQLi, RCE, or XSS."}, {"num": 430, "stem": "A systems administrator receives several reports about emails containing phishing links. The hosting domain is always different, but the URL follows a specific pattern of characters. Which of the following is the best way for the administrator to find more messages that were not reported?", "options": ["Search email logs for a regular expression", "Open a support ticket with the email hosting provider", "Send a memo to all staff asking them to report suspicious emails", "Query firewall logs for any traffic with a suspicious website"], "correct": [0], "exp": "A regex search directly matches the consistent URL pattern across varying domains in the log data itself \u2014 far more precise and scalable than relying on user reports or coarse firewall logs."}, {"num": 431, "stem": "A security analyst receives the below information about the company's systems. They need to prioritize which systems should be given the resources to improve security.<table class=\"datatable mcq-table\"><thead><tr><th>Host</th><th>OS</th><th>Key Software</th><th>AV</th></tr></thead><tbody><tr><td>Server 1</td><td>Windows Server 2008 R2</td><td>Microsoft IIS</td><td>Kaspersky</td></tr><tr><td>Server 2</td><td>Ubuntu Server 22.04 LTS</td><td>Apache 2.4.29</td><td>None</td></tr><tr><td>Computer 1</td><td>Windows 11 Professional</td><td>N/A</td><td>Windows Defender</td></tr><tr><td>Computer 2</td><td>Windows 10 Professional</td><td>N/A</td><td>Windows Defender</td></tr></tbody></table>Which of the following systems should the analyst remediate first?", "options": ["Computer 1", "Server 1", "Computer 2", "Server 2"], "correct": [1], "exp": "Windows Server 2008 R2 is end-of-life and no longer receives security patches \u2014 that makes Server 1 the highest-risk asset regardless of AV presence, compared to the currently-supported OS versions on the other systems."}, {"num": 432, "stem": "A DevOps analyst implements a webhook to trigger code vulnerability scanning for submissions to the repository. Which of the following is the primary benefit of this enhancement?", "options": ["To increase coverage by making the process occur automatically with uploads", "To create a single pane of glass dashboard for the vulnerability management process", "To include a threat feed component into the software development life cycle", "To employ data enrichment for new code commits to enhance project documentation"], "correct": [0], "exp": "Webhooks fire automatically on each commit, embedding continuous scanning into the workflow without relying on someone manually triggering it \u2014 improving coverage."}, {"num": 433, "stem": "A security analyst is viewing a recorded session that captured suspicious activity:<br><code>scanning 192.168.10.10...<br>scan timing: about 10% done...<br>...<br>scan completed (4 host up); scanned 4 hosts in 1348 sec.</code><table class=\"datatable mcq-table\"><thead><tr><th>Host</th><th>Port</th><th>State</th><th>Service</th></tr></thead><tbody><tr><td>192.168.10.10</td><td>1</td><td>closed</td><td>unknown</td></tr><tr><td>192.168.10.20</td><td>1</td><td>closed</td><td>unknown</td></tr><tr><td>192.168.10.30</td><td>1</td><td>closed</td><td>unknown</td></tr><tr><td>192.168.10.40</td><td>1</td><td>closed</td><td>unknown</td></tr></tbody></table>Which of the following best describes the activity shown?", "options": ["UDP scan", "SYN scan", "XMAS tree scan", "Half-open scan"], "correct": [3], "exp": "Ports reported as \"closed\" without completing a full TCP handshake is the signature of a half-open (SYN) scan \u2014 only the initial SYN is sent, and the response (RST) determines the state without ever finishing the connection."}, {"num": 434, "stem": "Which of the following is the best technical method to protect sensitive data at an organizational level?", "options": ["Deny all traffic on port 8080 with sensitive information on the VLAN", "Develop a Python script to review email traffic for PII", "Employ a restrictive policy for the use and distribution of sensitive information", "Implement a DLP for all egress and ingress of sensitive information on the network"], "correct": [3], "exp": "DLP is purpose-built and broadly deployable across every egress/ingress point and endpoint, unlike a single-port block, a narrow email-only script, or a policy \u2014 which is administrative, not technical."}, {"num": 435, "stem": "A vulnerability manager analyzes suspicious data after scanning a database. Which of the following should the manager do to prioritize the remediation tasks?", "options": ["Conduct further analysis and send the findings report to the incident response team", "Perform an assessment in the command line and determine if there are true or false positives", "Identify the impact level and create a ticket that includes the time frame for fixing the issue", "Apply compensating controls and advise an analyst to document the problem in a risk register"], "correct": [1], "exp": "Before ranking or acting on findings, you first need to confirm they're real. Validating true vs. false positives is the necessary gate before impact assessment or remediation planning can be trusted."}, {"num": 436, "stem": "Which of the following best explains the importance of playbooks for incident response teams?", "options": ["Playbooks define compliance controls and help keep the monitoring process fully aligned with regulatory requirements", "Playbooks help implement mitigation controls to prevent the occurrence of incidents in accordance with internal policies", "Playbooks set baseline requirements implemented before incidents happen, to collect metrics and KPIs for lessons-learned procedures", "Playbooks help minimize negative impacts and restore data, systems, and operations through highly detailed, preplanned procedures"], "correct": [3], "exp": "Playbooks are operational, step-by-step response procedures whose purpose is guiding consistent action during a live incident to reduce damage and support recovery \u2014 not compliance mapping, prevention, or baseline-setting."}, {"num": 437, "stem": "An organization wants to establish a disaster recovery plan for critical applications that are hosted on premises. Which of the following is the first step to prepare for supporting this new requirement?", "options": ["Choose a vendor to utilize for the disaster recovery location", "Establish prioritization of continuity from data and business owners", "Negotiate vendor agreements to support disaster recovery capabilities", "Advise the leadership team that a geographical area for recovery must be defined"], "correct": [1], "exp": "You first need to learn from business/data owners which systems are critical and their tolerable downtime \u2014 essentially a BIA \u2014 before selecting sites, vendors, or contracts."}, {"num": 438, "stem": "An analyst is reviewing processes running on a Windows host. The analyst reviews the following information:<table class=\"datatable mcq-table\"><thead><tr><th>Process ID</th><th>Parent Process ID</th><th>Process</th></tr></thead><tbody><tr><td>533</td><td>404</td><td>C:\\Windows\\System32\\CMD.exe</td></tr><tr><td>1100</td><td>768</td><td>C:\\Users\\JDoe\\Documents\\CMD.exe</td></tr><tr><td>740</td><td>701</td><td>C:\\Windows\\System32\\CALC.exe</td></tr><tr><td>768</td><td>600</td><td>C:\\Users\\JDoe\\Documents\\CALC.exe</td></tr></tbody></table>Which of the following processes should the analyst review first?", "options": ["533", "740", "768", "1100"], "correct": [2], "exp": "PID 768 (Documents\\CALC.exe) is suspicious on its own \u2014 a legitimate binary name running from a non-standard user folder is a masquerading indicator \u2014 and it's also the parent of the other suspicious process (1100), so reviewing it first traces the root of the execution chain."}, {"num": 439, "stem": "Which of the following choices is most likely to cause obstacles in vulnerability remediation?", "options": ["Not meeting an SLA", "Patch prioritization", "Organizational governance", "Proprietary systems"], "correct": [3], "exp": "Proprietary systems depend on vendor-released patches and support terms the organization can't control, making them a frequent hard blocker compared to internal process factors."}, {"num": 440, "stem": "During a routine review, a security analyst identifies an unusual volume of traffic going to a local network workstation. The analyst extracts the traffic to a pcap file and runs <code>tcpdump -n -r file.pcap udp and port 53</code>. The output shows a high volume of DNS queries/responses (PTR lookups, NXDomain replies) containing encoded, high-entropy-looking data. Which of the following conclusions will the analyst reach based on the pcap analysis?", "options": ["The traffic captured a meterpreter payload delivery", "The traffic shows data exfiltration", "The traffic identified a Structured Query Language Injection attack", "The traffic is associated with Domain Name System Security Extensions", "The traffic is normal on a Unix-based network"], "correct": [1], "exp": "Unusual volume plus encoded-looking content riding on DNS queries is the classic signature of DNS tunneling \u2014 a common technique for covertly exfiltrating data through a protocol that's rarely blocked or deeply inspected."}, {"num": 441, "stem": "A security analyst is assessing the security of a cloud environment. The following output is generated when the assessment runs:<br><code>Authentication error<br>Instance not found on preset location</code><br>Which of the following should the analyst use to fix the issue?", "options": ["run module_name and exec &lt;module_name&gt;", "--session &lt;session_name&gt; and --module-args=\"&lt;arg1&gt;\"", "set_regions &lt;region1&gt; and set_key", "--whoami and --data &lt;service_name&gt;"], "correct": [2], "exp": "The two errors point to a missing/incorrect region and invalid credentials. Setting the correct region and API key directly addresses both root causes, unlike generic module/session flags or identity-query options."}, {"num": 442, "stem": "Which of the following best describes root cause analysis?", "options": ["It describes the tactics, techniques, and procedures used in an incident", "It provides a detailed path outlining the origin of an issue and how to eliminate it permanently", "It outlines the who-what-when-where-why, often used in conjunction with legal proceedings", "It generates a report of ongoing activities, including what was done, what is being done, and what will be done next"], "correct": [1], "exp": "RCA is specifically the process of tracing an issue back to its underlying origin so it can be permanently fixed \u2014 not a behavioral framework, legal reporting structure, or status update."}, {"num": 443, "stem": "A web developer reports the following error that appeared on a development server when testing a new application: <b>w3wp.exe has stopped working.</b> A problem caused the program to stop working correctly. Windows will close the program and notify you if a solution is available. Which of the following tools can be used to identify the application's point of failure?", "options": ["OpenVAS", "Angry IP scanner", "Immunity debugger", "Burp Suite"], "correct": [2], "exp": "Pinpointing the exact point of a crash requires a debugger capable of stepping through execution and inspecting program state at the time of failure \u2014 a vulnerability scanner, IP scanner, or web proxy can't do that."}, {"num": 444, "stem": "The most recent vulnerability scan results show the following:<table class=\"datatable mcq-table\"><thead><tr><th>Asset</th><th>CVSS</th><th>Exploit vector</th></tr></thead><tbody><tr><td>Server - HQADMIN02</td><td>8.1</td><td>RDP vulnerability</td></tr><tr><td>Server - HQFIN01</td><td>8.5</td><td>SQL-injection attacks</td></tr></tbody></table>The vulnerability team learned the following from the asset owners: HQFIN01 is a financial transaction database server used in the company's largest business unit. HQADMIN02 is used by an end user with administrator privileges to several critical applications. No compensating controls exist for either issue. Which of the following would the vulnerability team most likely do to determine remediation prioritization?", "options": ["Review the BCP and prioritize the remediation of the asset that would take more time to bring online for operational use", "Contact the network and desktop engineering teams to discuss prioritizing the asset that is faster to remediate", "Reference the BIA to determine the value designation and prioritize vulnerability remediation of the more critical asset", "Identify the network placement and configuration of each asset, then prioritize the asset with the least recent backups"], "correct": [2], "exp": "When severity is roughly equal between two findings, the deciding factor becomes business impact/criticality \u2014 exactly what a Business Impact Analysis is designed to quantify for each asset."}, {"num": 445, "stem": "A security analyst performs a vulnerability scan. Given the following findings:<table class=\"datatable mcq-table\"><thead><tr><th>Machine</th><th>IP</th><th>Environment</th><th>Criticality</th><th>Patch available (Yes/No)</th></tr></thead><tbody><tr><td>Server1</td><td>10.5.14.120</td><td>Internal network</td><td>Medium</td><td>No</td></tr><tr><td>Server2</td><td>10.250.10.8</td><td>Perimeter network</td><td>Low</td><td>Yes</td></tr><tr><td>Server3</td><td>154.6.80.34</td><td>Perimeter network</td><td>High</td><td>No</td></tr><tr><td>Server4</td><td>10.5.10.154</td><td>Internal network</td><td>High</td><td>Yes</td></tr><tr><td>Server5</td><td>10.0.3.45</td><td>Database network</td><td>Critical</td><td>Yes</td></tr><tr><td>Server6</td><td>10.0.3.38</td><td>Database network</td><td>Medium</td><td>No</td></tr></tbody></table>Which of the following machines should the analyst address first? (Select two).", "options": ["Server1", "Server2", "Server3", "Server4", "Server5", "Server 6"], "correct": [2, 4], "multi": true, "exp": "Server5 combines the highest criticality with an available patch, making it the fastest high-impact fix. Server3 combines high criticality with perimeter (internet-facing) exposure, making it urgent to mitigate even without a patch yet available."}, {"num": 446, "stem": "Which of the following are the most relevant factors related to vulnerability management reporting and communication within an organization?", "options": ["Risk assessment, asset inventory, business impact analysis, and business continuity plans", "Patch availability, mean time to remediate, dependencies, and disaster recovery plans", "False-positive rates, alert volume and characteristics, mean time to detect, and skills inventory", "Risk severity levels, timelines, dependencies, and remediation ownership"], "correct": [3], "exp": "Effective remediation reporting centers on communicating urgency (severity), due dates (timelines), blockers (dependencies), and accountability (ownership) \u2014 the other option sets mix in unrelated DR/SOC-metric content."}, {"num": 447, "stem": "A security analyst needs to identify an asset that should be remediated based on the following information:<br><code>File Server: CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H/<br>Web Server: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H/<br>Mail Server: CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H/<br>Domain Controller: CVSS:3.1/AV:N/AC:L/PR:R/UI:R/S:U/C:H/I:H/A:H/</code><br>Which of the following assets should the analyst remediate first?", "options": ["Mail server", "Domain controller", "Web server", "File server"], "correct": [2], "exp": "The web server's vector \u2014 network-exploitable, low complexity, no privileges or user interaction needed, and high impact across confidentiality/integrity/availability \u2014 is the most easily and severely exploitable combination compared to the others, which each require local access, high complexity, or privileges/user interaction."}, {"num": 448, "stem": "A threat intelligence analyst is updating a document according to the MITRE ATT&CK framework. The analyst detects the following behavior from a malicious actor: \"The malicious actor will attempt to achieve unauthorized access to the vulnerable system.\" In which of the following phases should the analyst include the detection?", "options": ["Procedures", "Techniques", "Tactics", "Subtechniques"], "correct": [2], "exp": "A high-level goal statement like \"gain unauthorized access\" describes the attacker's objective (the \"why\") \u2014 exactly what ATT&CK tactics represent, as opposed to the specific methods (techniques) or step-by-step execution (procedures) used to achieve it."}, {"num": 449, "stem": "A security operations center analyst is reviewing a scan report and must prioritize items for remediation based on severity:<table class=\"datatable mcq-table\"><thead><tr><th>Hostname</th><th>TLS version</th><th>Port</th><th>Database encryption</th><th>Data type</th></tr></thead><tbody><tr><td>Database1</td><td>1.1</td><td>443</td><td>Enabled</td><td>Public</td></tr><tr><td>Database2</td><td>1.3</td><td>80</td><td>Disabled</td><td>Proprietary</td></tr><tr><td>Database3</td><td>1.2</td><td>443</td><td>Enabled</td><td>Sensitive</td></tr><tr><td>Database4</td><td>1.1</td><td>80</td><td>Enabled</td><td>Sensitive</td></tr></tbody></table>The Chief Information Security Officer requires: encryption in transit, encryption at rest, and encryption of customer data. Which of the following databases should the analyst remediate first?", "options": ["Database1", "Database2", "Database3", "Database4"], "correct": [3], "exp": "Database4 holds sensitive data yet transmits over unencrypted HTTP (port 80) and runs an outdated TLS version \u2014 violating the \"encryption in transit for sensitive data\" requirement more severely than any other database listed."}, {"num": 450, "stem": "A security operations center analyst is using the command line to display specific traffic. The analyst uses the following command: <code>tshark -r file.pcap -Y \"http or udp\"</code><br>Which of the following will the command line display?", "options": ["Encrypted web requests and Domain Name System (DNS) traffic", "Unencrypted web requests and DNS traffic", "Neither encrypted nor unencrypted web and DNS traffic", "Both encrypted and unencrypted web and DNS traffic"], "correct": [1], "exp": "The \"http\" filter only matches plaintext HTTP traffic, not HTTPS/TLS, and \"udp\" captures UDP traffic which includes DNS \u2014 so together the filter shows unencrypted web requests plus DNS traffic."}, {"num": 451, "stem": "A cybersecurity team quarantines a virtual machine (VM) that has triggered alerts. However, this action does not stop the threat. Similar alerts are occurring for other VMs in the same broadcast domain. Which of the following steps in the incident response process should the team take next?", "options": ["Escalate the incident to the Chief Information Security Officer and request approval to notify the legal department", "Switch back to the analysis phase and gather additional data", "Move to the eradication phase and begin deleting suspicious files", "Continue with the containment phase and isolate the subnet"], "correct": [3], "exp": "Since the threat is still spreading across the segment, containment isn't complete \u2014 the appropriate next step is to broaden containment to the whole subnet before moving on to eradication."}, {"num": 452, "stem": "An analyst wants to track how quickly vulnerabilities are identified. Which of the following would be the best metric?", "options": ["KPI", "MTTD", "SLO", "Alert volume"], "correct": [1], "exp": "Mean Time to Detect directly measures the time between when an issue occurs and when it's identified. A KPI is a category, not a specific metric, and SLO/alert volume don't measure detection speed."}, {"num": 453, "stem": "Which of the following entities must receive reports in a timely fashion according to data breach notification laws related to personally identifiable information?", "options": ["Service providers and business associates", "Law enforcement and the media", "Computer emergency response teams and industry associations", "Regulators and affected customers"], "correct": [3], "exp": "Breach notification statutes for personal data generally mandate timely disclosure specifically to regulatory authorities and the individuals whose data was affected \u2014 not to law enforcement, media, or industry groups by default."}, {"num": 454, "stem": "The security team is reviewing a list of vulnerabilities present on the environment, and they want to prioritize the remediation based on the CVSS v4.0 metrics:<table class=\"datatable mcq-table\"><thead><tr><th>CVSS metrics</th><th>Affected instance</th></tr></thead><tbody><tr><td>AV:N/AC:L/AT:N/PR:L/UI:A/E:A</td><td>System A</td></tr><tr><td>AV:A/AC:H/AT:P/PR:N/UI:N/E:U</td><td>System B</td></tr><tr><td>AV:P/AC:L/AT:N/PR:N/UI:P/E:U</td><td>System C</td></tr><tr><td>AV:N/AC:L/AT:N/PR:L/UI:N/E:P</td><td>System D</td></tr><tr><td>AV:P/AC:L/AT:N/PR:L/UI:N/E:X</td><td>System E</td></tr></tbody></table>Which of the following vulnerabilities should the security manager request to fix first?", "options": ["System A", "System E", "System D", "System B", "System C"], "correct": [2], "exp": "System D combines network attack vector, low complexity, no special attack requirements, low privileges, and no user interaction (unlike System A, which requires active user interaction), plus proof-of-concept exploit code exists \u2014 making it the most readily and severely exploitable of the group."}, {"num": 455, "stem": "Which of the following is the most important reason a company would use APIs instead of scripts to enable communication between tools from different vendors?", "options": ["To reduce integration maintenance", "To use a tool that was built in-house", "To allow for more customization", "To secure the CI/CD pipeline"], "correct": [0], "exp": "APIs are stable, vendor-supported interfaces meant for integration, holding up over time much better than brittle custom scripts that break when formats or endpoints change \u2014 reducing ongoing maintenance is the core advantage."}, {"num": 456, "stem": "A cybersecurity analyst is recommending a solution to ensure emails that contain links or attachments are tested before they reach a mail server. Which of the following will the analyst most likely recommend?", "options": ["Sandboxing", "MFA", "DKIM", "Vulnerability scan"], "correct": [0], "exp": "Sandboxing detonates suspicious files/links in an isolated environment to observe their actual behavior before delivery \u2014 MFA, DKIM, and vulnerability scanning don't test payload behavior at all."}, {"num": 457, "stem": "After a risk assessment, a server was found hosting a vulnerable legacy system that has the following characteristics: there is no patch or official fix available from the vendor; there is no official support provided by the vendor; customers consider the system mission critical. Which of the following actions will best decrease the risk posed by the legacy system?", "options": ["Decommission the server immediately and find a new solution to replace the legacy system", "Implement firewall rules to block inbound connections and allow outbound traffic", "Install and configure a web application firewall tailored to the legacy server", "Apply compensating controls, including isolation, restricted access, and continuous monitoring"], "correct": [3], "exp": "With no patch available and the system deemed mission-critical (ruling out immediate decommissioning), layered compensating controls \u2014 isolation, access restriction, and monitoring \u2014 are the most complete way to reduce risk without disrupting the business."}, {"num": 458, "stem": "A security manager has decided to form a special group of analysts who participate in both penetration testing and defending the company's network infrastructure during exercises. Which of the following teams should the group form in order to achieve this goal?", "options": ["Blue team", "Purple team", "Red team", "Green team"], "correct": [1], "exp": "A purple team explicitly blends red-team offensive activity with blue-team defensive response within the same exercise \u2014 exactly the combined role described."}, {"num": 459, "stem": "A security analyst is identifying vulnerabilities in laptops. Users often take their laptops out of the office while traveling, and the vulnerability scan metrics are inaccurate. Which of the following changes should the analyst propose to reduce the MTTD to fewer than four days?", "options": ["Deploy agents to all endpoints to scan daily for vulnerabilities", "Configure the network vulnerability scan job to use credentials", "Change the vulnerability scanner configuration to perform network scans more than once per day", "Increase the scan maximum running time to four days to wait for missing endpoints"], "correct": [0], "exp": "Agent-based scanning runs locally on each device and reports back regardless of whether it's on the corporate network \u2014 solving the core problem of laptops being offline during network-based scans, unlike the other options which all still depend on connectivity."}, {"num": 460, "stem": "A security operations center receives the following alerts related to an organization's cloud tenant:<table class=\"datatable mcq-table\"><thead><tr><th>Time</th><th>Alert description</th><th>Severity</th></tr></thead><tbody><tr><td>Oct 10, 2023 02:00</td><td>Excessive API failures from user jdoe12@myorg.com during a short period of time</td><td>Medium</td></tr><tr><td>Oct 10, 2023 02:15</td><td>Abnormal access to the cloud VM Instance Metadata Service on project staging-01</td><td>Low</td></tr><tr><td>Oct 10, 2023 05:10</td><td>Abnormal amount of VMs created during a short period of time by service-01256623@compute-system.iam.gserviceaccount.com on project staging-01</td><td>Low</td></tr><tr><td>Oct 10, 2023 05:40</td><td>Malware running on compute instance edoifj34 on project staging-01</td><td>High</td></tr><tr><td>Oct 10, 2023 05:41</td><td>Malware running on compute instance eio325r on project staging-01</td><td>High</td></tr><tr><td>Oct 10, 2023 05:43</td><td>Malware running on compute instance jg3209f on project staging-01</td><td>High</td></tr><tr><td>Oct 10, 2023 05:46</td><td>Malware running on compute instance fd031f on project staging-01</td><td>High</td></tr></tbody></table>Which of the following should an analyst do first to identify the initial compromise?", "options": ["Search audit logs for all activity under project staging-01 and correlate any actions against VM edoifj34", "Search audit logs for user jdoe12@myorg.com and correlate the successful API requests on project staging-01", "Review audit logs for any successful compute instance actions targeting project staging-01 during the time of the alerts", "Review logs for any audit action targeting compute instance APIs during the time of the alerts on VM fd031f"], "correct": [1], "exp": "The earliest alert (API failures for a specific user) is the natural starting point \u2014 pivoting into that user's audit logs to check for any subsequent successful API activity traces the actual entry point, rather than starting from later, likely post-compromise events."}, {"num": 461, "stem": "An analyst wants to detect outdated software packages on a server. Which of the following methodologies will achieve this objective?", "options": ["Data loss prevention", "Configuration management", "Common vulnerabilities and exposures", "Credentialed scanning"], "correct": [3], "exp": "Credentialed scanning logs into the system to directly inspect installed software versions and patch levels \u2014 DLP, configuration management, and CVE (a naming catalog) don't perform that inspection themselves."}, {"num": 462, "stem": "A security analyst is responding to an incident that involves a malicious attack on a network data closet. Which of the following best explains how the analyst should properly document the incident?", "options": ["Back up the configuration file for all network devices", "Record and validate each connection", "Create a full diagram of the network infrastructure", "Take photos of the impacted items"], "correct": [3], "exp": "A physical-environment incident calls for documenting the scene as found \u2014 photographing the impacted hardware and surroundings preserves evidence of the physical state, which config backups or diagrams don't capture."}, {"stem": "A group of hacktivists has breached and exfiltrated data from several of a bank's competitors. Given the following network log output:<table class=\"datatable mcq-table\"><thead><tr><th>ID</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Service</th></tr></thead><tbody><tr><td>1</td><td>172.16.1.1</td><td>172.16.1.10</td><td>ARP</td><td>AddrResolve</td></tr><tr><td>2</td><td>172.16.1.10</td><td>172.16.1.20</td><td>TCP 135</td><td>RPC Kerberos</td></tr><tr><td>3</td><td>172.16.1.10</td><td>172.16.1.30</td><td>TCP 445</td><td>SMB WindowsExplorer</td></tr><tr><td>4</td><td>172.16.1.30</td><td>5.29.1.5</td><td>TCP 443</td><td>HTTPS Browser.exe</td></tr><tr><td>5</td><td>11.4.11.28</td><td>172.16.1.1</td><td>TCP 53</td><td>DNS Unknown</td></tr><tr><td>6</td><td>20.109.209.108</td><td>172.16.1.1</td><td>TCP 443</td><td>HTTPS WUS</td></tr><tr><td>7</td><td>172.16.1.25</td><td>bank.backup.com</td><td>TCP 21</td><td>FTP FileZilla</td></tr></tbody></table>Which of the following represents the greatest concerns with regard to potential data exfiltration? (Select two).", "options": ["1", "2", "3", "4", "5", "6", "7"], "correct": [3, 6], "multi": true, "exp": "Row 4 sends an internal host's traffic out to an external IP over HTTPS via a browser process \u2014 a common outbound exfil channel. Row 7 uses FTP, an unencrypted, easily-scriptable bulk transfer protocol, from an internal host to an external-facing backup domain. ARP resolution, internal RPC/Kerberos, internal SMB file access, and update-service traffic (WUS) are all normal internal/administrative activity, not exfiltration indicators.", "num": 463}, {"stem": "The architecture team has been given a mandate to reduce the triage time of phishing incidents by 20%. Which of the following solutions will most likely help with this effort?", "options": ["Integrate a SOAR platform", "Increase the budget to the security awareness program", "Implement an EDR tool", "Install a button in the mail clients to report phishing"], "correct": [0], "exp": "SOAR directly automates and speeds up the triage workflow itself (enrichment, correlation, initial response) \u2014 the other options either reduce how often phishing happens (awareness training) or help with endpoint compromise (EDR), or just increase how many reports arrive (report button) without necessarily processing them any faster.", "num": 464}, {"stem": "A user is flagged for consistently consuming a high volume of network bandwidth over the past week. During the investigation, the security analyst finds traffic to the following websites:<table class=\"datatable mcq-table\"><thead><tr><th>Date/Time</th><th>URL</th><th>Destination Port</th><th>Bytes In</th><th>Bytes Out</th></tr></thead><tbody><tr><td>1/23 14:00:25</td><td>youtube.com</td><td>80</td><td>450000</td><td>4587</td></tr><tr><td>1/23 14:09:30</td><td>translate.google.com</td><td>80</td><td>2985</td><td>3104</td></tr><tr><td>1/23 14:10:00</td><td>tiktok.com</td><td>443</td><td>675000</td><td>105</td></tr><tr><td>1/23 16:00:45</td><td>netflix.com</td><td>443</td><td>525900</td><td>295</td></tr><tr><td>1/23 16:30:45</td><td>grnail.com</td><td>443</td><td>1250</td><td>525984</td></tr><tr><td>1/23 17:30:25</td><td>office.com</td><td>443</td><td>350000</td><td>450</td></tr><tr><td>1/23 17:35:00</td><td>youtube.com</td><td>443</td><td>300</td><td>350000</td></tr></tbody></table>Which of the following data flows should the analyst investigate first?", "options": ["netflix.com", "youtube.com", "tiktok.com", "grnail.com", "translate.google.com", "office.com"], "correct": [3], "exp": "grnail.com is a lookalike/typosquat of gmail.com, and its traffic pattern is inverted from normal browsing \u2014 tiny bytes in, massive bytes out \u2014 the classic signature of data being uploaded out rather than content being downloaded. Every other row shows the expected pattern of large inbound/small outbound typical of media streaming or normal browsing.", "num": 465}, {"stem": "A security analyst identifies a device on which different malware was detected multiple times, even after the systems were scanned and cleaned several times. Which of the following actions would be most effective to ensure the device does not have residual malware?", "options": ["Update the device and scan offline in safe mode", "Replace the hard drive and reimage the device", "Upgrade the device to the latest OS version", "Download a secondary scanner and rescan the device"], "correct": [1], "exp": "Malware surviving repeated clean/scan cycles suggests something scanning tools aren't reaching \u2014 possibly firmware- or boot-level persistence. Replacing the drive and reimaging from a known-clean baseline is the only option that guarantees a truly clean starting state; the others all still trust the existing, possibly-compromised disk.", "num": 466}, {"stem": "The DevSecOps team is remediating a Server-Side Request Forgery (SSRF) issue on the company's public-facing website. Which of the following is the best mitigation technique to address this issue?", "options": ["Place a Web Application Firewall (WAF) in front of the web server", "Install a Cloud Access Security Broker (CASB) in front of the web server", "Put a forward proxy in front of the web server", "Implement MFA in front of the web server"], "correct": [0], "exp": "A WAF can inspect and block the malicious request patterns (internal IPs, cloud metadata endpoints, unexpected URL schemes) that SSRF exploits rely on. A CASB governs cloud app usage, a forward proxy controls outbound traffic rather than inbound requests, and MFA addresses authentication, not request forgery.", "num": 467}, {"stem": "An organization utilizes multiple vendors, each with its own portal that a security analyst must sign in to daily. Which of the following is the best solution for the organization to use to eliminate the need for multiple authentication credentials?", "options": ["API", "MFA", "SSO", "VPN"], "correct": [2], "exp": "Single sign-on lets one set of credentials authenticate across multiple portals/vendors. MFA adds a second factor but doesn't reduce the number of separate credentials; API and VPN solve different problems entirely.", "num": 468}, {"stem": "Which of the following risk management decisions should be considered after evaluating all other options?", "options": ["Transfer", "Acceptance", "Mitigation", "Avoidance"], "correct": [1], "exp": "Acceptance means choosing to take on the risk as-is with no further action \u2014 the fallback once transferring, mitigating, or avoiding the risk have all been considered and ruled out or exhausted.", "num": 469}, {"stem": "A vulnerability scan shows the following issues:<table class=\"datatable mcq-table\"><thead><tr><th>Asset Type</th><th>CVSS Score</th><th>Exploit Vector</th></tr></thead><tbody><tr><td>Workstations</td><td>6.5</td><td>RDP vulnerability</td></tr><tr><td>Storage Server</td><td>9.0</td><td>Unauthorized access due to server application vulnerability</td></tr><tr><td>Firewall</td><td>8.9</td><td>Default password vulnerability</td></tr><tr><td>Web Server</td><td>10.0</td><td>Zero-day vulnerability (vendor working on patch)</td></tr></tbody></table>Which of the following actions should the security analyst take first?", "options": ["Contact the web systems administrator and request that they shut down the asset", "Monitor the patch releases for all items and escalate patching to the appropriate team", "Run the vulnerability scan again to verify the presence of the critical finding", "Forward the advisory to the web security team and initiate the prioritization strategy for the other vulnerabilities"], "correct": [2], "exp": "Before taking any drastic action (shutting down a production asset) or committing resources to prioritization, the analyst should confirm the finding is real by re-scanning \u2014 a zero-day claim from a scan alone warrants validation first, especially since no external advisory has confirmed it yet at this stage.", "num": 470}, {"stem": "An IT professional is reviewing the output from the top command in Linux. In this company, only IT and security staff are allowed to have elevated privileges. Both departments have confirmed they are not working on anything that requires elevated privileges. Based on the output below:<table class=\"datatable mcq-table\"><thead><tr><th>PID</th><th>USER</th><th>VIRT</th><th>RES</th><th>SHR</th><th>%CPU</th><th>%MEM</th><th>TIME+</th><th>COMMAND</th></tr></thead><tbody><tr><td>34834</td><td>person</td><td>4980644</td><td>224288</td><td>111076</td><td>5.3</td><td>14.4</td><td>1:41.44</td><td>cinnamon</td></tr><tr><td>34218</td><td>person</td><td>51052</td><td>30920</td><td>23828</td><td>4.7</td><td>0.2</td><td>0:26.54</td><td>Xorg</td></tr><tr><td>2264</td><td>root</td><td>449628</td><td>143500</td><td>26372</td><td>14.0</td><td>3.1</td><td>0:12.38</td><td>bash</td></tr><tr><td>35963</td><td>xrdp</td><td>711940</td><td>42356</td><td>10560</td><td>2.0</td><td>0.2</td><td>0:06.81</td><td>xrdp</td></tr></tbody></table>Which of the following PIDs is most likely to contribute to data exfiltration?", "options": ["2264", "34218", "34834", "35963"], "correct": [0], "exp": "PID 2264 runs bash as root \u2014 elevated privileges that, per the stated policy, shouldn't exist here since neither IT nor security claims responsibility for it. A root shell is a powerful, flexible tool an attacker could use to move and exfiltrate data, unlike the user-level desktop/display processes or the RDP service process.", "num": 471}, {"stem": "A security analyst is conducting a vulnerability assessment of a company's online store. The analyst discovers a critical vulnerability in the payment processing system that could be exploited, allowing attackers to steal customer payment information. Which of the following should the analyst do next?", "options": ["Leave the vulnerability unpatched until the next scheduled maintenance window to avoid potential disruption to business", "Perform a risk assessment to evaluate the potential impact of the vulnerability and determine whether additional security measures are needed", "Ignore the vulnerability since the company recently passed a payment system compliance audit", "Isolate the payment processing system from production and schedule for reimaging"], "correct": [1], "exp": "Before jumping to drastic action (isolating a production payment system) or inaction (waiting, ignoring), the analyst should first formally assess the actual impact and risk this specific vulnerability poses, which then informs what response is proportionate and necessary.", "num": 472}, {"stem": "An organization has implemented code into a production environment. During a routine test, a penetration tester found that some of the code had a backdoor implemented, causing a developer to make changes outside of the change management windows. Which of the following is the best way to prevent this issue?", "options": ["SDLC training", "Dynamic analysis", "Debugging", "Source code review"], "correct": [3], "exp": "A backdoor hidden in the code is best caught by directly reviewing the source before it reaches production \u2014 dynamic analysis and debugging test behavior at runtime and may miss dormant/conditional backdoors, and training addresses process awareness but not detection of an already-inserted backdoor.", "num": 473}, {"stem": "A vulnerability scan shows the following vulnerabilities in the environment (the same asset table as the prior scan: Workstations CVSS 6.5, Storage Server CVSS 9.0, Firewall CVSS 8.9, Web Server CVSS 10.0 zero-day). At the same time, the following security advisory was released: \"A zero-day vulnerability with a CVSS score of 10 may be affecting your web server. The vendor is working on a patch or workaround.\" Which of the following actions should the security analyst take first?", "options": ["Contact the web systems administrator and request that they shut down the asset", "Monitor the patch releases for all items and escalate patching to the appropriate team", "Run the vulnerability scan again to verify the presence of the critical finding and the zero-day vulnerability in the environment", "Forward the advisory to the web security team and initiate the prioritization strategy for the other vulnerabilities"], "correct": [0], "exp": "This time an external advisory independently confirms the same CVSS-10 zero-day the scan flagged, with no patch yet available from the vendor \u2014 that corroboration removes the earlier need to re-verify. With a confirmed, unpatched critical vulnerability on a public-facing asset, the priority becomes containing exposure immediately by having the asset taken offline.", "num": 474}, {"stem": "After reviewing the final report for a penetration test, a cybersecurity analyst prioritizes the remediation for input validation vulnerabilities. Which of the following attacks is the analyst seeking to prevent?", "options": ["DNS poisoning", "Pharming", "Phishing", "Cross-site scripting"], "correct": [3], "exp": "Cross-site scripting is a direct consequence of failing to validate/sanitize user-supplied input before it's rendered back to other users. DNS poisoning and pharming are network/DNS-layer attacks, and phishing is social engineering \u2014 none are mitigated by input validation.", "num": 475}, {"stem": "An analyst is imaging a hard drive that was obtained from the system of an employee who is suspected of going rogue. The analyst notes that the initial hash of the evidence drive does not match the resultant hash of the imaged copy. Which of the following best describes the reason for the conflicting investigative findings?", "options": ["Chain of custody was not maintained for the evidence drive", "Legal authorization was not obtained prior to seizing the evidence drive", "Data integrity of the imaged drive could not be verified", "Evidence drive imaging was performed without a write blocker"], "correct": [3], "exp": "A mismatched hash between the original and the image almost always means the original drive was altered during acquisition \u2014 which happens when no write blocker is used, allowing the imaging process (or OS) to write to the source disk and change its contents.", "num": 476}, {"stem": "An auditor is reviewing an evidence log associated with a cybercrime. The auditor notices that a gap exists between individuals who were responsible for holding onto and transferring the evidence between individuals responsible for the investigation. Which of the following best describes the evidence handling process that was not properly followed?", "options": ["Validating data integrity", "Preservation", "Legal hold", "Chain of custody"], "correct": [3], "exp": "Chain of custody is specifically the documented, unbroken record of who possessed evidence and when it was transferred between people \u2014 a gap in that handoff record is exactly what chain of custody is meant to prevent.", "num": 477}, {"stem": "A security analyst needs to prioritize vulnerabilities for patching. Given the following vulnerability and system information:<table class=\"datatable mcq-table\"><thead><tr><th>System</th><th>Sensitive Data?</th><th>Internet Facing?</th><th>Vulnerability Score (CVSS)</th></tr></thead><tbody><tr><td>1</td><td>No</td><td>Yes</td><td>AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:H</td></tr><tr><td>2</td><td>No</td><td>No</td><td>AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:H</td></tr><tr><td>3</td><td>Yes</td><td>Yes</td><td>AV:P/AC:H/PR:H/UI:R/S:U/C:N/I:N/A:L</td></tr><tr><td>4</td><td>No</td><td>Yes</td><td>AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:L/A:H</td></tr><tr><td>5</td><td>Yes</td><td>Yes</td><td>AV:L/AC:H/PR:H/UI:R/S:U/C:L/I:N/A:N</td></tr><tr><td>6</td><td>No</td><td>No</td><td>AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:H</td></tr></tbody></table>Which of the following systems should the analyst patch first?", "options": ["System 1", "System 2", "System 3", "System 4", "System 5", "System 6"], "correct": [3], "exp": "System 4 is network-exploitable, low complexity, requires no privileges and no user interaction, and has a changed scope \u2014 meaning a successful exploit can affect resources beyond the vulnerable component itself. Combined with being internet-facing, that makes it the easiest and most consequential system to exploit, even though it doesn't hold sensitive data. Systems 3 and 5 do hold sensitive data, but both require physical access, high complexity, and privileges/user interaction \u2014 far harder to actually exploit. Systems 2 and 6 aren't internet-facing at all, and System 1 needs at least low privileges, unlike System 4.", "num": 478}];
+
+let mcqIndex = 0;
+const mcqAnswers = {};
+
+function renderMcqQuestion(i){
+  mcqIndex = i;
+  const q = MCQ_DATA[i];
+  const isMulti = !!q.multi;
+  const inputType = isMulti ? 'checkbox' : 'radio';
+  const letters = ['A','B','C','D','E','F'];
+  const saved = mcqAnswers[i] || [];
+
+  const optsHtml = q.options.map((opt, oi)=>{
+    const checkedAttr = saved.includes(oi) ? 'checked' : '';
+    return `
+    <label class="mcq-opt" data-oi="${oi}">
+      <input type="${inputType}" name="mcq-current" value="${oi}" ${checkedAttr} onchange="saveMcqSelection()">
+      <span><b>${letters[oi]}.</b> ${opt}</span>
+    </label>`;
+  }).join('');
+
+  document.getElementById('mcq-question-area').innerHTML = `
+    <div class="mcq-card" data-qi="${i}">
+      <div class="mcq-num">QUESTION ${i + 10}${isMulti ? ' &middot; select two' : ''}</div>
+      <div class="mcq-stem">${q.stem}</div>
+      <div class="mcq-opts">${optsHtml}</div>
+    </div>
+  `;
+
+  window.scrollTo(0,0);
+}
+
+function saveMcqSelection(){
+  const card = document.querySelector('#mcq-question-area .mcq-card');
+  const inputs = [...card.querySelectorAll('input')];
+  mcqAnswers[mcqIndex] = inputs.filter(inp=>inp.checked).map(inp=>parseInt(inp.value));
+}
+
+// called by the global nextScreen(); returns true if it moved within the bank, false if it was the last question
+function mcqAdvance(){
+  if(mcqIndex < MCQ_DATA.length - 1){
+    renderMcqQuestion(mcqIndex + 1);
+    return true;
+  }
+  return false;
+}
+
+// called by the global prevScreen(); returns true if it moved within the bank, false if it was the first question
+function mcqRetreat(){
+  if(mcqIndex > 0){
+    renderMcqQuestion(mcqIndex - 1);
+    return true;
+  }
+  return false;
+}
+
+renderMcqQuestion(0);
+
+</script>
+</div>
+
+<div id="screen-review" class="sim-screen">
+
+<style>
+  #screen-review{background:#ffffff;min-height:100vh;}
+  #screen-review .rv-wrap{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  #screen-review .rv-head h1{
+    font-family:'Space Grotesk',sans-serif;font-size:24px;margin:0 0 6px;color:var(--text);
+  }
+  #screen-review .rv-head p{font-size:13.5px;color:var(--text-dim);margin:0 0 28px;}
+  #screen-review .rv-section{margin-bottom:26px;}
+  #screen-review .rv-section h2{
+    font-family:'Space Grotesk',sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:0.4px;
+    color:var(--text-dim);margin:0 0 10px;
+  }
+  #screen-review .rv-empty{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--text-faint);
+    border:1.5px dashed var(--border);border-radius:10px;padding:14px 16px;
+  }
+  #screen-review .rv-list{display:flex;flex-wrap:wrap;gap:8px;}
+  #screen-review .rv-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;
+    padding:8px 14px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .12s ease;
+  }
+  #screen-review .rv-chip:hover{filter:brightness(0.95);}
+  #screen-review .rv-chip.missed{background:#fdecd2;color:#7a4a06;border-color:#f0cf9a;}
+  #screen-review .rv-chip.flagged{background:#fbe1e2;color:#8a1f24;border-color:#eab8ba;}
+
+  #screen-review .rv-actions{display:flex;gap:12px;align-items:center;margin-top:30px;}
+  #screen-review .rv-result{
+    margin-top:24px;border-radius:14px;padding:24px 26px;display:none;
+  }
+  #screen-review .rv-result.show{display:block;}
+  #screen-review .rv-result.pass{background:rgba(61,220,132,0.1);border:1.5px solid var(--green);}
+  #screen-review .rv-result.fail{background:rgba(255,90,95,0.1);border:1.5px solid var(--red);}
+  #screen-review .rv-result .rv-verdict{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;margin-bottom:6px;
+  }
+  #screen-review .rv-result.pass .rv-verdict{color:#0f7a3d;}
+  #screen-review .rv-result.fail .rv-verdict{color:#9b0f1a;}
+  #screen-review .rv-result .rv-score{
+    font-family:'IBM Plex Mono',monospace;font-size:13.5px;color:var(--text-dim);
+  }
+</style>
+
+<div class="rv-wrap">
+  <div class="rv-head">
+    <h1>Review Your Answers</h1>
+    <p>You've reached the end of the exam. Review any flagged or unanswered questions below, then submit when you're ready.</p>
+  </div>
+
+  <div class="rv-section">
+    <h2>Flagged for Review</h2>
+    <div id="rv-flagged-list"></div>
+  </div>
+
+  <div class="rv-section">
+    <h2>Unanswered Questions</h2>
+    <div id="rv-missed-list"></div>
+  </div>
+
+  <div class="rv-actions">
+    <button class="btn btn-ghost" onclick="backToLastQuestion()">&larr; Back to exam</button>
+    <button class="btn btn-primary" onclick="submitExam()">Submit Exam</button>
+  </div>
+
+  <div class="rv-result" id="rv-result"></div>
+</div>
+
 </div>
 
 <div id="examBottom" class="exambottom">
@@ -5518,27 +5309,56 @@ tickBothClocks(); setInterval(tickBothClocks, 1000);
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
     Previous
   </button>
-  <button class="prevnext-btn" onclick="nextScreen()">
+  <button class="prevnext-btn" onclick="nextScreen()" id="examNextBtn">
     Next
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <button class="prevnext-btn" onclick="switchScreen('review'); renderReviewScreen();" id="examReviewBtn" style="display:none;">
+    Review
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
 </div>
 
 <script>
 /* ============ Global exam chrome: timer, question counter, flag, prev/next ============ */
-const QUESTION_ORDER = ['risk','defacement','exfil','phish','compliance','network','scan','vulnclass','killchain','sla'];
+const QUESTION_ORDER = ['defacement','exfil','phish','compliance','network','scan','vulnclass','killchain','remediation'];
 const flaggedQuestions = new Set();
 let examSecondsLeft = 90 * 60;
+
+const PBQ_PILL_IDS = {
+  defacement:['def-pill'], exfil:['ex-pill'], phish:['score-pill'],
+  compliance:['p1-pill','p2-pill'], network:['net-pill'], scan:['scan-pill'],
+  vulnclass:['vulnclass-pill'], killchain:['kc-p1-pill','kc-p2-pill'], remediation:['vrt-pill']
+};
 
 function getCurrentScreenKey(){
   const active = document.querySelector('.sim-screen.active');
   return active ? active.id.replace('screen-','') : null;
 }
 
+function getMcqCount(){
+  return (typeof MCQ_DATA !== 'undefined') ? MCQ_DATA.length : 0;
+}
+
+function getTotalSteps(){
+  return QUESTION_ORDER.length + getMcqCount();
+}
+
+function getLogicalIndex(name){
+  if(name === 'mcqbank') return QUESTION_ORDER.length + (typeof mcqIndex !== 'undefined' ? mcqIndex : 0);
+  return QUESTION_ORDER.indexOf(name);
+}
+
+function getCurrentFlagKey(){
+  const cur = getCurrentScreenKey();
+  if(cur === 'mcqbank') return 'mcqbank:' + mcqIndex;
+  return cur;
+}
+
 function updateExamChrome(name){
   const chrome = document.getElementById('examChrome');
   const bottom = document.getElementById('examBottom');
-  const idx = QUESTION_ORDER.indexOf(name);
+  const idx = getLogicalIndex(name);
   if(idx === -1){
     chrome.style.display = 'none';
     bottom.style.display = 'none';
@@ -5548,19 +5368,35 @@ function updateExamChrome(name){
   chrome.style.display = '';
   bottom.style.display = 'flex';
   document.body.classList.add('has-exam-chrome');
-  document.getElementById('examCounterText').textContent = (idx+1) + ' of ' + QUESTION_ORDER.length;
-  document.getElementById('examFlagBtn').classList.toggle('flagged', flaggedQuestions.has(name));
+  const total = getTotalSteps();
+  document.getElementById('examCounterText').textContent = (idx+1) + ' of ' + total;
+  document.getElementById('examFlagBtn').classList.toggle('flagged', flaggedQuestions.has(getCurrentFlagKey()));
+  const nextBtn = document.getElementById('examNextBtn');
+  const reviewBtn = document.getElementById('examReviewBtn');
+  const isLast = idx === total - 1;
+  nextBtn.disabled = isLast;
+  nextBtn.style.opacity = isLast ? '0.4' : '';
+  nextBtn.style.pointerEvents = isLast ? 'none' : '';
+  reviewBtn.style.display = isLast ? 'flex' : 'none';
 }
 
 function toggleFlag(){
-  const cur = getCurrentScreenKey();
-  if(!cur) return;
-  if(flaggedQuestions.has(cur)) flaggedQuestions.delete(cur); else flaggedQuestions.add(cur);
-  updateExamChrome(cur);
+  const key = getCurrentFlagKey();
+  if(!key) return;
+  if(flaggedQuestions.has(key)) flaggedQuestions.delete(key); else flaggedQuestions.add(key);
+  updateExamChrome(getCurrentScreenKey());
 }
 
 function prevScreen(){
   const cur = getCurrentScreenKey();
+  if(cur === 'mcqbank'){
+    if(typeof mcqRetreat === 'function' && mcqRetreat()){
+      updateExamChrome('mcqbank');
+      return;
+    }
+    switchScreen(QUESTION_ORDER[QUESTION_ORDER.length - 1]);
+    return;
+  }
   const idx = QUESTION_ORDER.indexOf(cur);
   if(idx > 0) switchScreen(QUESTION_ORDER[idx-1]);
   else switchScreen('menu');
@@ -5568,9 +5404,120 @@ function prevScreen(){
 
 function nextScreen(){
   const cur = getCurrentScreenKey();
+  if(cur === 'mcqbank'){
+    if(typeof mcqAdvance === 'function' && mcqAdvance()){
+      updateExamChrome('mcqbank');
+    }
+    return;
+  }
   const idx = QUESTION_ORDER.indexOf(cur);
   if(idx !== -1 && idx < QUESTION_ORDER.length - 1) switchScreen(QUESTION_ORDER[idx+1]);
-  else if(idx === QUESTION_ORDER.length - 1) finishExam();
+  else if(idx === QUESTION_ORDER.length - 1) switchScreen('mcqbank');
+}
+
+function backToLastQuestion(){
+  switchScreen('mcqbank');
+  if(typeof renderMcqQuestion === 'function') renderMcqQuestion(getMcqCount() - 1);
+}
+
+/* ============ Review screen: flagged / missed lists, submit + pass/fail ============ */
+function getAllSteps(){
+  const steps = [];
+  QUESTION_ORDER.forEach((s, idx)=>{
+    steps.push({flagKey:s, type:'pbq', screenKey:s, label:'Question ' + (idx+1)});
+  });
+  const mcqCount = getMcqCount();
+  for(let i=0;i<mcqCount;i++){
+    steps.push({flagKey:'mcqbank:'+i, type:'mcq', screenKey:'mcqbank', mcqIndex:i, label:'Question ' + (QUESTION_ORDER.length + i + 1)});
+  }
+  return steps;
+}
+
+function isPbqAnswered(screenKey){
+  const ids = PBQ_PILL_IDS[screenKey] || [];
+  if(ids.length === 0) return false;
+  return ids.some(id=>{
+    const el = document.getElementById(id);
+    return el && el.classList.contains('show');
+  });
+}
+
+function isPbqFullyCorrect(screenKey){
+  const ids = PBQ_PILL_IDS[screenKey] || [];
+  if(ids.length === 0) return false;
+  return ids.every(id=>{
+    const el = document.getElementById(id);
+    return el && el.classList.contains('full');
+  });
+}
+
+function isMcqAnswered(i){
+  return !!(typeof mcqAnswers !== 'undefined' && mcqAnswers[i] && mcqAnswers[i].length > 0);
+}
+
+function isMcqCorrect(i){
+  const q = MCQ_DATA[i];
+  const checked = (typeof mcqAnswers !== 'undefined' && mcqAnswers[i]) || [];
+  const correctSet = new Set(q.correct);
+  return checked.length === q.correct.length && checked.every(v=>correctSet.has(v));
+}
+
+function jumpToStep(step){
+  if(step.type === 'mcq'){
+    switchScreen('mcqbank');
+    renderMcqQuestion(step.mcqIndex);
+    updateExamChrome('mcqbank');
+  } else {
+    switchScreen(step.screenKey);
+  }
+}
+
+function renderReviewScreen(){
+  const steps = getAllSteps();
+  const flagged = steps.filter(s=>flaggedQuestions.has(s.flagKey));
+  const missed = steps.filter(s=> s.type==='pbq' ? !isPbqAnswered(s.screenKey) : !isMcqAnswered(s.mcqIndex));
+
+  const flaggedEl = document.getElementById('rv-flagged-list');
+  const missedEl = document.getElementById('rv-missed-list');
+
+  flaggedEl.innerHTML = flagged.length
+    ? `<div class="rv-list">${flagged.map((s,i)=>`<span class="rv-chip flagged" data-idx="${steps.indexOf(s)}" onclick="jumpToStepByIdx(this)">${s.label}</span>`).join('')}</div>`
+    : `<div class="rv-empty">No questions flagged.</div>`;
+
+  missedEl.innerHTML = missed.length
+    ? `<div class="rv-list">${missed.map((s,i)=>`<span class="rv-chip missed" data-idx="${steps.indexOf(s)}" onclick="jumpToStepByIdx(this)">${s.label}</span>`).join('')}</div>`
+    : `<div class="rv-empty">Every question has an answer.</div>`;
+
+  document.getElementById('rv-result').className = 'rv-result';
+  document.getElementById('rv-result').innerHTML = '';
+}
+
+function jumpToStepByIdx(el){
+  const steps = getAllSteps();
+  const idx = parseInt(el.dataset.idx);
+  jumpToStep(steps[idx]);
+}
+
+function submitExam(){
+  const steps = getAllSteps();
+  let correctCount = 0;
+  steps.forEach(s=>{
+    const ok = s.type==='pbq' ? isPbqFullyCorrect(s.screenKey) : isMcqCorrect(s.mcqIndex);
+    if(ok) correctCount++;
+  });
+  const total = steps.length;
+  const pct = total > 0 ? Math.round((correctCount/total)*100) : 0;
+  const passThreshold = 80;
+  const passed = pct >= passThreshold;
+
+  const resultEl = document.getElementById('rv-result');
+  resultEl.className = 'rv-result show ' + (passed ? 'pass' : 'fail');
+  resultEl.innerHTML = `
+    <div class="rv-verdict">${passed ? 'PASS' : 'FAIL'}</div>
+    <div class="rv-score">${correctCount} / ${total} correct &middot; ${pct}% &middot; passing score is ${passThreshold}%</div>
+    <button class="btn btn-ghost" style="margin-top:16px;" onclick="finishExam()">Return to Menu</button>
+  `;
+  resultEl.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
 function tickExamTimer(){
