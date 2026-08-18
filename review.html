@@ -1715,7 +1715,7 @@
 </div>
 
 <div id="examScroll">
-<div id="screen-menu" class="sim-screen active">
+<div id="screen-menu" class="sim-screen">
   <div class="menu-shell">
     <div class="menu-inner">
       <div class="menu-top">
@@ -5268,7 +5268,7 @@ renderMcqQuestion(0);
 </script>
 </div>
 
-<div id="screen-review" class="sim-screen">
+<div id="screen-review" class="sim-screen active">
 
 <style>
   #screen-review{background:#ffffff;min-height:100vh;}
@@ -5659,7 +5659,7 @@ updateExamChrome(getCurrentScreenKey());
 
 <script>
 (function(){
-  const PAGE_KEY = "menu";
+  const PAGE_KEY = "review";
   const PAGE_NUM = null;
   const TOTAL_STEPS = 68;
   const PREV_HREF = null;
@@ -5669,7 +5669,7 @@ updateExamChrome(getCurrentScreenKey());
   const FLAG_KEY = null;
   const CHECK_FNS = [];
   const PILL_IDS = [];
-  const BACK_TO_EXAM_HREF = null;
+  const BACK_TO_EXAM_HREF = "mc/68.html";
   const SCREEN_TO_FILE = {"menu": "index.html", "review": "review.html", "defacement": "q/01-defacement.html", "exfil": "q/02-exfil.html", "phish": "q/03-phish.html", "compliance": "q/04-compliance.html", "network": "q/05-network.html", "scan": "q/06-scan.html", "vulnclass": "q/07-vulnclass.html", "killchain": "q/08-killchain.html", "remediation": "q/09-remediation.html"};
 
   function loadJSON(key, fallback){

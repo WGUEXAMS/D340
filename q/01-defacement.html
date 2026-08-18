@@ -1715,7 +1715,7 @@
 </div>
 
 <div id="examScroll">
-<div id="screen-menu" class="sim-screen active">
+<div id="screen-menu" class="sim-screen">
   <div class="menu-shell">
     <div class="menu-inner">
       <div class="menu-top">
@@ -1735,7 +1735,7 @@
   </button>
 </div>
 
-<div id="screen-defacement" class="sim-screen">
+<div id="screen-defacement" class="sim-screen active">
 
 
 <header>
@@ -5659,18 +5659,18 @@ updateExamChrome(getCurrentScreenKey());
 
 <script>
 (function(){
-  const PAGE_KEY = "menu";
-  const PAGE_NUM = null;
+  const PAGE_KEY = "defacement";
+  const PAGE_NUM = 1;
   const TOTAL_STEPS = 68;
-  const PREV_HREF = null;
-  const NEXT_HREF = null;
+  const PREV_HREF = "../index.html";
+  const NEXT_HREF = "../q/02-exfil.html";
   const REVIEW_HREF = null;
   const MCQ_INDEX = null;
-  const FLAG_KEY = null;
-  const CHECK_FNS = [];
-  const PILL_IDS = [];
+  const FLAG_KEY = "defacement";
+  const CHECK_FNS = ["checkDefacement"];
+  const PILL_IDS = ["def-pill"];
   const BACK_TO_EXAM_HREF = null;
-  const SCREEN_TO_FILE = {"menu": "index.html", "review": "review.html", "defacement": "q/01-defacement.html", "exfil": "q/02-exfil.html", "phish": "q/03-phish.html", "compliance": "q/04-compliance.html", "network": "q/05-network.html", "scan": "q/06-scan.html", "vulnclass": "q/07-vulnclass.html", "killchain": "q/08-killchain.html", "remediation": "q/09-remediation.html"};
+  const SCREEN_TO_FILE = {"menu": "../index.html", "review": "../review.html", "defacement": "../q/01-defacement.html", "exfil": "../q/02-exfil.html", "phish": "../q/03-phish.html", "compliance": "../q/04-compliance.html", "network": "../q/05-network.html", "scan": "../q/06-scan.html", "vulnclass": "../q/07-vulnclass.html", "killchain": "../q/08-killchain.html", "remediation": "../q/09-remediation.html"};
 
   function loadJSON(key, fallback){
     try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; }
@@ -5696,7 +5696,7 @@ updateExamChrome(getCurrentScreenKey());
     const el = document.documentElement;
     const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
     if(req){ req.call(el).catch(()=>{}); }
-    window.location.href = "q/01-defacement.html";
+    window.location.href = "01-defacement.html";
   };
 
   // ---- timer: computed from a stored start time, survives page loads ----
@@ -5848,7 +5848,7 @@ updateExamChrome(getCurrentScreenKey());
     };
     window.jumpToStep = function(step){
       if(step.type === 'mcq'){
-        window.location.href = "mc/" + (step.mcqIndex+10) + '.html';
+        window.location.href = "../mc/" + (step.mcqIndex+10) + '.html';
       } else {
         window.location.href = SCREEN_TO_FILE[step.screenKey];
       }
