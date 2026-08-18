@@ -5152,6 +5152,9 @@ function switchScreen(name){
   if(name === 'mcqbank' && prevKey !== 'mcqbank' && typeof renderMcqQuestion === 'function'){
     renderMcqQuestion(0);
   }
+  if(name === 'answers' && typeof renderAnswerKey === 'function'){
+    renderAnswerKey();
+  }
   if(typeof updateExamChrome === 'function') updateExamChrome(name);
 }
 function finishExam(){
@@ -5339,10 +5342,36 @@ renderMcqQuestion(0);
   </div>
 
   <div class="rv-result" id="rv-result"></div>
-  <div class="rv-section" id="rv-answerkey" style="display:none;">
-    <h2>Answer Key</h2>
-    <div id="rv-answerkey-list"></div>
+</div>
+
+</div>
+
+<div id="screen-answers" class="sim-screen">
+<style>
+  #screen-answers{background:#ffffff;min-height:100vh;}
+  #screen-answers .ak-wrap{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
+  #screen-answers .ak-head h1{
+    font-family:'Space Grotesk',sans-serif;font-size:24px;margin:0 0 6px;color:var(--text);
+  }
+  #screen-answers .ak-head p{font-size:13.5px;color:var(--text-dim);margin:0 0 28px;}
+  #screen-answers .ak-actions{display:flex;gap:12px;margin-bottom:26px;flex-wrap:wrap;}
+  #screen-answers .rv-ak-item{
+    border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13px;
+  }
+  #screen-answers .rv-ak-item b{display:block;font-family:'Space Grotesk',sans-serif;font-size:13px;margin-bottom:6px;color:var(--text);}
+  #screen-answers .rv-ak-item .rv-ak-answer{color:var(--green);font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6;}
+</style>
+
+<div class="ak-wrap">
+  <div class="ak-head">
+    <h1>Answer Key</h1>
+    <p>Correct answers for all 68 questions, generated from the same data each question is graded against.</p>
   </div>
+  <div class="ak-actions">
+    <button class="btn btn-ghost" onclick="switchScreen('review')">&larr; Back to Review</button>
+    <button class="btn btn-ghost" onclick="finishExam()">Return to Menu</button>
+  </div>
+  <div id="rv-answerkey-list"></div>
 </div>
 
 </div>
@@ -5616,7 +5645,6 @@ function renderAnswerKey(){
     html += `<div class="rv-ak-item"><b>Question ${i+10}</b><div class="rv-ak-answer">${correctText}</div></div>`;
   });
   container.innerHTML = html;
-  document.getElementById('rv-answerkey').style.display = 'block';
 }
 
 function submitExam(){
@@ -5636,9 +5664,11 @@ function submitExam(){
   resultEl.innerHTML = `
     <div class="rv-verdict">${passed ? 'PASS' : 'FAIL'}</div>
     <div class="rv-score">${correctCount} / ${total} correct &middot; ${pct}% &middot; passing score is ${passThreshold}%</div>
-    <button class="btn btn-ghost" style="margin-top:16px;" onclick="finishExam()">Return to Menu</button>
+    <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="switchScreen('answers')">View Answer Key</button>
+      <button class="btn btn-ghost" onclick="finishExam()">Return to Menu</button>
+    </div>
   `;
-  renderAnswerKey();
   resultEl.scrollIntoView({behavior:'smooth', block:'center'});
 }
 
@@ -5670,7 +5700,7 @@ updateExamChrome(getCurrentScreenKey());
   const CHECK_FNS = ["checkExfil"];
   const PILL_IDS = ["ex-pill"];
   const BACK_TO_EXAM_HREF = null;
-  const SCREEN_TO_FILE = {"menu": "../index.html", "review": "../review.html", "defacement": "../q/01-defacement.html", "exfil": "../q/02-exfil.html", "phish": "../q/03-phish.html", "compliance": "../q/04-compliance.html", "network": "../q/05-network.html", "scan": "../q/06-scan.html", "vulnclass": "../q/07-vulnclass.html", "killchain": "../q/08-killchain.html", "remediation": "../q/09-remediation.html"};
+  const SCREEN_TO_FILE = {"menu": "../index.html", "review": "../review.html", "answers": "../answers.html", "defacement": "../q/01-defacement.html", "exfil": "../q/02-exfil.html", "phish": "../q/03-phish.html", "compliance": "../q/04-compliance.html", "network": "../q/05-network.html", "scan": "../q/06-scan.html", "vulnclass": "../q/07-vulnclass.html", "killchain": "../q/08-killchain.html", "remediation": "../q/09-remediation.html"};
 
   function loadJSON(key, fallback){
     try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; }
@@ -5871,6 +5901,7 @@ updateExamChrome(getCurrentScreenKey());
     setupPbqHooks();
     setupReview();
     if(PAGE_KEY === 'review' && typeof renderReviewScreen === 'function') renderReviewScreen();
+    if(PAGE_KEY === 'answers' && typeof renderAnswerKey === 'function') renderAnswerKey();
   });
 })();
 </script>

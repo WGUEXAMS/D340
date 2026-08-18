@@ -5178,7 +5178,7 @@ function tickBothClocks(){
 tickBothClocks(); setInterval(tickBothClocks, 1000);
 </script>
 
-<div id="screen-mcqbank" class="sim-screen active">
+<div id="screen-mcqbank" class="sim-screen">
 
 <style>
   #screen-mcqbank{background:#ffffff;min-height:100vh;}
@@ -5346,7 +5346,7 @@ renderMcqQuestion(0);
 
 </div>
 
-<div id="screen-answers" class="sim-screen">
+<div id="screen-answers" class="sim-screen active">
 <style>
   #screen-answers{background:#ffffff;min-height:100vh;}
   #screen-answers .ak-wrap{max-width:760px;margin:0 auto;padding:44px 24px 80px;}
@@ -5689,18 +5689,18 @@ updateExamChrome(getCurrentScreenKey());
 
 <script>
 (function(){
-  const PAGE_KEY = "mcqbank";
-  const PAGE_NUM = 36;
+  const PAGE_KEY = "answers";
+  const PAGE_NUM = null;
   const TOTAL_STEPS = 68;
-  const PREV_HREF = "../mc/35.html";
-  const NEXT_HREF = "../mc/37.html";
+  const PREV_HREF = null;
+  const NEXT_HREF = null;
   const REVIEW_HREF = null;
-  const MCQ_INDEX = 26;
-  const FLAG_KEY = "mcqbank:26";
+  const MCQ_INDEX = null;
+  const FLAG_KEY = null;
   const CHECK_FNS = [];
   const PILL_IDS = [];
   const BACK_TO_EXAM_HREF = null;
-  const SCREEN_TO_FILE = {"menu": "../index.html", "review": "../review.html", "answers": "../answers.html", "defacement": "../q/01-defacement.html", "exfil": "../q/02-exfil.html", "phish": "../q/03-phish.html", "compliance": "../q/04-compliance.html", "network": "../q/05-network.html", "scan": "../q/06-scan.html", "vulnclass": "../q/07-vulnclass.html", "killchain": "../q/08-killchain.html", "remediation": "../q/09-remediation.html"};
+  const SCREEN_TO_FILE = {"menu": "index.html", "review": "review.html", "answers": "answers.html", "defacement": "q/01-defacement.html", "exfil": "q/02-exfil.html", "phish": "q/03-phish.html", "compliance": "q/04-compliance.html", "network": "q/05-network.html", "scan": "q/06-scan.html", "vulnclass": "q/07-vulnclass.html", "killchain": "q/08-killchain.html", "remediation": "q/09-remediation.html"};
 
   function loadJSON(key, fallback){
     try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; }
@@ -5726,7 +5726,7 @@ updateExamChrome(getCurrentScreenKey());
     const el = document.documentElement;
     const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
     if(req){ req.call(el).catch(()=>{}); }
-    window.location.href = "../q/01-defacement.html";
+    window.location.href = "q/01-defacement.html";
   };
 
   // ---- timer: computed from a stored start time, survives page loads ----
@@ -5878,7 +5878,7 @@ updateExamChrome(getCurrentScreenKey());
     };
     window.jumpToStep = function(step){
       if(step.type === 'mcq'){
-        window.location.href = "../mc/" + (step.mcqIndex+10) + '.html';
+        window.location.href = "mc/" + (step.mcqIndex+10) + '.html';
       } else {
         window.location.href = SCREEN_TO_FILE[step.screenKey];
       }
