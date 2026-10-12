@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>CompTIA CySA+ Exam</title>
+<html lang="en"><head><meta charset="UTF-8">
+
+<title>WGUEXAMS — CompTIA CySA+ Practice Exam</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 
   :root{
@@ -1588,8 +1588,18 @@
 
   .sim-screen{display:none;}
   .sim-screen.active{display:block;}
+
+  /* ---------- Landing screen (matches reference) ---------- */
+  #screen-menu .exams-btn-fixed{position:fixed;bottom:24px;left:40px;z-index:1000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:15px 34px;border-radius:10px;background:#ffffff;color:#12161c;border:1px solid #d7dee6;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;box-shadow:0 10px 30px rgba(18,22,28,0.08);}
+  #screen-menu .exams-btn-fixed:hover{border-color:#1d4ed8;background:#f7f9fb;}
+  #screen-menu .menu-top h1{margin:0;}
+  @media(max-width:600px){
+    #screen-menu .exams-btn-fixed{left:50%;transform:translateX(-50%);bottom:90px;}
+    #screen-menu .begin-btn-fixed{right:50%;transform:translateX(50%);bottom:20px;}
+    #screen-menu .exams-btn-fixed,#screen-menu .begin-btn-fixed{width:calc(100% - 40px);justify-content:center;}
+  }
 </style>
-</head>
+<style>@keyframes dash{ to { stroke-dashoffset:-120; } }</style></head>
 <body>
 
 <style>
@@ -1690,25 +1700,30 @@
   .phish-btn:hover{border-color:var(--cyan)!important;background:#e9eff5!important;}
   .report-btn{background:#f2f5f8!important;border:1px solid #d7dee6!important;color:#12161c!important;}
   .report-btn:hover{border-color:var(--cyan)!important;background:#e9eff5!important;}
+  /* screen-scoped dark rules overridden for the light theme */
+  #screen-vulnclass .diag-server rect{fill:#dbeafe!important;stroke:#1d4ed8!important;}
+  #screen-vulnclass .diag-server text{fill:#1d4ed8!important;}
+  #screen-vulnclass .diag-server.placed rect{fill:#dcf7e6!important;stroke:#146b3d!important;}
+  #screen-vulnclass .diag-server.placed text{fill:#146b3d!important;}
 </style>
 
-<div id="examChrome">
+<div id="examChrome" style="display: none;">
   <div class="examtop">
-    <button class="examtop-left" onclick="switchScreen('menu')">CompTIA CySA+ Exam</button>
+    <button class="examtop-left" onclick="switchScreen('menu')">WGUEXAMS — CompTIA CySA+ Practice Exam</button>
     <div class="examtop-right">
       <div class="examtop-row">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
         <span id="examTimerText">Time Remaining 1:30:00</span>
       </div>
       <div class="examtop-row">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path></svg>
         <span id="examCounterText">1 of 10</span>
       </div>
     </div>
   </div>
   <div class="examflagbar">
     <button class="examflagbtn" id="examFlagBtn" onclick="toggleFlag()">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v18M5 4h11l-2.5 4L16 12H5"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v18M5 4h11l-2.5 4L16 12H5"></path></svg>
       Flag for Review
     </button>
   </div>
@@ -1719,20 +1734,23 @@
   <div class="menu-shell">
     <div class="menu-inner">
       <div class="menu-top">
-        <h1>CompTIA CySA+ Exam</h1>
-        <div class="menu-sub">Simulation Practice Set — choose a question to begin</div>
+        <h1>WGUEXAMS — CompTIA CySA+ Practice Exam</h1>
+        <div class="menu-sub">9 performance-based + 59 multiple-choice questions — choose a question to begin</div>
       </div>
       <div style="text-align:center;">
-        <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
-          <span>&#9749;</span> Buy me a coffee
-        </a>
-      </div>
+      <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
+        <span>☕</span> Buy me a coffee
+      </a>
     </div>
   </div>
-  <button class="begin-btn-fixed" onclick="startExamFullscreen()">
+  <a class="exams-btn-fixed" href="https://wguexams.github.io/" target="_blank" rel="noopener">
+    <span>📚</span> Other exams
+  </a>
+  <button class="begin-btn-fixed" id="beginBtn" type="button" onclick="startExamFullscreen()">
     Begin Exam
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
+</div>
 </div>
 
 <div id="screen-defacement" class="sim-screen">
@@ -1741,15 +1759,15 @@
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Website Defacement Investigation</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>INC-7781</b></span>
     <span>Type: <b style="color:var(--red)">Defacement</b></span>
-    <span id="clock-defacement">--:--:--</span>
+    <span id="clock-defacement">11:08:51 AM</span>
   </div>
 </header>
 
@@ -1759,7 +1777,7 @@
     <h1>mycorp.io Homepage Altered <span class="sev-chip">ACTIVE INCIDENT</span></h1>
     <div class="doc-btns">
 <button class="doc-btn qread-btn" onclick="openQRead('qmodal-defacement')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
       Read Question
     </button>
     </div>
@@ -1783,7 +1801,23 @@
 
   <div class="term-panel">
     <div class="term-tabs" id="term-tabs-def"></div>
-    <div class="term-body"><pre id="term-content-def"></pre></div>
+    <div class="term-body"><pre id="term-content-def">2026-02-14 09:12:05 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.15</span>] [username = dkim]
+2026-02-14 09:12:40 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 09:14:02 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./team.html written]
+2026-02-14 09:20:11 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.15] [username = dkim]
+2026-02-14 11:05:33 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.22</span>] [username = dkim]
+2026-02-14 11:06:10 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 11:08:45 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./contact.html written]
+2026-02-14 11:12:19 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.22] [username = dkim]
+2026-02-14 20:15:37 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="ip-flag">32.111.16.37</span>] [username = dkim]
+2026-02-14 20:16:02 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-14 20:17:50 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [<span class="file-flag">./index.html written</span>]
+2026-02-14 20:19:03 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 32.111.16.37] [username = dkim]
+2026-02-14 20:45:11 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (failed login) [IP = 71.44.19.203] [username = dkim]
+2026-02-15 08:02:14 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged in) [IP = <span class="col">10.20.30.40</span>] [username = dkim]
+2026-02-15 08:04:00 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [directory = /var/www/html]
+2026-02-15 08:06:22 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - [./index.html written]
+2026-02-15 08:08:47 - GUI MODE - PROTOCOL SERVER-TO-CLIENT - (logged out) [IP = 10.20.30.40] [username = dkim]</pre></div>
   </div>
 
   <div class="section">
@@ -1841,18 +1875,18 @@
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement" selected>1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement" selected="">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('menu')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('exfil')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -2010,15 +2044,15 @@ function resetDefacementSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Data Exfiltration Investigation</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>INC-9034</b></span>
     <span>Type: <b style="color:var(--red)">Exfiltration</b></span>
-    <span id="clock-exfil">--:--:--</span>
+    <span id="clock-exfil">11:08:51 AM</span>
   </div>
 </header>
 
@@ -2028,7 +2062,7 @@ function resetDefacementSim(){
     <h1>Unusual Outbound Data Volume Detected <span class="sev-chip">HOTSPOT</span></h1>
     <div class="doc-btns">
 <button class="doc-btn qread-btn" onclick="openQRead('qmodal-exfil')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
       Read Question
     </button>
     </div>
@@ -2051,7 +2085,26 @@ function resetDefacementSim(){
 
   <div class="term-panel">
     <div class="term-tabs" id="ex-tabs"></div>
-    <div class="term-body"><pre id="ex-content"></pre></div>
+    <div class="term-body"><pre id="ex-content"><span class="hdr">Active Connections</span>
+
+Proto  Local address           Foreign address        State         PID
+TCP    0.0.0.0:22              0.0.0.0:0              LISTENING     1000
+TCP    0.0.0.0:23              0.0.0.0:0              LISTENING     1235
+TCP    0.0.0.0:443             0.0.0.0:0              LISTENING     1466
+TCP    0.0.0.0:80              0.0.0.0:0              LISTENING     1566
+TCP    127.0.0.1:1500          127.0.0.1:22           ESTABLISHED   2001
+  [svchost.exe]
+TCP    10.0.5.14:38666         <span class="hl">203.0.113.44:22</span>        ESTABLISHED   3467
+  [<span class="hl">cmd.exe</span>]
+TCP    10.0.5.14:8447          91.198.20.10:https     ESTABLISHED   2677
+  [svchost.exe]
+TCP    10.0.5.14:55356         45.33.10.7:https       ESTABLISHED   1722
+  [ftpclient.exe]
+TCP    10.0.5.14:37654         10.0.5.30:http         ESTABLISHED   1560
+  [notepad.exe]
+TCP    10.0.5.14:55357         66.55.16.37:22         TIME_WAIT     0
+TCP    10.0.5.14:52744         66.55.16.37:22         TIME_WAIT     0
+TCP    10.0.5.14:56751         66.55.16.37:22         TIME_WAIT     0</pre></div>
   </div>
 
   <div class="section">
@@ -2115,18 +2168,18 @@ function resetDefacementSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil" selected>2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil" selected="">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('defacement')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('phish')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -2279,15 +2332,15 @@ function resetExfilSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Phishing Incident Response</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>INC-2044</b></span>
     <span>Priority: <b style="color:var(--red)">SEV-2</b></span>
-    <span id="clock-phish">--:--:--</span>
+    <span id="clock-phish">11:08:51 AM</span>
   </div>
 </header>
 
@@ -2317,11 +2370,11 @@ function resetExfilSim(){
     </div>
     <div class="doc-btns">
       <button class="doc-btn qread-btn" onclick="openQRead('qmodal-phish')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
         Read Question
       </button>
       <button class="doc-btn" onclick="openEmail()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg>
         View Phishing Email
       </button>
     </div>
@@ -2336,20 +2389,20 @@ function resetExfilSim(){
     <div id="desktop">
       <svg id="diagram" viewBox="0 0 1000 480" style="width:100%;max-width:820px;margin:0 auto;display:block;">
         <!-- internal network zone -->
-        <rect x="180" y="16" width="810" height="324" rx="16" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
+        <rect x="180" y="16" width="810" height="324" rx="16" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"></rect>
         <text x="204" y="46" fill="#5f92a8" font-family="Space Grotesk" font-weight="600" font-size="14.5" letter-spacing="0.5">INTERNAL NETWORK — TRUST ZONE</text>
 
         <!-- bus line -->
-        <line x1="330" y1="222" x2="850" y2="222" stroke="#2a3d4f" stroke-width="2.4"/>
+        <line x1="330" y1="222" x2="850" y2="222" stroke="#2a3d4f" stroke-width="2.4"></line>
 
         <!-- Email Server (clickable) -->
         <g class="node-clickable" id="node-email" onclick="openLog('email')">
-          <line x1="330" y1="164" x2="330" y2="222" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect class="card" x="215" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"/>
-          <rect x="233" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="233" y1="95" x2="271" y2="95" stroke="#2563eb" stroke-width="1.4"/>
-          <line x1="233" y1="107" x2="271" y2="107" stroke="#2563eb" stroke-width="1.4"/>
-          <circle cx="263" cy="89" r="2" fill="#3ddc84"/>
+          <line x1="330" y1="164" x2="330" y2="222" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect class="card" x="215" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"></rect>
+          <rect x="233" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"></rect>
+          <line x1="233" y1="95" x2="271" y2="95" stroke="#2563eb" stroke-width="1.4"></line>
+          <line x1="233" y1="107" x2="271" y2="107" stroke="#2563eb" stroke-width="1.4"></line>
+          <circle cx="263" cy="89" r="2" fill="#3ddc84"></circle>
           <text x="285" y="92" fill="#dce6f0" font-family="Inter" font-weight="700" font-size="14" class="node-label">Email Server</text>
           <text x="285" y="112" fill="#8fa2b5" font-family="IBM Plex Mono" font-size="12">192.168.0.20</text>
           <text x="285" y="138" fill="#3ddc84" font-family="IBM Plex Mono" font-size="10.5">● click to view logs</text>
@@ -2357,12 +2410,12 @@ function resetExfilSim(){
 
         <!-- File Server (clickable) -->
         <g class="node-clickable" id="node-file" onclick="openLog('file')">
-          <line x1="590" y1="164" x2="590" y2="222" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect class="card" x="475" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"/>
-          <rect x="493" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="493" y1="95" x2="531" y2="95" stroke="#2563eb" stroke-width="1.4"/>
-          <line x1="493" y1="107" x2="531" y2="107" stroke="#2563eb" stroke-width="1.4"/>
-          <circle cx="523" cy="89" r="2" fill="#3ddc84"/>
+          <line x1="590" y1="164" x2="590" y2="222" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect class="card" x="475" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"></rect>
+          <rect x="493" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"></rect>
+          <line x1="493" y1="95" x2="531" y2="95" stroke="#2563eb" stroke-width="1.4"></line>
+          <line x1="493" y1="107" x2="531" y2="107" stroke="#2563eb" stroke-width="1.4"></line>
+          <circle cx="523" cy="89" r="2" fill="#3ddc84"></circle>
           <text x="545" y="92" fill="#dce6f0" font-family="Inter" font-weight="700" font-size="14">File Server</text>
           <text x="545" y="112" fill="#8fa2b5" font-family="IBM Plex Mono" font-size="12">192.168.0.30</text>
           <text x="545" y="138" fill="#3ddc84" font-family="IBM Plex Mono" font-size="10.5">● click to view logs</text>
@@ -2370,12 +2423,12 @@ function resetExfilSim(){
 
         <!-- SIEM (clickable) -->
         <g class="node-clickable" id="node-siem" onclick="openLog('siem')">
-          <line x1="850" y1="164" x2="850" y2="222" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect class="card" x="735" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"/>
-          <rect x="753" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"/>
-          <line x1="753" y1="95" x2="791" y2="95" stroke="#2563eb" stroke-width="1.4"/>
-          <line x1="753" y1="107" x2="791" y2="107" stroke="#2563eb" stroke-width="1.4"/>
-          <circle cx="783" cy="89" r="2" fill="#3ddc84"/>
+          <line x1="850" y1="164" x2="850" y2="222" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect class="card" x="735" y="64" width="230" height="100" rx="12" fill="#111a24" stroke="#2a3d4f" stroke-width="1.6"></rect>
+          <rect x="753" y="82" width="38" height="38" rx="5" fill="none" stroke="#2563eb" stroke-width="1.8"></rect>
+          <line x1="753" y1="95" x2="791" y2="95" stroke="#2563eb" stroke-width="1.4"></line>
+          <line x1="753" y1="107" x2="791" y2="107" stroke="#2563eb" stroke-width="1.4"></line>
+          <circle cx="783" cy="89" r="2" fill="#3ddc84"></circle>
           <text x="805" y="92" fill="#dce6f0" font-family="Inter" font-weight="700" font-size="14">SIEM</text>
           <text x="805" y="112" fill="#8fa2b5" font-family="IBM Plex Mono" font-size="12">192.168.0.15</text>
           <text x="805" y="138" fill="#3ddc84" font-family="IBM Plex Mono" font-size="10.5">● click to view logs</text>
@@ -2383,37 +2436,37 @@ function resetExfilSim(){
 
         <!-- Internal Router (static) -->
         <g>
-          <line x1="330" y1="222" x2="330" y2="270" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect x="278" y="270" width="104" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <line x1="330" y1="222" x2="330" y2="270" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect x="278" y="270" width="104" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="330" y="302" text-anchor="middle" fill="#7c8ba1" font-family="Inter" font-weight="500" font-size="12.5">Router</text>
         </g>
         <!-- Proxy (static) -->
         <g>
-          <line x1="590" y1="222" x2="590" y2="270" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect x="538" y="270" width="104" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <line x1="590" y1="222" x2="590" y2="270" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect x="538" y="270" width="104" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="590" y="302" text-anchor="middle" fill="#7c8ba1" font-family="Inter" font-weight="500" font-size="12.5">Proxy</text>
         </g>
         <!-- Workstations (static) -->
         <g>
-          <line x1="850" y1="222" x2="850" y2="270" stroke="#2a3d4f" stroke-width="2.4"/>
-          <rect x="788" y="270" width="124" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+          <line x1="850" y1="222" x2="850" y2="270" stroke="#2a3d4f" stroke-width="2.4"></line>
+          <rect x="788" y="270" width="124" height="54" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="850" y="292" text-anchor="middle" fill="#7c8ba1" font-family="Inter" font-weight="500" font-size="12">Workstations</text>
           <text x="850" y="309" text-anchor="middle" fill="#5a6b7f" font-family="IBM Plex Mono" font-size="10.5">192.168.0.0/24</text>
         </g>
 
         <!-- clean straight path: router -> firewall -> internet (no offset jog) -->
-        <path id="attack-path" d="M330 324 L330 410 L470 410" fill="none" stroke="#233042" stroke-width="2.4" stroke-dasharray="7 5"/>
+        <path id="attack-path" d="M330 324 L330 410 L470 410" fill="none" stroke="#233042" stroke-width="2.4" stroke-dasharray="7 5"></path>
 
         <!-- Firewall -->
         <g>
-          <rect x="282" y="378" width="96" height="64" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"/>
-          <path d="M330 390 l18 7 v15 c0 10 -8 17 -18 20 c-10 -3 -18 -10 -18 -20 v-15 z" fill="none" stroke="#ffb454" stroke-width="1.8"/>
+          <rect x="282" y="378" width="96" height="64" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"></rect>
+          <path d="M330 390 l18 7 v15 c0 10 -8 17 -18 20 c-10 -3 -18 -10 -18 -20 v-15 z" fill="none" stroke="#ffb454" stroke-width="1.8"></path>
           <text x="330" y="462" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12.5">Firewall</text>
         </g>
 
         <!-- Internet -->
         <g>
-          <ellipse cx="530" cy="410" rx="60" ry="32" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.6"/>
+          <ellipse cx="530" cy="410" rx="60" ry="32" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.6"></ellipse>
           <text x="530" y="415" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12.5">Internet</text>
         </g>
       </svg>
@@ -2469,19 +2522,19 @@ function resetExfilSim(){
       <div class="step">
         <div class="num">1</div>
         <p><b>Initial access.</b> The Email Server logs show 20 near-identical messages sent within seconds of each other from
-        <code id="a-from"></code>, spoofing the company's real domain. This is the phishing wave (representative sample of the
+        <code id="a-from">it-helpdesk@anycorp-support.com</code>, spoofing the company's real domain. This is the phishing wave (representative sample of the
         ~100 mailboxes the gateway reported).</p>
       </div>
       <div class="step">
         <div class="num">2</div>
-        <p><b>Who clicked.</b> The File Server (proxy) logs show <code id="a-clicked-count"></code> unique internal source IPs
-        issuing <code>POST</code> requests to <code id="a-domain"></code> shortly after the phishing wave — a credential-harvesting
+        <p><b>Who clicked.</b> The File Server (proxy) logs show <code id="a-clicked-count">25</code> unique internal source IPs
+        issuing <code>POST</code> requests to <code id="a-domain">goodguys.se</code> shortly after the phishing wave — a credential-harvesting
         landing page, not a normal browsing destination. Each unique IP hitting that domain is one user who clicked the link.</p>
       </div>
       <div class="step">
         <div class="num">3</div>
-        <p><b>Who was infected.</b> In the SIEM logs, <code id="a-infected-count"></code> of those IPs show a Process Creation
-        event (Event ID 4688) for <code id="a-malware-name"></code> — but running under the <b>user's own account</b>, not
+        <p><b>Who was infected.</b> In the SIEM logs, <code id="a-infected-count">15</code> of those IPs show a Process Creation
+        event (Event ID 4688) for <code id="a-malware-name">svchost.exe</code> — but running under the <b>user's own account</b>, not
         <code>SYSTEM</code>. The legitimate Windows process always runs under SYSTEM/LOCAL SERVICE/NETWORK SERVICE, so a copy
         launched under a standard user account is the malware masquerading as a trusted process name. That mismatch is what
         confirms execution, separate from simply clicking the link.</p>
@@ -2503,18 +2556,18 @@ function resetExfilSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish" selected>3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish" selected="">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('exfil')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('compliance')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -2526,7 +2579,7 @@ function resetExfilSim(){
       <button onclick="closeEmail()">✕</button>
     </div>
     <div class="email-body">
-      <div class="email-field"><b>From:</b> <span id="em-from"></span></div>
+      <div class="email-field"><b>From:</b> <span id="em-from">it-helpdesk@anycorp-support.com</span></div>
       <div class="email-field"><b>To:</b> kmatthews@anycorp.com</div>
       <div class="email-field"><b>Date:</b> 3/7/2025 3:55:03 PM</div>
       <div class="email-subject">Action Required: Your Password Expires Today</div>
@@ -2896,15 +2949,15 @@ function resetPhishSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Server Hardening Compliance Review</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>REQ-1129</b></span>
     <span>Type: <b style="color:var(--amber)">Compliance Audit</b></span>
-    <span id="clock-compliance">--:--:--</span>
+    <span id="clock-compliance">11:08:51 AM</span>
   </div>
 </header>
 
@@ -2914,7 +2967,7 @@ function resetPhishSim(){
     <h1>AppServ1–4 Hardening Review <span class="sev-chip">AUDIT IN PROGRESS</span></h1>
     <div class="doc-btns">
 <button class="doc-btn qread-btn" onclick="openQRead('qmodal-compliance')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
       Read Question
     </button>
     </div>
@@ -2943,7 +2996,48 @@ function resetPhishSim(){
 
   <div class="term-panel">
     <div class="term-tabs" id="term-tabs"></div>
-    <div class="term-body"><pre id="term-content"></pre></div>
+    <div class="term-body"><pre id="term-content"><span class="prompt">root@INFOSEC:~#</span> curl --head appsrv1.fictionalorg.com:443
+
+HTTP/1.1 200 OK
+Date: Wed, 26 Jun 2019 21:15:15 GMT
+Server: Apache/2.4.48 (CentOS)
+Last-Modified: Wed, 26 Jun 2019 21:10:22 GMT
+ETag: "13520-58c407930177d"
+Accept-Ranges: bytes
+Content-Length: 79136
+Vary: Accept-Encoding
+Cache-Control: max-age=3600
+Expires: Wed, 26 Jun 2019 22:15:15 GMT
+Content-Type: text/html
+
+<span class="prompt">root@INFOSEC:~#</span> nmap --script ssl-enum-ciphers appsrv1.fictionalorg.com -p 443
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2019-06-26 16:07 CDT
+
+Nmap scan report for AppSrv1.fictionalorg.com (10.21.4.68)
+Host is up (0.042s latency).
+rDNS record for 10.21.4.68: inaddrArpa.fictionalorg.com
+PORT    STATE SERVICE
+443/tcp open  https
+|   <span class="hl-good">TLSv1.2:</span>
+|     ciphers:
+|       TLS_RSA_WITH_AES_256_GCM_SHA384 - strong
+|     compressors:
+|       NULL
+|_  least strength: strong
+
+Nmap done: 1 IP address (1 host up) scanned in 8.63 seconds
+
+<span class="prompt">root@INFOSEC:~#</span> nmap --top-ports 10 appsrv1.fictionalorg.com
+
+Starting Nmap 6.40 ( http://nmap.org ) at 2019-06-27 10:13 CDT
+
+Nmap scan report for appsrv1.fictionalorg.com (10.21.4.68)
+Host is up (0.15s latency).
+rDNS record for 10.21.4.68: appsrv1.fictionalorg.com
+PORT    STATE SERVICE
+<span class="hl-good">80/tcp  open  http</span>
+<span class="hl-good">443/tcp open  https</span></pre></div>
   </div>
 
   <div class="section compliance-widget">
@@ -2985,18 +3079,18 @@ function resetPhishSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance" selected>4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance" selected="">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('phish')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('network')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -3399,15 +3493,15 @@ function nextQuestion(){ finishExam(); }
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Network Hardening Discovery</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>AUDIT-3140</b></span>
     <span>Type: <b style="color:var(--cyan)">Pen Test</b></span>
-    <span id="clock-network">--:--:--</span>
+    <span id="clock-network">11:08:51 AM</span>
   </div>
 </header>
 
@@ -3417,7 +3511,7 @@ function nextQuestion(){ finishExam(); }
     <h1>Corporate Network Hardening Review <span class="sev-chip">DISCOVERY IN PROGRESS</span></h1>
     <div class="doc-btns">
 <button class="doc-btn qread-btn" onclick="openQRead('qmodal-network')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
       Read Question
     </button>
     </div>
@@ -3468,33 +3562,33 @@ function nextQuestion(){ finishExam(); }
         <div class="net-card" style="left:20px; top:20px; width:300px;" data-device="candyman">
           <div class="nc-name">Name: <b>CandyManCarl.Local</b></div>
           <label>Role</label>
-          <select class="role-select"></select>
+          <select class="role-select"><option value=""></option><option>File Server</option><option>Mail Server</option><option>Database</option><option>Web Server</option><option>Switch</option></select>
           <label>IP Address</label>
           <input type="text" class="ip-input" placeholder="e.g. 192.168.1.20">
           <label>Non-Compliant Service</label>
-          <select class="ncs-select"></select>
+          <select class="ncs-select"><option value=""></option><option>FTP 21</option><option>SSH 22</option><option>Telnet 23</option><option>DNS 53</option><option>HTTP 80</option><option>RPC 135</option><option>IMAP 143</option><option>NetBIOS 139</option><option>HTTPS 443</option><option>SMTP 25</option><option>IMAP/S 993</option><option>MySQL 3306</option><option>SMB/CIFS 445</option></select>
           <div class="net-fb" data-fb="ip"></div>
         </div>
 
         <div class="net-card" style="left:20px; top:310px; width:300px;" data-device="laura">
           <div class="nc-name">Name: <b>FarmerLaura.Local</b></div>
           <label>Role</label>
-          <select class="role-select"></select>
+          <select class="role-select"><option value=""></option><option>File Server</option><option>Mail Server</option><option>Database</option><option>Web Server</option><option>Switch</option></select>
           <label>IP Address</label>
           <input type="text" class="ip-input" placeholder="e.g. 192.168.1.30">
           <label>Non-Compliant Service</label>
-          <select class="ncs-select"></select>
+          <select class="ncs-select"><option value=""></option><option>FTP 21</option><option>SSH 22</option><option>Telnet 23</option><option>DNS 53</option><option>HTTP 80</option><option>RPC 135</option><option>IMAP 143</option><option>NetBIOS 139</option><option>HTTPS 443</option><option>SMTP 25</option><option>IMAP/S 993</option><option>MySQL 3306</option><option>SMB/CIFS 445</option></select>
           <div class="net-fb" data-fb="ip"></div>
         </div>
 
         <div class="net-card" style="left:20px; top:600px; width:300px;" data-device="sara">
           <div class="nc-name">Name: <b>SandwichSara.Local</b></div>
           <label>Role</label>
-          <select class="role-select"></select>
+          <select class="role-select"><option value=""></option><option>File Server</option><option>Mail Server</option><option>Database</option><option>Web Server</option><option>Switch</option></select>
           <label>IP Address</label>
           <input type="text" class="ip-input" placeholder="e.g. 192.168.1.40">
           <label>Non-Compliant Service</label>
-          <select class="ncs-select"></select>
+          <select class="ncs-select"><option value=""></option><option>FTP 21</option><option>SSH 22</option><option>Telnet 23</option><option>DNS 53</option><option>HTTP 80</option><option>RPC 135</option><option>IMAP 143</option><option>NetBIOS 139</option><option>HTTPS 443</option><option>SMTP 25</option><option>IMAP/S 993</option><option>MySQL 3306</option><option>SMB/CIFS 445</option></select>
           <div class="net-fb" data-fb="ip"></div>
         </div>
 
@@ -3502,11 +3596,11 @@ function nextQuestion(){ finishExam(); }
         <div class="net-card" style="left:420px; top:20px; width:300px;" data-device="ted">
           <div class="nc-name">Name: <b>FarmerTed.Local</b></div>
           <label>Role</label>
-          <select class="role-select"></select>
+          <select class="role-select"><option value=""></option><option>File Server</option><option>Mail Server</option><option>Database</option><option>Web Server</option><option>Switch</option></select>
           <label>IP Address</label>
           <input type="text" class="ip-input" placeholder="e.g. 192.168.1.10">
           <label>Non-Compliant Service</label>
-          <select class="ncs-select"></select>
+          <select class="ncs-select"><option value=""></option><option>FTP 21</option><option>SSH 22</option><option>Telnet 23</option><option>DNS 53</option><option>HTTP 80</option><option>RPC 135</option><option>IMAP 143</option><option>NetBIOS 139</option><option>HTTPS 443</option><option>SMTP 25</option><option>IMAP/S 993</option><option>MySQL 3306</option><option>SMB/CIFS 445</option></select>
           <div class="net-fb" data-fb="ip"></div>
         </div>
 
@@ -3514,7 +3608,7 @@ function nextQuestion(){ finishExam(); }
         <div class="here-box" style="left:420px; top:320px; width:300px;">
           <div class="here-tag">◉ YOU ARE HERE — PC1</div>
           <button class="console-btn" onclick="toggleConsole()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 9l4 3-4 3M13 15h5"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M6 9l4 3-4 3M13 15h5"></path></svg>
             Console
           </button>
         </div>
@@ -3522,7 +3616,7 @@ function nextQuestion(){ finishExam(); }
         <!-- Firewall -->
         <div class="icon-box firewall" style="left:855px; top:122px;">
           <div class="icon-circle">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffb454" stroke-width="2"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"/></svg>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffb454" stroke-width="2"><path d="M12 3l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V6l7-3z"></path></svg>
           </div>
           <div class="icon-label">Firewall</div>
         </div>
@@ -3530,7 +3624,7 @@ function nextQuestion(){ finishExam(); }
         <!-- Internet -->
         <div class="icon-box internet" style="left:1020px; top:122px;">
           <div class="icon-circle">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8fb4cc" stroke-width="2"><path d="M6 17a4 4 0 0 1 .3-8 5 5 0 0 1 9.6-1.5A4.5 4.5 0 0 1 18 17H6z"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#8fb4cc" stroke-width="2"><path d="M6 17a4 4 0 0 1 .3-8 5 5 0 0 1 9.6-1.5A4.5 4.5 0 0 1 18 17H6z"></path></svg>
           </div>
           <div class="icon-label">Internet</div>
         </div>
@@ -3542,11 +3636,11 @@ function nextQuestion(){ finishExam(); }
         <div class="net-card" style="left:783px; top:303px; width:300px;" data-device="mike">
           <div class="nc-name">Name: <b>LunchTimeMike.Local</b></div>
           <label>Role</label>
-          <select class="role-select"></select>
+          <select class="role-select"><option value=""></option><option>File Server</option><option>Mail Server</option><option>Database</option><option>Web Server</option><option>Switch</option></select>
           <label>IP Address</label>
           <input type="text" class="ip-input" placeholder="e.g. 10.10.10.25">
           <label>Non-Compliant Service</label>
-          <select class="ncs-select"></select>
+          <select class="ncs-select"><option value=""></option><option>FTP 21</option><option>SSH 22</option><option>Telnet 23</option><option>DNS 53</option><option>HTTP 80</option><option>RPC 135</option><option>IMAP 143</option><option>NetBIOS 139</option><option>HTTPS 443</option><option>SMTP 25</option><option>IMAP/S 993</option><option>MySQL 3306</option><option>SMB/CIFS 445</option></select>
           <div class="net-fb" data-fb="ip"></div>
         </div>
 
@@ -3556,7 +3650,71 @@ function nextQuestion(){ finishExam(); }
             <span class="title"><span class="dot"></span>PC1 — Terminal</span>
             <button onclick="toggleConsole()">✕</button>
           </div>
-          <div class="console-body"><pre id="console-text"></pre></div>
+          <div class="console-body"><pre id="console-text"><span class="prompt">[root@server1 ~]#</span> nmap candymancarl.local
+
+Starting Nmap 7.01 ( http://www.insecure.org/nmap/ ) at 2016-03-02 16:20 EST
+Interesting ports on CandyManCarl.Local (192.168.1.20):
+Not shown: 1676 closed ports
+PORT     STATE  SERVICE
+21/tcp   open   ftp
+135/tcp  open   msrpc  Microsoft Windows RPC
+139/tcp  open   netbios-ssn
+445/tcp  open   microsoft-ds
+MAC Address: 09:00:27:D9:8E:D4 (Symetrical Systems Industries Consortium)
+
+Nmap finished: 1 IP address (1 host up) scanned in 0.420 seconds
+
+<span class="prompt">[root@server1 ~]#</span> nmap farmerlaura.local
+
+Starting Nmap 7.01 ( http://www.insecure.org/nmap/ ) at 2016-03-02 16:20 EST
+Interesting ports on FarmerLaura.Local (192.168.1.30):
+Not shown: 1678 closed ports
+PORT     STATE  SERVICE
+143/tcp  open   imap
+993/tcp  open   imap/s
+MAC Address: 09:00:27:D9:8E:D3 (Symetrical Systems Industries Consortium)
+
+Nmap finished: 1 IP address (1 host up) scanned in 0.420 seconds
+
+<span class="prompt">[root@server1 ~]#</span> nmap sandwichsara.local
+
+Starting Nmap 7.01 ( http://www.insecure.org/nmap/ ) at 2016-03-02 16:20 EST
+Interesting ports on SandwichSara.Local (192.168.1.40):
+Not shown: 1677 closed ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+53/udp   open   <span class="hl">dns</span>
+3306/tcp open   mysql
+MAC Address: 09:00:27:D9:8E:D1 (Symetrical Systems Industries Consortium)
+
+Nmap finished: 1 IP address (1 host up) scanned in 0.420 seconds
+
+<span class="prompt">[root@server1 ~]#</span> nmap farmerted.local
+
+Starting Nmap 7.01 ( http://www.insecure.org/nmap/ ) at 2016-03-02 16:20 EST
+Interesting ports on FarmerTed.Local (192.168.1.10):
+Not shown: 1678 closed ports
+PORT    STATE  SERVICE
+22/tcp  open   ssh
+23/tcp  open   <span class="hl">telnet</span>
+MAC Address: 09:00:27:D9:8E:D6 (Symetrical Systems Industries Consortium)
+
+Nmap finished: 1 IP address (1 host up) scanned in 0.420 seconds
+
+<span class="prompt">[root@server1 ~]#</span> nmap lunchtimemike.local
+
+Starting Nmap 7.01 ( http://www.insecure.org/nmap/ ) at 2016-03-02 16:20 EST
+Interesting ports on LunchTimeMike.Local (10.10.10.25):
+Not shown: 1677 closed ports
+PORT    STATE  SERVICE
+22/tcp  open   ssh
+80/tcp  open   http
+443/tcp open   https
+MAC Address: 09:00:27:D9:8E:D5 (Symetrical Systems Industries Consortium)
+
+Nmap finished: 1 IP address (1 host up) scanned in 0.420 seconds
+
+<span class="prompt">[root@server1 ~]#</span> _</pre></div>
         </div>
 
       </div>
@@ -3588,18 +3746,18 @@ function nextQuestion(){ finishExam(); }
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network" selected>5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network" selected="">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('compliance')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('scan')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -3777,15 +3935,15 @@ function resetNetworkSim(){
 <header>
   <div class="brand">
     <div class="brand-text">
-      <div class="course">CompTIA CySA+ Exam</div>
+      <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
       <div class="sub">Simulation — Vulnerability Scan Validation &amp; Remediation</div>
     </div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>SCAN-5502</b></span>
     <span>Standard: <b style="color:var(--red)">PCI DSS</b></span>
-    <span id="clock-scan">--:--:--</span>
+    <span id="clock-scan">11:08:51 AM</span>
   </div>
 </header>
 
@@ -3795,7 +3953,7 @@ function resetNetworkSim(){
     <h1>Post-Deployment Vulnerability Scan <span class="sev-chip">TRIAGE REQUIRED</span></h1>
     <div class="doc-btns">
 <button class="doc-btn qread-btn" onclick="openQRead('qmodal-scan')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
       Read Question
     </button>
     </div>
@@ -3828,73 +3986,73 @@ function resetNetworkSim(){
     <div class="diagram-wrap">
       <svg id="netdiagram" viewBox="0 0 1000 420" style="width:100%;max-width:900px;margin:0 auto;display:block;">
         <!-- CDE zone -->
-        <rect x="20" y="16" width="360" height="300" rx="14" fill="#241a14" stroke="#5a3a22" stroke-width="1.2"/>
+        <rect x="20" y="16" width="360" height="300" rx="14" fill="#241a14" stroke="#5a3a22" stroke-width="1.2"></rect>
         <text x="42" y="44" fill="#d9a06b" font-family="Space Grotesk" font-weight="700" font-size="14" letter-spacing="0.5">CDE NETWORK</text>
 
         <!-- Internal zone -->
-        <rect x="620" y="16" width="360" height="300" rx="14" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
+        <rect x="620" y="16" width="360" height="300" rx="14" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"></rect>
         <text x="642" y="44" fill="#5f92a8" font-family="Space Grotesk" font-weight="700" font-size="14" letter-spacing="0.5">INTERNAL NETWORK</text>
 
         <!-- CDE servers -->
-        <g><rect x="46" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+        <g><rect x="46" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"></rect>
           <text x="66" y="98" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB01</text>
           <text x="66" y="116" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.20</text></g>
-        <g><rect x="214" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+        <g><rect x="214" y="70" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"></rect>
           <text x="234" y="98" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB02</text>
           <text x="234" y="116" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.21</text></g>
-        <g><rect x="46" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+        <g><rect x="46" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"></rect>
           <text x="66" y="208" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB03</text>
           <text x="66" y="226" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.22</text></g>
-        <g><rect x="214" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"/>
+        <g><rect x="214" y="180" width="150" height="70" rx="10" fill="#1a120c" stroke="#5a3a22" stroke-width="1.4"></rect>
           <text x="234" y="208" fill="#f0d9c2" font-family="IBM Plex Mono" font-weight="600" font-size="13">APPWEB04</text>
           <text x="234" y="226" fill="#b98a5e" font-family="IBM Plex Mono" font-size="11">10.50.0.23</text></g>
 
         <!-- Internal servers -->
-        <g><rect x="646" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <g><rect x="646" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"></rect>
           <text x="666" y="98" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">DBSRV01</text>
           <text x="666" y="116" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.10</text></g>
-        <g><rect x="814" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <g><rect x="814" y="70" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"></rect>
           <text x="834" y="98" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">FILESRV01</text>
           <text x="834" y="116" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.11</text></g>
-        <g><rect x="646" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <g><rect x="646" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"></rect>
           <text x="666" y="208" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">AUTHSRV01</text>
           <text x="666" y="226" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.12</text></g>
-        <g><rect x="814" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <g><rect x="814" y="180" width="150" height="70" rx="10" fill="#0d151e" stroke="#233042" stroke-width="1.4"></rect>
           <text x="834" y="208" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="13">WKSTN01</text>
           <text x="834" y="226" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="11">10.10.0.13</text></g>
 
         <!-- connectors: CDE servers -> shared bus -> router -->
-        <line x1="121" y1="140" x2="121" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="289" y1="140" x2="289" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="121" y1="180" x2="121" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="289" y1="180" x2="289" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="121" y1="160" x2="450" y2="160" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="121" y1="140" x2="121" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="289" y1="140" x2="289" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="121" y1="180" x2="121" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="289" y1="180" x2="289" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="121" y1="160" x2="450" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
         <!-- connectors: internal servers -> shared bus -> router -->
-        <line x1="721" y1="140" x2="721" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="889" y1="140" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="721" y1="180" x2="721" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="889" y1="180" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="550" y1="160" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="721" y1="140" x2="721" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="889" y1="140" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="721" y1="180" x2="721" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="889" y1="180" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="550" y1="160" x2="889" y2="160" stroke="#2a3d4f" stroke-width="2"></line>
 
         <!-- Router -->
-        <rect x="452" y="132" width="96" height="56" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.4"/>
+        <rect x="452" y="132" width="96" height="56" rx="9" fill="#0d151e" stroke="#233042" stroke-width="1.4"></rect>
         <text x="500" y="156" text-anchor="middle" fill="#dce6f0" font-family="Inter" font-weight="600" font-size="12.5">Router</text>
         <text x="500" y="173" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10.5">10.50.0.1</text>
 
         <!-- Router -> Firewall -> Internet -->
-        <line x1="500" y1="188" x2="500" y2="250" stroke="#2a3d4f" stroke-width="2"/>
-        <rect x="452" y="250" width="96" height="60" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"/>
-        <path d="M500 262 l16 6 v13 c0 9 -7 15 -16 18 c-9 -3 -16 -9 -16 -18 v-13 z" fill="none" stroke="#ffb454" stroke-width="1.8"/>
+        <line x1="500" y1="188" x2="500" y2="250" stroke="#2a3d4f" stroke-width="2"></line>
+        <rect x="452" y="250" width="96" height="60" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"></rect>
+        <path d="M500 262 l16 6 v13 c0 9 -7 15 -16 18 c-9 -3 -16 -9 -16 -18 v-13 z" fill="none" stroke="#ffb454" stroke-width="1.8"></path>
         <text x="500" y="326" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12">Firewall</text>
         <text x="500" y="342" text-anchor="middle" fill="#5a6b7f" font-family="IBM Plex Mono" font-size="10">203.0.113.45</text>
 
-        <line x1="500" y1="310" x2="500" y2="360" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="6 5"/>
-        <ellipse cx="500" cy="390" rx="58" ry="26" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.6"/>
+        <line x1="500" y1="310" x2="500" y2="360" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="6 5"></line>
+        <ellipse cx="500" cy="390" rx="58" ry="26" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.6"></ellipse>
         <text x="500" y="395" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="12">Internet</text>
       </svg>
     </div>
     <button class="report-btn" onclick="openReport()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"></path><rect x="4" y="3" width="16" height="18" rx="2"></rect></svg>
       Vulnerability Scan Report
     </button>
   </div>
@@ -3928,18 +4086,18 @@ function resetNetworkSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan" selected>6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan" selected="">6</option><option value="vulnclass">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
   <button class="back-btn" onclick="switchScreen('network')">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Back
   </button>
   <button class="next-btn" onclick="switchScreen('vulnclass')">
     Next
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   </div>
 </div>
@@ -4118,14 +4276,14 @@ function resetScanSim(){
 
 <header>
   <div class="brand-text">
-    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
     <div class="sub">Simulation — Vulnerability Scan Classification</div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>SCAN-5591</b></span>
     <span>Type: <b style="color:var(--amber)">Validation</b></span>
-    <span id="clock-vulnclass">--:--:--</span>
+    <span id="clock-vulnclass">11:08:51 AM</span>
   </div>
 </header>
 
@@ -4135,7 +4293,7 @@ function resetScanSim(){
     <h1>Riverbend Networks — Vulnerability Scan Review <span class="sev-chip">HOT AREA</span></h1>
     <div class="doc-btns">
       <button class="doc-btn qread-btn" onclick="openQRead('qmodal-vulnclass')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
         Read Question
       </button>
     </div>
@@ -4171,100 +4329,100 @@ function resetScanSim(){
     <div class="diagram-wrap">
       <svg id="vulnclass-diagram" viewBox="0 0 1180 380" style="width:100%;max-width:1080px;margin:0 auto;display:block;">
         <!-- Anonymizing Proxy / External Host -->
-        <g><rect x="20" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="20" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="80" y="50" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Anonymizing</text>
           <text x="80" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Proxy</text></g>
-        <g><rect x="160" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="160" y="28" width="120" height="54" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="220" y="50" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">External</text>
           <text x="220" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Host</text></g>
 
         <!-- DMZ zone -->
-        <rect x="320" y="12" width="230" height="104" rx="12" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"/>
+        <rect x="320" y="12" width="230" height="104" rx="12" fill="#0f1a26" stroke="#22384a" stroke-width="1.2"></rect>
         <text x="338" y="30" fill="#5f92a8" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">DMZ</text>
-        <g><rect x="334" y="42" width="96" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="334" y="42" width="96" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="382" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10.5">Mail</text>
           <text x="382" y="78" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10.5">Proxy</text></g>
-        <g id="diag-linux-web" class="diag-server" data-server="linux-web"><rect x="440" y="42" width="98" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g id="diag-linux-web" class="diag-server" data-server="linux-web"><rect x="440" y="42" width="98" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="489" y="60" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Linux Web</text>
           <text x="489" y="74" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Server</text></g>
 
         <!-- switch between DMZ and Server VLAN -->
-        <g><rect x="576" y="42" width="78" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="576" y="42" width="78" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="615" y="72" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
 
         <!-- Server VLAN zone -->
-        <rect x="690" y="12" width="280" height="104" rx="12" fill="#0d1f16" stroke="#20402c" stroke-width="1.2"/>
+        <rect x="690" y="12" width="280" height="104" rx="12" fill="#0d1f16" stroke="#20402c" stroke-width="1.2"></rect>
         <text x="708" y="30" fill="#59a877" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">SERVER VLAN</text>
-        <g id="diag-directory" class="diag-server" data-server="directory"><rect x="704" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g id="diag-directory" class="diag-server" data-server="directory"><rect x="704" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="760" y="64" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Directory</text>
           <text x="760" y="78" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="10">Server</text></g>
-        <g id="diag-file-print" class="diag-server" data-server="file-print"><rect x="838" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g id="diag-file-print" class="diag-server" data-server="file-print"><rect x="838" y="42" width="112" height="52" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="894" y="60" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9.5">File/Print</text>
           <text x="894" y="74" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9.5">Server</text></g>
 
         <!-- dual switches under DMZ -->
-        <g><rect x="350" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="350" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="390" y="177" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
-        <g><rect x="470" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="470" y="148" width="80" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="510" y="177" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
 
         <!-- switch feeding User VLAN -->
-        <g><rect x="576" y="168" width="78" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="576" y="168" width="78" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="615" y="197" text-anchor="middle" fill="#7c8ba1" font-family="IBM Plex Mono" font-size="10">Switch</text></g>
 
         <!-- User VLAN zone -->
-        <rect x="690" y="148" width="330" height="132" rx="12" fill="#111823" stroke="#233042" stroke-width="1.2"/>
+        <rect x="690" y="148" width="330" height="132" rx="12" fill="#111823" stroke="#233042" stroke-width="1.2"></rect>
         <text x="708" y="166" fill="#7c8ba1" font-family="Space Grotesk" font-weight="700" font-size="12" letter-spacing="0.5">USER VLAN</text>
-        <g><rect x="704" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="704" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="748" y="204" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Windows</text>
           <text x="748" y="218" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Workstation</text></g>
-        <g><rect x="804" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="804" y="182" width="88" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="848" y="214" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Thin Client</text></g>
-        <g><rect x="904" y="182" width="98" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="904" y="182" width="98" height="56" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="953" y="204" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Linux</text>
           <text x="953" y="218" text-anchor="middle" fill="#dce6f0" font-family="IBM Plex Mono" font-weight="600" font-size="9">Workstation</text></g>
 
         <!-- Firewall / Router / Internet -->
-        <rect x="380" y="230" width="100" height="64" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"/>
-        <path d="M430 242 l14 5 v12 c0 8 -6 13 -14 16 c-8 -3 -14 -8 -14 -16 v-12 z" fill="none" stroke="#ffb454" stroke-width="1.6"/>
+        <rect x="380" y="230" width="100" height="64" rx="8" fill="#1a120c" stroke="#5a3a1a" stroke-width="1.6"></rect>
+        <path d="M430 242 l14 5 v12 c0 8 -6 13 -14 16 c-8 -3 -14 -8 -14 -16 v-12 z" fill="none" stroke="#ffb454" stroke-width="1.6"></path>
         <text x="430" y="308" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="11">Firewall</text>
 
-        <g><rect x="190" y="238" width="92" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"/>
+        <g><rect x="190" y="238" width="92" height="48" rx="8" fill="#0d151e" stroke="#233042" stroke-width="1.3"></rect>
           <text x="236" y="266" text-anchor="middle" fill="#dce6f0" font-family="Inter" font-weight="600" font-size="11">Router</text></g>
 
-        <ellipse cx="90" cy="262" rx="52" ry="30" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.4"/>
+        <ellipse cx="90" cy="262" rx="52" ry="30" fill="#0d151e" stroke="#3a4a5c" stroke-width="1.4"></ellipse>
         <text x="90" y="267" text-anchor="middle" fill="#8fa2b5" font-family="Inter" font-weight="500" font-size="10.5">Internet</text>
 
         <!-- connectors -->
-        <line x1="140" y1="55" x2="160" y2="55" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="80" y1="82" x2="80" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="80" y1="262" x2="38" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="220" y1="82" x2="220" y2="120" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="220" y1="120" x2="390" y2="120" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="390" y1="120" x2="390" y2="148" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="140" y1="55" x2="160" y2="55" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="80" y1="82" x2="80" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="80" y1="262" x2="38" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="220" y1="82" x2="220" y2="120" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="220" y1="120" x2="390" y2="120" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="390" y1="120" x2="390" y2="148" stroke="#2a3d4f" stroke-width="2"></line>
 
-        <line x1="382" y1="94" x2="382" y2="120" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="489" y1="94" x2="489" y2="120" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="489" y1="120" x2="510" y2="120" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="510" y1="120" x2="510" y2="148" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="382" y1="94" x2="382" y2="120" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="489" y1="94" x2="489" y2="120" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="489" y1="120" x2="510" y2="120" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="510" y1="120" x2="510" y2="148" stroke="#2a3d4f" stroke-width="2"></line>
 
-        <line x1="390" y1="196" x2="390" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="390" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="510" y1="196" x2="510" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="510" y1="262" x2="480" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="390" y1="196" x2="390" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="390" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="510" y1="196" x2="510" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="510" y1="262" x2="480" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
 
-        <line x1="282" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="142" y1="262" x2="190" y2="262" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="282" y1="262" x2="380" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="142" y1="262" x2="190" y2="262" stroke="#2a3d4f" stroke-width="2"></line>
 
-        <line x1="430" y1="230" x2="430" y2="205" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="430" y1="205" x2="615" y2="205" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="615" y1="205" x2="615" y2="216" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="654" y1="192" x2="690" y2="205" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="430" y1="230" x2="430" y2="205" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="430" y1="205" x2="615" y2="205" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="615" y1="205" x2="615" y2="216" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="654" y1="192" x2="690" y2="205" stroke="#2a3d4f" stroke-width="2"></line>
 
-        <line x1="430" y1="230" x2="430" y2="94" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="0" opacity="0"/>
-        <line x1="654" y1="68" x2="704" y2="68" stroke="#2a3d4f" stroke-width="2"/>
-        <line x1="430" y1="196" x2="615" y2="94" stroke="#2a3d4f" stroke-width="2" opacity="0"/>
-        <line x1="576" y1="68" x2="510" y2="172" stroke="#2a3d4f" stroke-width="2"/>
+        <line x1="430" y1="230" x2="430" y2="94" stroke="#2a3d4f" stroke-width="2" stroke-dasharray="0" opacity="0"></line>
+        <line x1="654" y1="68" x2="704" y2="68" stroke="#2a3d4f" stroke-width="2"></line>
+        <line x1="430" y1="196" x2="615" y2="94" stroke="#2a3d4f" stroke-width="2" opacity="0"></line>
+        <line x1="576" y1="68" x2="510" y2="172" stroke="#2a3d4f" stroke-width="2"></line>
       </svg>
     </div>
   </div>
@@ -4293,18 +4451,18 @@ function resetScanSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass" selected>7</option><option value="killchain">8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass" selected="">7</option><option value="killchain">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
     <button class="back-btn" onclick="switchScreen('scan')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
       Back
     </button>
     <button class="next-btn" onclick="switchScreen('killchain')">
       Next
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
     </button>
   </div>
 </div>
@@ -4504,14 +4662,14 @@ function resetVulnClassSim(){
 
 <header>
   <div class="brand-text">
-    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
     <div class="sub">Simulation — Kill Chain Incident Analysis</div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>INC-6120</b></span>
     <span>Type: <b style="color:var(--red)">Malware</b></span>
-    <span id="clock-killchain">--:--:--</span>
+    <span id="clock-killchain">11:08:51 AM</span>
   </div>
 </header>
 
@@ -4521,27 +4679,27 @@ function resetVulnClassSim(){
     <h1>Northwind Freight Co. — Phishing-Delivered Malware <span class="sev-chip">INCIDENT</span></h1>
     <div class="doc-btns">
       <button class="doc-btn qread-btn" onclick="openKcDoc('question')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
         Read Question
       </button>
       <button class="doc-btn" onclick="openKcDoc('firewall')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v4H4zM4 14h16v4H4z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16v4H4zM4 14h16v4H4z"></path></svg>
         Firewall log
       </button>
       <button class="doc-btn" onclick="openKcDoc('fim')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l4-4h10l4 4v13H3z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l4-4h10l4 4v13H3z"></path></svg>
         File integrity report
       </button>
       <button class="doc-btn" onclick="openKcDoc('domains')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a15 15 0 010 18a15 15 0 010-18"></path></svg>
         Malware domain list
       </button>
       <button class="doc-btn" onclick="openKcDoc('vuln')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"/><rect x="4" y="3" width="16" height="18" rx="2"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6M9 16h6M9 8h1"></path><rect x="4" y="3" width="16" height="18" rx="2"></rect></svg>
         Vulnerability scan
       </button>
       <button class="doc-btn" onclick="openKcDoc('email')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg>
         Phishing email
       </button>
     </div>
@@ -4592,18 +4750,18 @@ function resetVulnClassSim(){
   <div class="exam-qnum-group">
     <span class="exam-qnum">Question</span>
     <select class="jump-select" onchange="switchScreen(this.value)">
-      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain" selected>8</option><option value="remediation">9</option>
+      <option value="defacement">1</option><option value="exfil">2</option><option value="phish">3</option><option value="compliance">4</option><option value="network">5</option><option value="scan">6</option><option value="vulnclass">7</option><option value="killchain" selected="">8</option><option value="remediation">9</option>
     </select>
     <span class="exam-qnum">of 10</span>
   </div>
   <div class="btn-group">
     <button class="back-btn" onclick="switchScreen('vulnclass')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
       Back
     </button>
     <button class="next-btn" onclick="switchScreen('remediation')">
       Next
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
     </button>
   </div>
 </div>
@@ -4834,14 +4992,14 @@ function resetKillChainSim(){
 
 <header>
   <div class="brand-text">
-    <div class="course">CompTIA CySA+ Exam</div>
+    <div class="course">WGUEXAMS — CompTIA CySA+ Practice Exam</div>
     <div class="sub">Simulation — Vulnerability Remediation Timeframes</div>
   </div>
   <div class="ticket">
-    <button class="menu-link" onclick="switchScreen('menu')">&#8962; Menu</button>
+    <button class="menu-link" onclick="switchScreen('menu')">⌂ Menu</button>
     <span><span class="live-dot"></span><b>VULN-4402</b></span>
     <span>Type: <b style="color:var(--amber)">Remediation</b></span>
-    <span id="clock-remediation">--:--:--</span>
+    <span id="clock-remediation">11:08:51 AM</span>
   </div>
 </header>
 
@@ -4851,7 +5009,7 @@ function resetKillChainSim(){
     <h1>Systems Administration — Scan Output Review <span class="sev-chip">14-DAY WINDOW</span></h1>
     <div class="doc-btns">
       <button class="doc-btn qread-btn" onclick="openVrtDoc('question')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
         Read Question
       </button>
     </div>
@@ -4993,12 +5151,12 @@ function resetKillChainSim(){
   </div>
   <div class="btn-group">
     <button class="back-btn" onclick="switchScreen('killchain')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
       Back
     </button>
     <button class="next-btn" onclick="finishExam()">
       Finish
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
     </button>
   </div>
 </div>
@@ -5138,6 +5296,8 @@ function startExamFullscreen(){
   if(req){
     req.call(el).catch(()=>{}); // some browsers require this to be user-gesture only; ignore rejection
   }
+  examSecondsLeft = 90 * 60; examRunning = true; flaggedQuestions.clear();
+  tickExamTimer();
   switchScreen('defacement');
 }
 function switchScreen(name){
@@ -5203,7 +5363,29 @@ tickBothClocks(); setInterval(tickBothClocks, 1000);
 </style>
 
 <div class="mcq-wrap">
-  <div id="mcq-question-area"></div>
+  <div id="mcq-question-area">
+    <div class="mcq-card" data-qi="0">
+      <div class="mcq-num">QUESTION 10</div>
+      <div class="mcq-stem">An incident response team is assessing attack vectors of malware that is encrypting data with ransomware. There are no indications of a network-based intrusion. Which of the following is the most likely root cause of the incident?</div>
+      <div class="mcq-opts">
+    <label class="mcq-opt" data-oi="0">
+      <input type="radio" name="mcq-current" value="0" onchange="saveMcqSelection()">
+      <span><b>A.</b> USB drop</span>
+    </label>
+    <label class="mcq-opt" data-oi="1">
+      <input type="radio" name="mcq-current" value="1" onchange="saveMcqSelection()">
+      <span><b>B.</b> LFI</span>
+    </label>
+    <label class="mcq-opt" data-oi="2">
+      <input type="radio" name="mcq-current" value="2" onchange="saveMcqSelection()">
+      <span><b>C.</b> Cross-site forgery</span>
+    </label>
+    <label class="mcq-opt" data-oi="3">
+      <input type="radio" name="mcq-current" value="3" onchange="saveMcqSelection()">
+      <span><b>D.</b> SQL injection</span>
+    </label></div>
+    </div>
+  </div>
 </div>
 
 </div>
@@ -5337,7 +5519,7 @@ renderMcqQuestion(0);
   </div>
 
   <div class="rv-actions">
-    <button class="btn btn-ghost" onclick="backToLastQuestion()">&larr; Back to exam</button>
+    <button class="btn btn-ghost" onclick="backToLastQuestion()">← Back to exam</button>
     <button class="btn btn-primary" onclick="submitExam()">Submit Exam</button>
   </div>
 
@@ -5368,7 +5550,7 @@ renderMcqQuestion(0);
     <p>Correct answers for all 68 questions, generated from the same data each question is graded against.</p>
   </div>
   <div class="ak-actions">
-    <button class="btn btn-ghost" onclick="switchScreen('review')">&larr; Back to Review</button>
+    <button class="btn btn-ghost" onclick="switchScreen('review')">← Back to Review</button>
     <button class="btn btn-ghost" onclick="finishExam()">Return to Menu</button>
   </div>
   <div id="rv-answerkey-list"></div>
@@ -5376,18 +5558,18 @@ renderMcqQuestion(0);
 
 </div>
 
-<div id="examBottom" class="exambottom">
+<div id="examBottom" class="exambottom" style="display: none;">
   <button class="prevnext-btn" onclick="prevScreen()">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
     Previous
   </button>
   <button class="prevnext-btn" onclick="nextScreen()" id="examNextBtn">
     Next
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
   <button class="prevnext-btn" onclick="switchScreen('review'); renderReviewScreen();" id="examReviewBtn" style="display:none;">
     Review
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
   </button>
 </div>
 
@@ -5673,8 +5855,9 @@ function submitExam(){
 }
 
 
+let examRunning = false;
 function tickExamTimer(){
-  if(examSecondsLeft > 0) examSecondsLeft--;
+  if(examRunning && examSecondsLeft > 0) examSecondsLeft--;
   const h = Math.floor(examSecondsLeft/3600);
   const m = Math.floor((examSecondsLeft%3600)/60);
   const s = examSecondsLeft%60;
@@ -5687,224 +5870,8 @@ updateExamChrome(getCurrentScreenKey());
 </script>
 
 
-<script>
-(function(){
-  const PAGE_KEY = "menu";
-  const PAGE_NUM = null;
-  const TOTAL_STEPS = 68;
-  const PREV_HREF = null;
-  const NEXT_HREF = null;
-  const REVIEW_HREF = null;
-  const MCQ_INDEX = null;
-  const FLAG_KEY = null;
-  const CHECK_FNS = [];
-  const PILL_IDS = [];
-  const BACK_TO_EXAM_HREF = null;
-  const SCREEN_TO_FILE = {"menu": "index.html", "review": "review.html", "answers": "answers.html", "defacement": "q/01-defacement.html", "exfil": "q/02-exfil.html", "phish": "q/03-phish.html", "compliance": "q/04-compliance.html", "network": "q/05-network.html", "scan": "q/06-scan.html", "vulnclass": "q/07-vulnclass.html", "killchain": "q/08-killchain.html", "remediation": "q/09-remediation.html"};
 
-  function loadJSON(key, fallback){
-    try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch(e){ return fallback; }
-  }
-  function saveJSON(key, val){ localStorage.setItem(key, JSON.stringify(val)); }
 
-  // ---- universal screen-name redirector (menu link, begin-exam, etc.) ----
-  window.switchScreen = function(name){
-    if(name === 'mcqbank'){
-      window.location.href = BACK_TO_EXAM_HREF || (SCREEN_TO_FILE.menu);
-      return;
-    }
-    if(SCREEN_TO_FILE[name]) window.location.href = SCREEN_TO_FILE[name];
-  };
 
-  // ---- begin exam: reset state, start timer ----
-  const origBegin = window.startExamFullscreen;
-  window.startExamFullscreen = function(){
-    localStorage.removeItem('examFlags');
-    localStorage.removeItem('pbqStatus');
-    localStorage.removeItem('mcqAnswersStore');
-    localStorage.setItem('examStart', Date.now().toString());
-    const el = document.documentElement;
-    const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
-    if(req){ req.call(el).catch(()=>{}); }
-    window.location.href = "q/01-defacement.html";
-  };
 
-  // ---- timer: computed from a stored start time, survives page loads ----
-  let examStart = parseInt(localStorage.getItem('examStart'), 10);
-  if(!examStart && !PAGE_KEY.match(/^(menu)$/)){
-    examStart = Date.now();
-    localStorage.setItem('examStart', examStart.toString());
-  }
-  function tick(){
-    if(!examStart) return;
-    const elapsed = Math.floor((Date.now() - examStart)/1000);
-    const remaining = Math.max(0, 90*60 - elapsed);
-    const h = Math.floor(remaining/3600);
-    const mnt = Math.floor((remaining%3600)/60);
-    const s = remaining%60;
-    const el = document.getElementById('examTimerText');
-    if(el) el.textContent = `Time Remaining ${h}:${String(mnt).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  // ---- flags: per-question, persisted across pages ----
-  function getFlags(){ return new Set(loadJSON('examFlags', [])); }
-  function setFlags(set){ saveJSON('examFlags', [...set]); }
-  window.toggleFlag = function(){
-    if(!FLAG_KEY) return;
-    const flags = getFlags();
-    if(flags.has(FLAG_KEY)) flags.delete(FLAG_KEY); else flags.add(FLAG_KEY);
-    setFlags(flags);
-    const btn = document.getElementById('examFlagBtn');
-    if(btn) btn.classList.toggle('flagged', flags.has(FLAG_KEY));
-  };
-
-  // ---- chrome: show/hide, counter, nav buttons ----
-  function setupChrome(){
-    const chrome = document.getElementById('examChrome');
-    const bottom = document.getElementById('examBottom');
-    if(!chrome || !bottom) return;
-    if(PAGE_NUM === null){
-      chrome.style.display = 'none';
-      bottom.style.display = 'none';
-      document.body.classList.remove('has-exam-chrome');
-      return;
-    }
-    chrome.style.display = '';
-    bottom.style.display = 'flex';
-    document.body.classList.add('has-exam-chrome');
-    const counter = document.getElementById('examCounterText');
-    if(counter) counter.textContent = PAGE_NUM + ' of ' + TOTAL_STEPS;
-    const flagBtn = document.getElementById('examFlagBtn');
-    if(flagBtn) flagBtn.classList.toggle('flagged', FLAG_KEY && getFlags().has(FLAG_KEY));
-
-    const nextBtn = document.getElementById('examNextBtn');
-    const reviewBtn = document.getElementById('examReviewBtn');
-    if(nextBtn){
-      if(NEXT_HREF){
-        nextBtn.disabled = false; nextBtn.style.opacity=''; nextBtn.style.pointerEvents='';
-        nextBtn.onclick = function(){ window.location.href = NEXT_HREF; };
-      } else {
-        nextBtn.disabled = true; nextBtn.style.opacity='0.4'; nextBtn.style.pointerEvents='none';
-        nextBtn.onclick = null;
-      }
-    }
-    if(reviewBtn){
-      if(REVIEW_HREF){
-        reviewBtn.style.display = 'flex';
-        reviewBtn.onclick = function(){ window.location.href = REVIEW_HREF; };
-      } else {
-        reviewBtn.style.display = 'none';
-      }
-    }
-    const prevBtnEl = document.querySelector('.exambottom-buttons .prevnext-btn, .exambottom .prevnext-btn');
-    if(prevBtnEl && prevBtnEl.textContent.trim().startsWith('Previous')){
-      prevBtnEl.onclick = function(){ window.location.href = PREV_HREF; };
-    }
-  }
-
-  // ---- MCQ: restore saved selection, persist on change, show the right single question ----
-  function setupMcq(){
-    if(MCQ_INDEX === null) return;
-    const store = loadJSON('mcqAnswersStore', {});
-    if(typeof window.mcqAnswers !== 'undefined' && store[MCQ_INDEX]){
-      window.mcqAnswers[MCQ_INDEX] = store[MCQ_INDEX];
-    }
-    if(typeof window.renderMcqQuestion === 'function') window.renderMcqQuestion(MCQ_INDEX);
-    const area = document.getElementById('mcq-question-area');
-    if(area){
-      area.addEventListener('change', function(){
-        const s = loadJSON('mcqAnswersStore', {});
-        s[MCQ_INDEX] = (window.mcqAnswers && window.mcqAnswers[MCQ_INDEX]) || [];
-        saveJSON('mcqAnswersStore', s);
-      });
-    }
-  }
-
-  // ---- PBQ: record completion status so the review page can see it ----
-  function setupPbqHooks(){
-    CHECK_FNS.forEach(function(fnName){
-      const orig = window[fnName];
-      if(typeof orig !== 'function') return;
-      window[fnName] = function(){
-        orig.apply(this, arguments);
-        const status = loadJSON('pbqStatus', {});
-        const allFull = PILL_IDS.every(function(id){
-          const el = document.getElementById(id);
-          return el && el.classList.contains('full');
-        });
-        const anyShown = PILL_IDS.some(function(id){
-          const el = document.getElementById(id);
-          return el && el.classList.contains('show');
-        });
-        status[PAGE_KEY] = { answered: anyShown, correct: allFull };
-        saveJSON('pbqStatus', status);
-      };
-    });
-  }
-
-  // ---- Review page: rebuild list logic against localStorage instead of live DOM ----
-  function setupReview(){
-    if(PAGE_KEY !== 'review') return;
-    window.getAllSteps = function(){
-      const steps = [];
-      const pbqKeys = ["defacement", "exfil", "phish", "compliance", "network", "scan", "vulnclass", "killchain", "remediation"];
-      pbqKeys.forEach(function(k, idx){ steps.push({flagKey:k, type:'pbq', screenKey:k, label:'Question ' + (idx+1)}); });
-      const mcqCount = (typeof MCQ_DATA !== 'undefined') ? MCQ_DATA.length : 59;
-      for(let i=0;i<mcqCount;i++){
-        steps.push({flagKey:'mcqbank:'+i, type:'mcq', mcqIndex:i, label:'Question ' + (pbqKeys.length + i + 1)});
-      }
-      return steps;
-    };
-    window.isPbqAnswered = function(screenKey){
-      const status = loadJSON('pbqStatus', {});
-      return !!(status[screenKey] && status[screenKey].answered);
-    };
-    window.isPbqFullyCorrect = function(screenKey){
-      const status = loadJSON('pbqStatus', {});
-      return !!(status[screenKey] && status[screenKey].correct);
-    };
-    window.isMcqAnswered = function(i){
-      const store = loadJSON('mcqAnswersStore', {});
-      return !!(store[i] && store[i].length > 0);
-    };
-    window.isMcqCorrect = function(i){
-      const store = loadJSON('mcqAnswersStore', {});
-      const checked = store[i] || [];
-      const q = MCQ_DATA[i];
-      const correctSet = new Set(q.correct);
-      return checked.length === q.correct.length && checked.every(function(v){ return correctSet.has(v); });
-    };
-    window.jumpToStep = function(step){
-      if(step.type === 'mcq'){
-        window.location.href = "mc/" + (step.mcqIndex+10) + '.html';
-      } else {
-        window.location.href = SCREEN_TO_FILE[step.screenKey];
-      }
-    };
-    window.jumpToStepByIdx = function(el){
-      const steps = window.getAllSteps();
-      const idx = parseInt(el.dataset.idx);
-      window.jumpToStep(steps[idx]);
-    };
-    window.backToLastQuestion = function(){
-      window.location.href = BACK_TO_EXAM_HREF;
-    };
-    const flagsSet = getFlags();
-    window.flaggedQuestions = flagsSet;
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    setupChrome();
-    setupMcq();
-    setupPbqHooks();
-    setupReview();
-    if(PAGE_KEY === 'review' && typeof renderReviewScreen === 'function') renderReviewScreen();
-    if(PAGE_KEY === 'answers' && typeof renderAnswerKey === 'function') renderAnswerKey();
-  });
-})();
-</script>
-
-</body>
-</html>
+</body></html>
