@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P1XNQ8D8DH"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-P1XNQ8D8DH');
+</script>
+<meta charset="UTF-8">
+<title>WGUEXAMS — CySA+ Practice Exam</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:#eef1f4;
+  --panel:#ffffff;
+  --panel-2:#f7f9fb;
+  --panel-3:#eef1f4;
+  --border:#d7dee6;
+  --border-soft:#e6ebf0;
+  --text:#12161c;
+  --text-dim:#48505c;
+  --text-faint:#8993a1;
+  --cyan:#2563eb;
+  --cyan-dim:#1d4ed8;
+  --red:#d6484d;
+  --green:#1c9a57;
+  --amber:#b4790a;
+  --sev-bg:#fbe1e2; --sev-text:#8a1f24; --sev-border:#eab8ba;
+  --badge-good-bg:#dcf7e6; --badge-good-text:#116638;
+  --badge-bad-bg:#fbe1e2; --badge-bad-text:#8a1f24;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,-apple-system,sans-serif;min-height:100vh;}
+::selection{background:var(--cyan-dim);color:#fff;}
+
+/* ---------- Landing screen ---------- */
+#landingScreen{min-height:100vh;background:#eef1f4;color:#12161c;font-family:'Inter',system-ui,-apple-system,sans-serif;}
+#landingScreen .menu-inner{max-width:720px;margin:0 auto;padding:4rem 2rem 5rem;}
+#landingScreen .menu-top{margin-bottom:2.6rem;text-align:center;}
+#landingScreen .menu-top h1{font-size:21px;font-weight:600;font-family:'Space Grotesk',sans-serif;color:#12161c;margin:0;}
+#landingScreen .menu-top .menu-sub{font-size:13.5px;color:#48505c;margin-top:6px;}
+#landingScreen .exams-btn-fixed{position:fixed;bottom:24px;left:40px;z-index:1000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:15px 34px;border-radius:10px;background:#ffffff;color:#12161c;border:1px solid #d7dee6;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;box-shadow:0 10px 30px rgba(18,22,28,0.08);}
+#landingScreen .exams-btn-fixed:hover{border-color:#1d4ed8;background:#f7f9fb;}
+@media(max-width:600px){#landingScreen .exams-btn-fixed{left:50%;transform:translateX(-50%);bottom:90px;}#landingScreen .exams-btn-fixed:hover{transform:translateX(-50%) translateY(-1px);}}
+#landingScreen .coffee-btn-big{display:inline-flex;align-items:center;gap:16px;background:#FFDD00;border:none;border-radius:99px;padding:26px 52px;font-size:28px;font-weight:800;color:#000;cursor:pointer;text-decoration:none;box-shadow:0 14px 40px rgba(255,221,0,0.25);transition:transform .15s,box-shadow .15s;font-family:system-ui,-apple-system,sans-serif;margin-top:36px;}
+#landingScreen .coffee-btn-big:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 18px 50px rgba(255,221,0,0.35);}
+#landingScreen .coffee-btn-big span{font-size:40px;}
+@media(max-width:600px){#landingScreen .coffee-btn-big{padding:18px 32px;font-size:20px;gap:12px;}#landingScreen .coffee-btn-big span{font-size:30px;}}
+#landingScreen .begin-btn-fixed{position:fixed;bottom:24px;right:40px;z-index:1000;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15.5px;padding:15px 34px;border-radius:10px;background:#2563eb;color:#fff;border:none;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .15s ease;box-shadow:0 10px 30px rgba(37,99,235,0.3);}
+#landingScreen .begin-btn-fixed:hover{filter:brightness(1.08);transform:translateY(-1px);}
+@media(max-width:600px){#landingScreen .begin-btn-fixed{right:50%;transform:translateX(50%);bottom:20px;}#landingScreen .begin-btn-fixed:hover{transform:translateX(50%) translateY(-1px);}#landingScreen .exams-btn-fixed,#landingScreen .begin-btn-fixed{width:calc(100% - 40px);justify-content:center;}}
+
+/* ---------- Exam chrome (ticket bar / flag bar / bottom bar) ---------- */
+#examChrome{position:fixed;top:0;left:0;right:0;width:100%;z-index:200;display:none;}
+.examtop{background:linear-gradient(180deg,#2563eb,#1d4ed8);color:#eaf1ff;display:flex;align-items:center;justify-content:space-between;padding:10px 22px;font-family:'Inter',sans-serif;gap:12px;}
+.examtop-left{background:none;border:none;color:#eaf1ff;font-size:15px;font-weight:600;cursor:pointer;padding:0;font-family:'Space Grotesk',sans-serif;text-align:left;}
+.examtop-left:hover{text-decoration:underline;}
+.examtop-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex:none;}
+.examtop-row{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#dbeafe;white-space:nowrap;}
+.examflagbar{background:#4a7fd6;display:flex;justify-content:flex-end;padding:8px 22px;}
+.examflagbtn{background:none;border:none;color:#0d2b6b;font-weight:600;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px;padding:4px 8px;border-radius:5px;transition:background .15s ease;}
+.examflagbtn:hover{background:rgba(255,255,255,0.25);}
+.examflagbtn.flagged{background:#fff;color:#b5390b;}
+.examflagbtn.flagged svg{fill:#b5390b;}
+#examBottom{position:fixed;bottom:0;left:0;right:0;width:100%;z-index:200;background:linear-gradient(180deg,#1d4ed8,#2563eb);display:none;justify-content:flex-end;gap:14px;padding:12px 22px;}
+.prevnext-btn{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.25);color:#eaf1ff;padding:9px 18px;border-radius:7px;font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:all .15s ease;}
+.prevnext-btn:hover{background:rgba(255,255,255,0.18);}
+.prevnext-btn:disabled{cursor:default;opacity:.4;pointer-events:none;}
+body.has-exam-chrome{overflow:hidden;height:100vh;}
+body.has-exam-chrome #examScroll{position:fixed;top:100px;bottom:76px;left:0;right:0;overflow-y:auto;overflow-x:hidden;}
+#examScroll{scrollbar-gutter:stable;display:none;}
+
+.wrap{max-width:1500px;width:100%;margin:0 auto;padding:26px 20px 60px;}
+
+/* ---------- Brief / incident-style header ---------- */
+.brief{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 22px;margin-bottom:22px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;}
+@media(max-width:640px){.brief{grid-template-columns:1fr;}.doc-btns{justify-content:flex-start;}}
+.brief h1{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0;font-weight:600;color:var(--text);display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+.sev-chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:0.5px;background:var(--sev-bg);color:var(--sev-text);border:1px solid var(--sev-border);padding:3px 9px;border-radius:5px;}
+.doc-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.doc-btn{display:flex;align-items:center;gap:9px;border:none;color:#fff;padding:10px 16px;border-radius:9px;font-family:'Inter',sans-serif;font-weight:600;font-size:13px;cursor:pointer;transition:all .15s ease;background:linear-gradient(180deg,#2563eb,#1d4ed8);}
+.doc-btn:hover{filter:brightness(1.08);}
+
+.qread-overlay{position:fixed;inset:0;background:rgba(10,14,20,0.55);display:none;align-items:center;justify-content:center;z-index:300;padding:20px;}
+.qread-overlay.show{display:flex;}
+.qread-modal{width:min(720px,95vw);max-height:88vh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,0.25);}
+.qread-bar{background:linear-gradient(180deg,#2563eb,#1d4ed8);color:#eaf1ff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;border-top-left-radius:12px;border-top-right-radius:12px;}
+.qread-bar .title{display:flex;align-items:center;gap:10px;}
+.qx-close{width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;border:none;font-weight:700;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.qread-body{padding:20px 22px;font-size:14px;line-height:1.7;color:var(--text-dim);}
+.qread-body p{margin:0 0 12px;}
+.qread-body p:last-child{margin-bottom:0;}
+.qread-body strong{color:var(--text);}
+
+/* ---------- Terminal / output panels ---------- */
+.term-panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;margin-bottom:22px;overflow:hidden;}
+.term-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--panel-2);flex-wrap:wrap;}
+.term-tab{padding:12px 22px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s ease;background:none;border-left:none;border-right:none;border-top:none;}
+.term-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:var(--panel-3);}
+.term-body{background:#050a0f;padding:16px 18px;max-height:380px;overflow:auto;}
+.term-body pre{margin:0;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6;color:#c9d6e0;white-space:pre-wrap;word-break:break-word;}
+
+/* ---------- Generic section card ---------- */
+.section{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+.section h2{font-family:'Space Grotesk',sans-serif;font-size:15px;margin:0 0 4px;color:var(--text);font-weight:600;}
+.section .sub{color:var(--text-faint);font-size:12.5px;margin-bottom:18px;font-family:'IBM Plex Mono',monospace;}
+
+/* ---------- Findings / answer grid ---------- */
+.answer-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:700px){.answer-grid{grid-template-columns:1fr;}}
+.qbox{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:16px 18px;}
+.qbox.actions-box{grid-column:1 / -1;}
+.qbox label{display:block;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13.5px;color:var(--text);margin-bottom:10px;}
+.qbox select{width:100%;background:var(--panel-3);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:10px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;cursor:pointer;}
+.fb{font-size:12px;font-family:'IBM Plex Mono',monospace;min-height:16px;margin-top:6px;}
+.fb.correct{color:var(--green);}
+.fb.incorrect{color:var(--red);}
+
+.chk-list{display:flex;flex-direction:column;border-radius:8px;overflow:hidden;}
+.chk{display:flex;align-items:center;gap:12px;padding:13px 16px;font-size:13.5px;color:var(--text-dim);cursor:pointer;border-bottom:1px solid var(--border-soft);background:var(--panel-3);}
+.chk:last-child{border-bottom:none;}
+.chk:hover{background:var(--panel-2);color:var(--text);}
+.chk input{width:17px;height:17px;flex-shrink:0;accent-color:var(--cyan);}
+.chk .badge{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:4px;display:none;white-space:nowrap;flex:none;}
+.chk .badge.correct{display:inline-block;background:var(--badge-good-bg);color:var(--badge-good-text);}
+.chk .badge.incorrect{display:inline-block;background:var(--badge-bad-bg);color:var(--badge-bad-text);}
+
+/* ---------- Actions row ---------- */
+.actions{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;align-items:center;}
+.btn{font-family:'Inter',sans-serif;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:8px;cursor:pointer;border:1px solid transparent;transition:all .15s ease;}
+.btn-primary{background:var(--cyan);color:#fff;}
+.btn-primary:hover{filter:brightness(1.08);transform:translateY(-1px);}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--text-dim);}
+.btn-ghost:hover{background:var(--panel-2);color:var(--text);}
+.score-pill{font-family:'IBM Plex Mono',monospace;font-size:13px;padding:9px 16px;border-radius:8px;border:1px solid var(--border);color:var(--text-dim);display:none;}
+.score-pill.show{display:inline-block;}
+.score-pill.full{border-color:var(--green);color:var(--green);}
+.score-pill.partial{border-color:var(--amber);color:var(--amber);}
+
+/* ---------- Analysis / explanation ---------- */
+.analysis{margin-top:20px;border-top:1px solid var(--border-soft);padding-top:18px;display:none;}
+.analysis.show{display:block;}
+.analysis h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0 0 12px;color:var(--cyan);}
+.analysis p{margin:0 0 10px;font-size:13.5px;color:var(--text-dim);line-height:1.65;}
+.analysis ul{margin:0 0 10px;padding-left:20px;}
+.analysis li{font-size:13.5px;color:var(--text-dim);line-height:1.65;margin-bottom:6px;}
+.analysis strong{color:var(--text);}
+
+/* ---------- Reused components from earlier question-type builds ---------- */
+.table-wrap{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;overflow-x:auto;}
+table.pbq{width:100%;border-collapse:collapse;min-width:760px;}
+table.pbq th{text-align:left;font-weight:650;font-size:.82rem;color:var(--text-dim);padding:8px 14px;border-bottom:1px solid var(--border-soft);border-top:1px solid var(--border-soft);font-family:'Space Grotesk',sans-serif;}
+table.pbq td{padding:10px 14px;border-bottom:1px solid var(--border-soft);vertical-align:top;}
+table.pbq tr:last-child td{border-bottom:0;}
+td.payload code{display:block;font:13px/1.45 'IBM Plex Mono',monospace;background:var(--panel-3);padding:7px 9px;border-radius:4px;word-break:break-all;color:var(--text);}
+.cell-select{width:100%;font:inherit;font-size:.85rem;padding:7px;border-radius:6px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-family:'IBM Plex Mono',monospace;cursor:pointer;}
+.cell-select.correct{border-color:var(--green);background:var(--badge-good-bg);}
+.cell-select.wrong{border-color:var(--red);background:var(--badge-bad-bg);}
+.row-fb{font-size:.78rem;margin-top:4px;}
+.row-fb.good{color:var(--green);}
+.row-fb.bad{color:var(--red);}
+
+.sim{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:8px;overflow:hidden;}
+.urlbar{display:flex;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border-soft);background:var(--panel-3);}
+.urlbar .nav-dots{color:var(--text-faint);letter-spacing:4px;}
+.urlbar .url{flex:1;background:var(--panel);border:1px solid var(--border-soft);border-radius:999px;padding:4px 14px;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:'IBM Plex Mono',monospace;}
+.viewport{padding:16px;min-height:340px;}
+.login-mock{background:#00a9c6;border-radius:6px;padding:26px 16px 28px;text-align:center;color:#fff;}
+.login-mock h2{margin:0 0 16px;font-size:1.4rem;}
+.login-mock .field{width:min(300px,90%);margin:0 auto 10px;padding:12px 14px;background:#2f3bc4;text-align:left;color:#fff;border-radius:3px;}
+.login-mock .go{width:min(300px,90%);margin:16px auto 0;padding:12px;background:#ffd04a;color:#111;font-weight:600;border-radius:3px;}
+.sim-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 14px 14px;border-top:1px solid var(--border-soft);}
+.sim-actions button{font-family:'IBM Plex Mono',monospace;font-size:.82rem;padding:10px 6px;border-radius:5px;background:var(--panel);border:1px solid var(--border);cursor:pointer;color:var(--text-dim);}
+.sim-actions button.active{border-color:var(--cyan);box-shadow:inset 0 0 0 2px var(--cyan);color:var(--cyan);}
+@media(max-width:560px){.sim-actions{grid-template-columns:repeat(2,1fr);}}
+.cert{max-width:480px;margin:0 auto;border:2px solid #4aa8e8;border-radius:4px;background:#fff;color:#111;}
+.cert .title{background:#62bdf6;padding:8px 12px;font-size:1.05rem;text-align:center;}
+.cert .tabs{display:flex;gap:2px;padding:8px 12px 0;background:#e9f4fc;font-size:.82rem;}
+.cert .tabs span{padding:4px 10px;border:1px solid #bbb;border-bottom:0;background:#ddd;}
+.cert .tabs span.on{background:#fff;}
+.cert .inner{padding:14px 18px;}
+.cert h3{margin:0 0 8px;font-size:.95rem;border-bottom:1px solid #333;padding-bottom:8px;}
+.cert dl{display:grid;grid-template-columns:max-content 1fr;gap:10px 16px;margin:16px 0 8px;}
+.cert dt{font-weight:700;}
+.cert dd{margin:0;}
+.cert .btns{display:flex;justify-content:flex-end;gap:10px;padding:0 18px 12px;}
+.cert .btns span{border:1px solid #888;background:#eee;padding:3px 10px;font-size:.82rem;}
+pre.src{margin:0;font:12.5px/1.5 'IBM Plex Mono',monospace;white-space:pre-wrap;word-break:break-word;background:var(--panel-3);padding:14px;border-radius:6px;overflow-x:auto;}
+.ln{display:block;}
+.ln b{display:inline-block;width:2.2em;color:var(--text-faint);font-weight:400;user-select:none;}
+.ck-wrap{overflow-x:auto;}
+table.ck{border-collapse:collapse;width:100%;min-width:700px;font-size:.8rem;}
+table.ck th,table.ck td{border:1px solid var(--border-soft);padding:4px 8px;text-align:left;vertical-align:top;word-break:break-all;}
+table.ck th{background:var(--panel-3);}
+table.ck td.cb{text-align:center;white-space:nowrap;}
+.dnd{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+@media(max-width:700px){.dnd{grid-template-columns:1fr;}}
+.opt{background:#f58220;color:#fff;padding:12px 14px;margin-bottom:8px;border-radius:3px;cursor:grab;font-weight:600;user-select:none;font-size:.88rem;}
+.opt:active{cursor:grabbing;}
+.slot-label{font-weight:650;color:var(--cyan);margin:10px 0 4px;font-size:.85rem;}
+.slot{min-height:52px;border:2px dashed #f58220;border-radius:3px;display:flex;align-items:center;justify-content:center;padding:4px;background:var(--panel);}
+.slot.over{background:var(--panel-2);}
+.slot .q{font-size:1.5rem;color:#f58220;font-weight:700;}
+.slot .opt{margin:0;width:100%;}
+.slot.correct{border:2px solid var(--green);}
+.slot.wrong{border:2px solid var(--red);}
+.pool{min-height:56px;padding:4px;border-radius:4px;}
+.hint{color:var(--text-faint);font-size:.8rem;margin-top:6px;}
+
+.simgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px;align-items:start;}
+@media(max-width:820px){.simgrid{grid-template-columns:minmax(0,1fr);}}
+.net{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:8px;padding:16px 12px;text-align:center;}
+.ws{display:inline-flex;flex-direction:column;align-items:center;gap:6px;padding:10px 20px 11px;border-radius:8px;background:#d9f5ee;color:#0b6b57;font-weight:700;letter-spacing:.03em;font-size:.82rem;}
+.down{color:#19b394;font-size:1.5rem;line-height:1.2;margin:4px 0;}
+.zones{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,2.2fr);gap:8px;align-items:stretch;}
+@media(max-width:560px){.zones{grid-template-columns:1fr;}.linkarrow{transform:rotate(90deg);}}
+.zone{display:flex;flex-direction:column;border:2px dashed var(--border);border-radius:8px;padding:10px 8px 12px;min-width:0;}
+.zone h4{margin:0 0 10px;font-size:.78rem;letter-spacing:.05em;text-align:center;white-space:nowrap;}
+.zone.cdn h4,.zone.cdn .node{color:#d98200;}
+.zone.prod h4,.zone.prod .node{color:#2b6fe0;}
+.zone .nodes{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;}
+.node .ico{height:52px;display:flex;align-items:center;justify-content:center;}
+.zone .arrow{color:#19b394;font-weight:700;}
+.linkarrow{align-self:center;color:#19b394;font-size:1.5rem;font-weight:700;}
+.node{background:var(--panel);border:2px solid currentColor;border-radius:8px;padding:10px 6px;min-width:110px;min-height:120px;justify-content:center;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;}
+.node:hover{background:var(--panel-2);}
+.node.active{box-shadow:0 0 0 3px currentColor;}
+.node .nn{font-weight:700;font-size:.85rem;white-space:nowrap;}
+.node .nh{font-size:.65rem;opacity:.85;white-space:nowrap;}
+.nmap{margin-top:14px;border-radius:6px;overflow:hidden;border:1px solid var(--border-soft);}
+.nmap .nh2{background:#0d6efd;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.85rem;}
+.nmap .nh2 button{background:transparent;color:#fff;border:2px solid #fff;border-radius:4px;padding:0 8px;line-height:1.4;cursor:pointer;}
+.nmap pre{margin:0;background:#050a0f;color:#c9d6e0;padding:14px 16px;font:12.5px/1.6 'IBM Plex Mono',monospace;overflow-x:auto;white-space:pre;}
+.simright .term-tabs{border-radius:8px 8px 0 0;}
+
+.hotpanel{border-radius:8px;overflow:hidden;border:1px solid var(--border-soft);}
+.hotprompt{padding:10px 14px;font-size:.95rem;border-bottom:1px solid var(--border-soft);display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;font-family:'Space Grotesk',sans-serif;font-weight:600;}
+.hotprompt .cnt{font-size:.78rem;color:var(--text-faint);white-space:nowrap;padding-top:3px;font-family:'IBM Plex Mono',monospace;font-weight:400;}
+.robots{padding:6px 4px 10px;}
+.rline{display:flex;align-items:center;gap:10px;padding:4px 8px;border:1px solid transparent;border-radius:4px;cursor:pointer;font:13px/1.5 'IBM Plex Mono',monospace;}
+.rline:hover{background:var(--panel-2);}
+.rline .rn{width:1.8em;text-align:right;color:var(--text-faint);flex:none;}
+.rline input{flex:none;}
+.rline.good{border-color:var(--green);background:var(--badge-good-bg);}
+.rline.bad{border-color:var(--red);background:var(--badge-bad-bg);}
+.rline.missed{border-color:var(--amber);background:#fdecd2;}
+.rline .rnote{margin-left:auto;font:11px system-ui,sans-serif;color:var(--amber);}
+
+.reconbox{border-radius:6px;overflow:hidden;border:1px solid var(--border-soft);}
+.reconbox .rh{background:#0d6efd;color:#fff;padding:10px 16px;font-weight:650;font-size:.9rem;}
+.reconbox pre{margin:0;background:#050a0f;color:#c9d6e0;font:12.5px/1.5 'IBM Plex Mono',monospace;padding:14px 16px;white-space:pre-wrap;word-break:break-word;overflow-x:auto;}
+.cmdlist{list-style:none;margin:0;padding:10px 16px;background:var(--panel);}
+.cmdlist li{font:12.5px/1.6 'IBM Plex Mono',monospace;padding:2px 0;color:var(--text-dim);}
+.cmdnote{font-size:.8rem;color:var(--text-faint);padding:8px 16px 12px;background:var(--panel);}
+
+
+/* ---------- DDoS PBQ diagram (matches the original exam layout) ---------- */
+.ddos-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:start;}
+@media(max-width:860px){.ddos-layout{grid-template-columns:minmax(0,1fr);}}
+.org{background:linear-gradient(180deg,#5cc9f6,#46bdf0);border:3px solid #bfe8fb;border-radius:22px;padding:14px 14px 12px;}
+.orgdoms{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;}
+@media(max-width:520px){.orgdoms{grid-template-columns:minmax(0,1fr);}}
+.dom{border:3px solid rgba(255,255,255,.85);background:rgba(255,255,255,.14);border-radius:18px;padding:10px 8px 12px;min-width:0;}
+.dom h4{margin:0 0 10px;text-align:center;font-size:.76rem;font-family:'Space Grotesk',sans-serif;color:#0b4a8f;line-height:1.35;}
+.dom h4 span{font-weight:600;display:block;font-size:.74rem;}
+.dhost{display:flex;align-items:center;gap:8px;width:100%;background:#3db4ec;border:3px solid #fff;border-radius:999px;padding:7px 10px;margin-bottom:10px;cursor:pointer;color:#fff;text-align:center;font-family:'Inter',sans-serif;transition:all .15s ease;box-shadow:0 2px 6px rgba(11,74,143,.25);}
+.dhost:last-child{margin-bottom:0;}
+.dhost:hover{background:#2aa7e4;}
+.dhost.active{box-shadow:0 0 0 4px #ffd04a;}
+.dhost svg{flex:none;}
+.dhost .dtx{flex:1;min-width:0;}
+.dhost .dn{font-weight:700;font-size:.76rem;line-height:1.25;display:block;}
+.dhost .di{font:600 .72rem 'IBM Plex Mono',monospace;display:block;}
+.orglabel{margin:12px 0 0 6px;font:700 .85rem 'Space Grotesk',sans-serif;color:#0b4a8f;}
+.inetrow{display:flex;align-items:flex-start;justify-content:center;gap:4px;margin-bottom:18px;}
+.dlink{color:#46bdf0;font-size:1.8rem;font-weight:700;align-self:center;line-height:1;}
+.dcircle{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:.8rem;font-weight:700;color:#1d78d6;font-family:'Space Grotesk',sans-serif;}
+.dcircle .ring{width:96px;height:96px;border-radius:50%;border:6px solid #bfe8fb;background:#fff;box-shadow:0 0 0 3px #46bdf0;display:flex;align-items:center;justify-content:center;color:#1d9bf0;}
+.dcircle .ip{font:600 .78rem 'IBM Plex Mono',monospace;color:#1d78d6;}
+.ddos-q{display:flex;flex-direction:column;gap:16px;}
+.qrow{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:12px;align-items:start;}
+.qrow .cell-select{font-size:.74rem;}
+.qrow label{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem;color:#1d78d6;padding-top:7px;}
+.ddos-term{margin-top:14px;border-radius:6px;overflow:hidden;border:1px solid var(--border-soft);}
+.ddos-term .nh2{background:#0d6efd;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.9rem;}
+.ddos-term .nh2 button{background:transparent;color:#fff;border:2px solid #fff;border-radius:4px;padding:0 8px;line-height:1.4;cursor:pointer;}
+.ddos-term .ttabs{display:flex;gap:4px;background:#dbe6f5;padding:6px 8px 0;}
+.ddos-term .ttabs button{border:1px solid #b9c8de;border-bottom:0;background:#eef1f4;color:var(--text-dim);padding:6px 14px;border-radius:5px 5px 0 0;font:600 .78rem 'Inter',sans-serif;cursor:pointer;}
+.ddos-term .ttabs button.on{background:#050a0f;color:#fff;border-color:#050a0f;}
+.ddos-term pre{margin:0;background:#050a0f;color:#e6edf3;padding:14px 16px;font:12.5px/1.75 'IBM Plex Mono',monospace;overflow-x:auto;white-space:pre;}
+
+
+/* ---------- floating, draggable host windows ---------- */
+.ddos-win{position:fixed;width:min(500px,calc(100vw - 24px));background:#050a0f;border:2px solid #0d6efd;border-radius:10px;box-shadow:0 18px 50px rgba(10,20,40,.45);overflow:hidden;display:flex;flex-direction:column;max-height:calc(100vh - 190px);}
+.ddos-win .wbar{background:#0d6efd;color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;font:700 .95rem 'Space Grotesk',sans-serif;cursor:grab;user-select:none;touch-action:none;}
+.ddos-win.dragging .wbar{cursor:grabbing;}
+.ddos-win .wbar button{background:transparent;color:#fff;border:2px solid #fff;border-radius:4px;padding:0 8px;line-height:1.4;cursor:pointer;}
+.ddos-win .ttabs{display:flex;gap:4px;background:#dbe6f5;padding:6px 8px 0;}
+.ddos-win .ttabs button{border:1px solid #b9c8de;border-bottom:0;background:#eef1f4;color:var(--text-dim);padding:6px 14px;border-radius:5px 5px 0 0;font:600 .78rem 'Inter',sans-serif;cursor:pointer;}
+.ddos-win .ttabs button.on{background:#050a0f;color:#fff;border-color:#050a0f;}
+.ddos-win pre{margin:0;background:#050a0f;color:#e6edf3;padding:14px 16px;font:12.5px/1.75 'IBM Plex Mono',monospace;overflow:auto;white-space:pre;}
+.dhint{font-size:.74rem;color:#0b4a8f;margin:8px 0 0 6px;font-weight:600;}
+
+/* ---------- Q9: Vulnerability remediation timeframes ---------- */
+.vrt-panel{display:none;padding:18px;overflow-x:auto;}
+.vrt-panel.active{display:block;}
+table.datatable{width:100%;border-collapse:collapse;font-size:12.5px;}
+table.datatable th{background:var(--panel-2);color:var(--cyan);text-align:left;padding:9px 11px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;border-bottom:1px solid var(--border);}
+table.datatable td{padding:9px 11px;border-bottom:1px solid var(--border-soft);color:var(--text-dim);vertical-align:top;}
+table.datatable td.yes{color:var(--green);font-weight:600;}
+table.datatable td.no{color:var(--red);font-weight:600;}
+.sla-note{background:var(--panel-2);border:1px solid var(--border-soft);border-radius:10px;padding:14px 16px;margin-top:14px;font-size:12.5px;color:var(--text-dim);line-height:1.6;}
+.sla-note b{color:var(--text);}
+.finding{padding:14px 0;border-bottom:1px solid var(--border-soft);}
+.finding:last-child{border-bottom:none;}
+.finding .frow{display:grid;grid-template-columns:110px 1fr;gap:8px;font-size:12.5px;margin-bottom:4px;}
+.finding .frow b{color:var(--text-dim);font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;}
+.finding .frow span{color:var(--text);}
+.chk-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;}
+.qbox .chk-grid .chk{display:flex;font-weight:400;margin-bottom:0;background:none;border-bottom:none;padding:8px 0;font-size:13px;font-family:'IBM Plex Mono',monospace;gap:10px;}
+.chk-grid .chk input{width:16px;height:16px;}
+.vrt-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:900px){.vrt-grid{grid-template-columns:1fr;}}
+.vrt-grid .cell-select{padding:10px 12px;font-size:12.5px;}
+</style>
+</head>
+<body>
+
+<div id="landingScreen">
+  <div class="menu-inner">
+    <div class="menu-top">
+      <h1>WGUEXAMS — CySA+ Practice Exam</h1>
+      <div class="menu-sub">2 performance-based questions — click Begin Exam to start</div>
+    </div>
+    <div style="text-align:center;">
+      <a class="coffee-btn-big" href="https://buymeacoffee.com/playmaker777" target="_blank" rel="noopener">
+        <span>☕</span> Buy me a coffee
+      </a>
+    </div>
+  </div>
+  <a class="exams-btn-fixed" href="https://wguexams.github.io/" target="_blank" rel="noopener">
+    <span>📚</span> Other exams
+  </a>
+  <button class="begin-btn-fixed" id="beginBtn" type="button">
+    Begin Exam
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+  </button>
+</div>
+
+<div id="examChrome">
+  <div class="examtop">
+    <button class="examtop-left" id="homeBtn" type="button">WGUEXAMS — CySA+ Practice Exam</button>
+    <div class="examtop-right">
+      <div class="examtop-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
+        <span id="examTimerText">Time Remaining 1:30:00</span>
+      </div>
+      <div class="examtop-row">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M3 9h18"></path></svg>
+        <span id="examCounterText">1 of 2</span>
+      </div>
+    </div>
+  </div>
+  <div class="examflagbar">
+    <button class="examflagbtn" id="examFlagBtn" type="button">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3v18M5 4h11l-2.5 4L16 12H5"></path></svg>
+      Flag for Review
+    </button>
+  </div>
+</div>
+
+<div id="examScroll">
+  <div class="wrap">
+
+    <div class="brief">
+      <h1 id="briefTitle">Question title <span class="sev-chip" id="sevChip">KIND</span></h1>
+      <div class="doc-btns">
+        <button class="doc-btn qread-btn" id="qreadBtn" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"></path></svg>
+          Read Question
+        </button>
+      </div>
+    </div>
+
+    <div class="qread-overlay" id="qreadOverlay">
+      <div class="qread-modal">
+        <div class="qread-bar">
+          <span class="title"><span class="dot"></span>Question</span>
+          <button class="qx-close" id="qreadClose" type="button">✕</button>
+        </div>
+        <div class="qread-body" id="qreadBody"></div>
+      </div>
+    </div>
+
+    <div id="stage"></div>
+
+  </div>
+</div>
+
+<div id="examBottom">
+  <button class="prevnext-btn" id="menuBtn" type="button" style="margin-right:auto;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"></path></svg>
+    Menu
+  </button>
+  <button class="prevnext-btn" id="prevBtn" type="button">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"></path></svg>
+    Previous
+  </button>
+  <button class="prevnext-btn" id="nextBtn" type="button">
+    Next
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"></path></svg>
+  </button>
+</div>
+
+
+<script>
+const $ = id => document.getElementById(id);
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+function makeSelect(options, value, onChange, label) {
+  const sel = document.createElement("select");
+  sel.className = "cell-select";
+  sel.setAttribute("aria-label", label);
+  const blank = document.createElement("option"); blank.value = ""; blank.textContent = "Select"; sel.appendChild(blank);
+  options.forEach(o => { const opt = document.createElement("option"); opt.value = o; opt.textContent = o; sel.appendChild(opt); });
+  sel.value = value;
+  sel.addEventListener("change", () => onChange(sel.value));
+  return sel;
+}
+
+function sectionHead(sec, titleText, subText) {
+  if (titleText) sec.appendChild(el("h2", null, titleText));
+  if (subText) sec.appendChild(el("div", "sub", subText));
+}
+
+function buildActions(onSubmit, onShow, onReset) {
+  const row = el("div", "actions");
+  const submitBtn = el("button", "btn btn-primary", "Submit"); submitBtn.type = "button";
+  const showBtn = el("button", "btn btn-ghost", "Show Answer"); showBtn.type = "button";
+  const resetBtn = el("button", "btn btn-ghost", "Reset All"); resetBtn.type = "button";
+  const pill = el("span", "score-pill");
+  submitBtn.addEventListener("click", onSubmit);
+  showBtn.addEventListener("click", onShow);
+  resetBtn.addEventListener("click", onReset);
+  row.append(submitBtn, showBtn, resetBtn, pill);
+  return { row, pill };
+}
+
+function setPill(pill, points, total) {
+  pill.textContent = `${points} / ${total} correct`;
+  pill.className = "score-pill show " + (points === total ? "full" : (points > 0 ? "partial" : ""));
+}
+
+function buildAnalysis(html) {
+  const a = el("div", "analysis");
+  a.appendChild(el("h3", null, "Explanation"));
+  const body = el("div"); body.innerHTML = html;
+  a.appendChild(body);
+  return a;
+}
+
+
+const HOST_OPTS = ["172.16.25.50","192.168.10.5","172.16.50.10","192.168.10.6","172.16.25.60","172.16.25.20"];
+const EXE_OPTS  = ["mysql.exe","sftp.exe","weblogic.exe","dns.exe","mozilla.exe"];
+const REM_OPTS  = [
+  "Reimage the host workstation 2.",
+  "Disable web browsing from the server domain.",
+  "Bypass the proxy server for all HTTP requests.",
+  "Block all HTTP requests to the target IP address."
+];
+
+/* netstat rows: [proto, local, foreign, state, pid, exe] */
+const LISTEN = (p23, p443, p80) => [
+  ["TCP","0.0.0.0:22","0.0.0.0:0","LISTENING","1000",""],
+  ["TCP","0.0.0.0:23","0.0.0.0:0","LISTENING",p23,""],
+  ["TCP","0.0.0.0:443","0.0.0.0:0","LISTENING",p443,""],
+  ["TCP","0.0.0.0:80","0.0.0.0:0","LISTENING",p80,""]
+];
+
+const questions = [
+  {
+    type: "ddos",
+    kind: "Performance-based question",
+    title: "Investigating a DDoS against 52.13.86.101",
+    scenario: [
+      "An organization receives an indication that one of its hosts is part of a DDoS attack against a victim. The proxy server is supposed to handle all web page requests from all internal hosts.",
+      "<strong>INSTRUCTIONS</strong>",
+      "Click on each workstation and server to review outputs and a log file.",
+      "Identify the compromised host and executable, and determine an appropriate remediation for the issue.",
+      "If at any time you would like to bring back the initial state of the simulation, please click the <strong>Reset All</strong> button."
+    ],
+    hosts: {
+      ws1: { title: "Workstation 1", name: "Workstation 1", ip: "192.168.10.5", icon: "pc",
+        netstat: LISTEN("1033","1400","1989").concat([
+          ["TCP","127.0.0.1:1960","172.16.25.50:22","ESTABLISHED","2230","sftp.exe"],
+          ["TCP","127.0.0.1:8447","172.16.50.10:https","ESTABLISHED","2480","mozilla.exe"],
+          ["UDP","127.0.0.1:9211","172.16.25.50:53","ESTABLISHED","3100",""],
+          ["TCP","127.0.0.1:55357","32.111.16.37:22","TIME_WAIT","4800","sftp.exe"]
+        ]) },
+      ws2: { title: "Workstation 2", name: "Workstation 2", ip: "192.168.10.6", icon: "pc",
+        netstat: LISTEN("1235","1466","1566").concat([
+          ["TCP","127.0.0.1:1960","172.16.25.20:3306","ESTABLISHED","2001","mysql.exe"],
+          ["TCP","127.0.0.1:8447","52.13.86.101:https","ESTABLISHED","2277","mozilla.exe"],
+          ["UDP","127.0.0.1:9211","172.16.25.50:53","ESTABLISHED","3245",""]
+        ]) },
+      dns: { title: "DNS server", name: "DNS server", ip: "172.16.25.50", icon: "srv",
+        netstat: LISTEN("1200","1480","2122").concat([
+          ["TCP","127.0.0.1","172.16.25.20:3306","ESTABLISHED","2480","mysql.exe"],
+          ["UDP","127.0.0.1:53","192.168.10.5","ESTABLISHED","2722","dns.exe"]
+        ]) },
+      proxy: { title: "Proxy server", name: "Proxy server", ip: "172.16.50.10", icon: "shield",
+        netstat: LISTEN("1200","1480","2122").concat([
+          ["TCP","127.0.0.1:8100","43.104.133.18:https","ESTABLISHED","2699",""],
+          ["TCP","127.0.0.1:8100","16.14.111.8:https","ESTABLISHED","2722",""],
+          ["TCP","127.0.0.1:8100","203.4.3.7:https","ESTABLISHED","2782",""],
+          ["TCP","127.0.0.1:8100","43.104.133.19:https","ESTABLISHED","2900",""],
+          ["UDP","127.0.0.1:9211","172.16.25.50:53","ESTABLISHED","9145",""]
+        ]),
+        logs: [
+          ["192.168.10.5","8.8.8.8","https","\"GET https://google.com\""],
+          ["192.168.10.5","8.8.8.8","https","\"GET https://google.com/search?q=current+stoc+price\""],
+          ["192.168.10.5","8.8.8.8","https","\"GET https://google.com/search?q=current+stock+price\""],
+          ["172.16.25.20","43.104.133.18","https","\"GET https://sourceforge/search?'default sql login'\""],
+          ["192.168.10.5","8.8.8.8","https","\"GET https://google.com/search?q=last+stock+price\""],
+          ["172.16.25.20","16.14.111.8","https","\"POST https://oracle.com/patch=%version%\""],
+          ["192.168.10.5","52.13.86.101","https","\"GET https://bank.com/mylogin\""],
+          ["192.168.10.5","203.4.3.7","https","\"GET https://newssource.com/latest.html\""],
+          ["172.16.25.20","43.104.133.19","https","\"GET https://sourceforge/search?'default sql login command syntax'\""],
+          ["192.168.10.5","52.13.86.101","https","\"GET https://bank.com/mylogin\""]
+        ] },
+      app: { title: "Application server", name: "Application server", ip: "172.16.25.60", icon: "srv",
+        netstat: LISTEN("1322","1577","2189").concat([
+          ["TCP","127.0.0.1","172.16.25.20:3306","ESTABLISHED","2440","mysql.exe"],
+          ["TCP","127.0.0.1:7001","192.168.10.5","ESTABLISHED","6200","weblogic.exe"],
+          ["TCP","127.0.0.1:7002","192.168.10.6","ESTABLISHED","6234","weblogic.exe"],
+          ["UDP","127.0.0.1","172.16.25.50:53","ESTABLISHED","6844",""]
+        ]) },
+      db: { title: "Database server", name: "Database server", ip: "172.16.25.20", icon: "db",
+        netstat: LISTEN("1200","1480","2122").concat([
+          ["TCP","192.16.25.20:3306","192.168.10.6","ESTABLISHED","2480",""],
+          ["TCP","127.0.0.1:8100","172.16.50.10:https","ESTABLISHED","2722","mozilla.exe"],
+          ["UDP","127.0.0.1:9211","172.16.25.50:53","ESTABLISHED","9145",""]
+        ]) }
+    },
+    answer: { host: "192.168.10.6", exe: "mozilla.exe", rem: "Reimage the host workstation 2." },
+    explain: `
+      <h3>Finding the compromised host</h3>
+      <ul>
+        <li>The DDoS target is <strong>52.13.86.101</strong>, so the question is which host is talking to it, and how. The proxy is supposed to handle all web requests from internal hosts, so any host reaching the web without going through it is suspect.</li>
+        <li><strong>Workstation 2 (192.168.10.6)</strong> has <code>mozilla.exe</code> (PID 2277) with an established HTTPS connection <em>straight to 52.13.86.101</em>. Every other host that browses the web (Workstation 1, the database server) sends its traffic to the proxy at 172.16.50.10 instead. Workstation 2 is going around the proxy, and none of its traffic appears in the proxy logs.</li>
+        <li><strong>Workstation 1 (192.168.10.5)</strong> does reach 52.13.86.101 (bank.com/mylogin), but through the proxy and as ordinary, logged browsing alongside Google searches and a news site. That is normal user activity, not an attack process.</li>
+        <li>The <strong>database server (172.16.25.20)</strong> browsing sourceforge and oracle.com for SQL login syntax and patches is poor practice, but it never contacts the target.</li>
+        <li>The <strong>DNS</strong>, <strong>proxy</strong> and <strong>application</strong> servers only show their own services (<code>dns.exe</code>, <code>weblogic.exe</code>, <code>mysql.exe</code>) and no connection to the target.</li>
+      </ul>
+      <h3>Finding the executable</h3>
+      <ul>
+        <li><code>mozilla.exe</code> is the process holding the connection to the DDoS target on Workstation 2. The <code>mysql.exe</code> process on the same host talks to the internal database (172.16.25.20:3306), which is expected. <code>sftp.exe</code> belongs to Workstation 1, and <code>weblogic.exe</code> and <code>dns.exe</code> belong to the servers.</li>
+      </ul>
+      <h3>Remediation</h3>
+      <ul>
+        <li><strong>Reimage the host workstation 2</strong> removes whatever is driving the browser process and returns the machine to a known-good state.</li>
+        <li><em>Disable web browsing from the server domain</em> does not apply, because the compromised host is in the workstation domain.</li>
+        <li><em>Bypass the proxy for all HTTP requests</em> would remove the one control that gives visibility and filtering, and it is the opposite of the fix.</li>
+        <li><em>Block all HTTP requests to the target IP</em> would also break Workstation 1's legitimate access to that site and leave the infected host in place.</li>
+      </ul>`
+  }
+,
+  {
+    type: "vrt",
+    kind: "Performance-based question",
+    title: "Vulnerability remediation timeframes",
+    scenario: [
+      "A systems administrator is reviewing the output of a vulnerability scan.",
+      "<strong>INSTRUCTIONS</strong>",
+      "Review the information in each tab (Vulnerability remediation timeframes, Environment, Output). Based on the organization's environment architecture and remediation standards, select the server to be patched within 14 calendar days, and select the appropriate technique and mitigation.",
+      "If at any time you would like to bring back the initial state of the simulation, please click the <strong>Reset All</strong> button."
+    ],
+    servers: ["192.168.50.5","192.168.50.6","192.168.60.5","192.168.60.6","192.168.76.5","192.168.76.6"],
+    techniques: [
+      "Request exception; legacy protocol could have operational impact",
+      "Patch; upload signed certificate from trusted third-party provider",
+      "Patch; issue a CRL for the server to the CA",
+      "Patch; upgrade IIS to current release",
+      "Request exception; organization needs time to procure a PKI",
+      "Compensating control; create new ACL on firewall to block port 443",
+      "Compensating control; implement secure session tokens",
+      "Compensating control; implement MFA on the application"
+    ],
+    tabs: [
+      { key: "timeframes", label: "Vulnerability remediation timeframes", html: `
+        <table class="datatable">
+          <thead><tr><th>CVSS Risk Level</th><th>Standard</th><th>PROD</th><th>UAT</th><th>DEV</th></tr></thead>
+          <tbody>
+            <tr><td>CVSS &gt; 9.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">7 calendar days</b></td><td class="yes">✓</td><td class="yes">✓</td><td class="no">✗</td></tr>
+            <tr><td>CVSS &gt; 7.9 &lt; 9.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">14 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+            <tr><td>CVSS &gt; 5.0 &lt; 7.9</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">30 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+            <tr><td>CVSS &gt; 0 &lt; 5.0</td><td>Must be patched or remediated and verified by a subsequent vulnerability scan within <b style="color:var(--text)">60 calendar days</b></td><td class="yes">✓</td><td class="no">✗</td><td class="no">✗</td></tr>
+          </tbody>
+        </table>
+        <div class="sla-note">
+          <b>Any of these timeframes may be accelerated at the discretion of the Chief Information Security Officer (CISO).</b><br>
+          If patching cannot be completed or a vendor has not made a patch available within the timeframe outlined above, compensating controls must be put in place within the timeframes listed above and the exception process must be followed.
+        </div>` },
+      { key: "env", label: "Environment", html: `
+        <table class="datatable">
+          <thead><tr><th>Environment Name</th><th>Location</th><th>Subnets</th><th>Domain</th><th>Publicly Accessible</th><th>NGFW</th><th>Load Balancer</th><th>MFA Required</th></tr></thead>
+          <tbody>
+            <tr><td>prod.company.com</td><td>External</td><td>104.17.18.29<br>104.17.18.30<br>192.168.60.0/24<br>192.168.61.0/24</td><td>company.com</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+            <tr><td>dev.company.com</td><td>Internal</td><td>192.168.76.0/24<br>192.168.75.0/24</td><td>company.com</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+            <tr><td>uat.company.com</td><td>External</td><td>192.168.50.0/24<br>192.168.51.0/24</td><td>company.com</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+          </tbody>
+        </table>` },
+      { key: "output", label: "Output", html: `
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Microsoft IIS: Unsupported software version detected</span></div>
+          <div class="frow"><b>Description</b><span>The software version detected is no longer supported.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.76.5</span></div>
+          <div class="frow"><b>Risk</b><span>Unpatched software</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2022-0155, CVSS 9.2</span></div>
+        </div>
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Sensitive cookie in HTTPS session without "secure" attribute</span></div>
+          <div class="frow"><b>Description</b><span>The secure attribute for sensitive cookies in HTTPS sessions is not set, which could cause the user agent to send those cookies in plaintext over an HTTP session.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.76.6</span></div>
+          <div class="frow"><b>Risk</b><span>Session sidejacking</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2021-0462, CVSS 7.4</span></div>
+        </div>
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Untrusted SSL/TLS server X.509 certificate</span></div>
+          <div class="frow"><b>Description</b><span>The server's TLS/SSL certificate is signed by a certificate authority that is untrusted or unknown.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.50.5</span></div>
+          <div class="frow"><b>Risk</b><span>May allow on-path attackers to insert a spoofed certificate for any distinguished name (DN)</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2020-0601, CVSS 6.8</span></div>
+        </div>
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Weak SSH cipher suite offered</span></div>
+          <div class="frow"><b>Description</b><span>The server offers deprecated symmetric ciphers during SSH key exchange, weakening the confidentiality of the session.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.50.6</span></div>
+          <div class="frow"><b>Risk</b><span>Cryptographic downgrade attack</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2019-6111, CVSS 4.3</span></div>
+        </div>
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Cross-Site Scripting (XSS) in web application login form</span></div>
+          <div class="frow"><b>Description</b><span>User-supplied input in the login form is reflected back to the browser without proper sanitization.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.60.5</span></div>
+          <div class="frow"><b>Risk</b><span>Session hijacking / credential theft</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2023-2222, CVSS 6.2</span></div>
+        </div>
+        <div class="finding">
+          <div class="frow"><b>Title</b><span>Missing HTTP security headers</span></div>
+          <div class="frow"><b>Description</b><span>The web server response is missing X-Frame-Options and Content-Security-Policy headers.</span></div>
+          <div class="frow"><b>Affected asset</b><span>192.168.60.6</span></div>
+          <div class="frow"><b>Risk</b><span>Clickjacking</span></div>
+          <div class="frow"><b>Reference</b><span>CVE-2018-1111, CVSS 3.5</span></div>
+        </div>` }
+    ],
+    answer: { servers: ["192.168.76.5"], technique: "Patch; upgrade IIS to current release" },
+    explain: `
+      <h3>Remediation analysis</h3>
+      <ul>
+        <li><strong>Rank the findings by severity.</strong> Of the six findings, the Microsoft IIS unsupported-version finding on <code>192.168.76.5</code> has by far the highest CVSS score at <code>9.2</code>, well above every other finding in the output.</li>
+        <li><strong>Confirm the environment.</strong> <code>192.168.76.5</code> falls in the <code>192.168.76.0/24</code> subnet, which belongs to <code>dev.company.com</code> per the Environment tab.</li>
+        <li><strong>Apply the timeframe table.</strong> None of the six findings has a CVSS score that lands precisely in the &gt;7.9&ndash;9.0 bracket. Given that constraint, the highest-severity finding (CVSS <code>9.2</code> on <code>192.168.76.5</code>) is treated as the one requiring the most urgent action, so it is selected for the 14-day question.</li>
+        <li><strong>Technique.</strong> The finding is an unsupported IIS version, so the direct fix is <strong>Patch; upgrade IIS to current release</strong> rather than an exception or a compensating control, since a supported version is directly available.</li>
+      </ul>`
+  }
+];
+
+/* ============================================================
+   TYPE: ddos — network diagram + netstat/proxy-log viewer + 3 drop-downs
+============================================================ */
+const DDOS_ICONS = {
+  pc: '<svg viewBox="0 0 64 44" width="34" height="24" aria-hidden="true"><rect x="10" y="3" width="44" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M3 40h58l-5-7H8z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>',
+  srv: '<svg viewBox="0 0 40 52" width="24" height="32" aria-hidden="true"><rect x="3" y="2" width="34" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9 14h22M9 22h22" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="20" cy="38" r="5" fill="none" stroke="currentColor" stroke-width="3"/></svg>',
+  shield: '<svg viewBox="0 0 40 52" width="24" height="32" aria-hidden="true"><rect x="3" y="2" width="34" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 12l9 3v8c0 6-4 10-9 12-5-2-9-6-9-12v-8z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+  db: '<svg viewBox="0 0 40 52" width="24" height="32" aria-hidden="true"><rect x="3" y="2" width="34" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9 14h22M9 22h22" fill="none" stroke="currentColor" stroke-width="3"/><ellipse cx="22" cy="40" rx="8" ry="3.5" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M14 40v5c0 2 3.6 3.5 8 3.5s8-1.5 8-3.5v-5" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>'
+};
+const CLOUD_SVG = '<svg viewBox="0 0 64 44" width="46" height="32" aria-hidden="true"><path d="M16 38a11 11 0 0 1-1-21.9A14 14 0 0 1 42 13a12 12 0 0 1 5 25z" fill="currentColor"/></svg>';
+const TARGET_SVG = '<svg viewBox="0 0 40 52" width="34" height="44" aria-hidden="true"><rect x="3" y="2" width="34" height="48" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M9 12h22M9 20h22" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="20" cy="36" r="8" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="20" cy="36" r="3" fill="currentColor"/></svg>';
+
+function fmtNetstat(rows) {
+  const w = [6, 22, 24, 13, 7];
+  let out = "Active Connections\n\n" + ["Proto","Local Address","Foreign Address","State","PID"].map((h, i) => h.padEnd(w[i])).join("") + "\n";
+  rows.forEach(r => { out += r.slice(0, 5).map((c, i) => String(c).padEnd(w[i])).join("") + (r[5] ? r[5] : "") + "\n"; });
+  return out;
+}
+function fmtLogs(rows) {
+  const w = [15, 16, 10];
+  let out = ["Host","Destination","Protocol","Request"].map((h, i) => (w[i] ? h.padEnd(w[i]) : h)).join("") + "\n\n";
+  rows.forEach(r => { out += r.map((c, i) => (w[i] ? String(c).padEnd(w[i]) : c)).join("") + "\n"; });
+  return out;
+}
+
+function bodyDdos(q, st, stage) {
+  const sec = el("div", "section");
+  sectionHead(sec, q.title, "Click each workstation and server to review outputs and a log file, then answer using the drop-down menus.");
+
+  const layout = el("div", "ddos-layout");
+  const btns = {};
+  function hostBtn(key) {
+    const h = q.hosts[key];
+    const b = el("button", "dhost"); b.type = "button";
+    const ico = el("span"); ico.innerHTML = DDOS_ICONS[h.icon];
+    const txt = el("span", "dtx"); txt.append(el("span", "dn", h.name), el("span", "di", h.ip));
+    b.append(ico, txt);
+    b.addEventListener("click", () => toggleWin(key));
+    btns[key] = b;
+    return b;
+  }
+  const org = el("div", "org");
+  const doms = el("div", "orgdoms");
+  const d1 = el("div", "dom"); const h1 = el("h4", null, "Workstation domain"); h1.appendChild(el("span", null, "192.168.10.x/24")); d1.appendChild(h1);
+  d1.append(hostBtn("ws1"), hostBtn("ws2"));
+  const d2 = el("div", "dom"); const h2 = el("h4", null, "Server domain"); h2.appendChild(el("span", null, "172.16.25.x/24")); d2.appendChild(h2);
+  d2.append(hostBtn("dns"), hostBtn("proxy"), hostBtn("app"), hostBtn("db"));
+  doms.append(d1, d2);
+  org.append(doms, el("div", "orglabel", "Organization"), el("div", "dhint", "Click a host to open its output in a window you can drag around."));
+
+  const right = el("div");
+  const inetrow = el("div", "inetrow");
+  const inet = el("div", "dcircle"); const r1 = el("div", "ring"); r1.innerHTML = CLOUD_SVG; inet.append(r1, el("span", null, "Internet"));
+  const tgt = el("div", "dcircle"); const r2 = el("div", "ring"); r2.innerHTML = TARGET_SVG; tgt.append(r2, el("span", null, "DDoS target"), el("span", "ip", "52.13.86.101"));
+  inetrow.append(el("span", "dlink", "↗"), inet, el("span", "dlink", "→"), tgt);
+  right.appendChild(inetrow);
+
+  const qrow = el("div", "ddos-q");
+  const selects = {};
+  [["host", "Select the compromised host:", HOST_OPTS], ["exe", "Select the compromised executable:", EXE_OPTS], ["rem", "Select the correct remediation:", REM_OPTS]]
+    .forEach(([key, label, opts]) => {
+      const row = el("div", "qrow"); row.appendChild(el("label", null, label));
+      const cell = el("div");
+      const s = makeSelect(opts, st.ans[key], v => { st.ans[key] = v; clearFeedback(); }, label);
+      selects[key] = s; cell.appendChild(s);
+      const fb = el("div", "row-fb"); cell.appendChild(fb); selects[key].fb = fb;
+      row.appendChild(cell); qrow.appendChild(row);
+    });
+  right.appendChild(qrow);
+  layout.append(org, right);
+  sec.appendChild(layout);
+
+  const { row: actionsRow, pill } = buildActions(doSubmit, doShow, doReset);
+  sec.appendChild(actionsRow);
+  const analysisBox = buildAnalysis(q.explain);
+  sec.appendChild(analysisBox);
+  stage.appendChild(sec);
+
+  const winEls = {};
+  function syncNodes() { Object.keys(btns).forEach(k => btns[k].classList.toggle("active", !!st.wins[k])); }
+
+  function clampPos(w, x, y) {
+    const maxX = Math.max(0, window.innerWidth - Math.min(w.offsetWidth, window.innerWidth) );
+    const maxY = Math.max(100, window.innerHeight - 120);
+    return [Math.min(Math.max(0, x), maxX), Math.min(Math.max(100, y), maxY)];
+  }
+  function front(key) {
+    st.zTop = Math.min(st.zTop + 1, 90);
+    st.wins[key].z = st.zTop;
+    winEls[key].style.zIndex = 100 + st.zTop;
+  }
+  function fillWin(key) {
+    const w = winEls[key], h = q.hosts[key], st_w = st.wins[key];
+    w.querySelectorAll(".ttabs,pre").forEach(n => n.remove());
+    let showLogs = false;
+    if (h.logs) {
+      const tabs = el("div", "ttabs");
+      [["netstat", "Netstat output"], ["logs", "Proxy logs"]].forEach(([id, lab]) => {
+        const b = el("button", st_w.tab === id ? "on" : "", lab); b.type = "button";
+        b.addEventListener("click", () => { st_w.tab = id; fillWin(key); });
+        tabs.appendChild(b);
+      });
+      w.appendChild(tabs);
+      showLogs = st_w.tab === "logs";
+    }
+    w.appendChild(el("pre", null, showLogs ? fmtLogs(h.logs) : fmtNetstat(h.netstat)));
+  }
+  function buildWin(key) {
+    const h = q.hosts[key], st_w = st.wins[key];
+    const w = el("div", "ddos-win"); w.setAttribute("role", "dialog"); w.setAttribute("aria-label", h.title);
+    const bar = el("div", "wbar"); bar.appendChild(el("span", null, h.title));
+    const x = el("button", null, "✕"); x.type = "button"; x.setAttribute("aria-label", "Close " + h.title);
+    x.addEventListener("pointerdown", e => e.stopPropagation());
+    x.addEventListener("click", () => toggleWin(key));
+    bar.appendChild(x); w.appendChild(bar);
+    sec.appendChild(w); winEls[key] = w;
+    fillWin(key);
+    const [cx, cy] = clampPos(w, st_w.x, st_w.y);
+    st_w.x = cx; st_w.y = cy; w.style.left = cx + "px"; w.style.top = cy + "px";
+    if (st_w.z) w.style.zIndex = 100 + st_w.z; else front(key);
+
+    w.addEventListener("pointerdown", () => front(key));
+    bar.addEventListener("pointerdown", e => {
+      if (e.button !== undefined && e.button !== 0) return;
+      const sx = e.clientX, sy = e.clientY, ox = st_w.x, oy = st_w.y;
+      bar.setPointerCapture(e.pointerId); w.classList.add("dragging");
+      const move = ev => {
+        const [nx, ny] = clampPos(w, ox + ev.clientX - sx, oy + ev.clientY - sy);
+        st_w.x = nx; st_w.y = ny; w.style.left = nx + "px"; w.style.top = ny + "px";
+      };
+      const up = () => { w.classList.remove("dragging"); bar.removeEventListener("pointermove", move); bar.removeEventListener("pointerup", up); bar.removeEventListener("pointercancel", up); };
+      bar.addEventListener("pointermove", move); bar.addEventListener("pointerup", up); bar.addEventListener("pointercancel", up);
+    });
+  }
+  function toggleWin(key) {
+    if (st.wins[key]) { winEls[key].remove(); delete winEls[key]; delete st.wins[key]; }
+    else {
+      const n = Object.keys(st.wins).length;
+      st.wins[key] = { x: Math.max(12, Math.min(window.innerWidth - 520, 120 + n * 36)), y: 130 + n * 36, tab: "netstat", z: 0 };
+      buildWin(key);
+    }
+    syncNodes();
+  }
+  Object.keys(st.wins).forEach(buildWin);
+  syncNodes();
+
+  function clearFeedback() {
+    st.checked = false;
+    Object.values(selects).forEach(s => { s.classList.remove("correct", "wrong"); s.fb.textContent = ""; s.fb.className = "row-fb"; });
+    pill.classList.remove("show", "full", "partial");
+    analysisBox.classList.remove("show");
+  }
+
+  function doSubmit() {
+    let pts = 0;
+    Object.keys(selects).forEach(k => {
+      const ok = st.ans[k] === q.answer[k];
+      if (ok) pts++;
+      const s = selects[k];
+      s.classList.remove("correct", "wrong"); s.classList.add(ok ? "correct" : "wrong");
+      s.fb.textContent = ok ? "Correct" : "Incorrect"; s.fb.className = "row-fb " + (ok ? "good" : "bad");
+    });
+    st.checked = true;
+    setPill(pill, pts, 3);
+    analysisBox.classList.add("show");
+  }
+
+  function doShow() {
+    Object.keys(selects).forEach(k => { st.ans[k] = q.answer[k]; selects[k].value = q.answer[k]; });
+    doSubmit();
+  }
+  function doReset() { states[current] = freshState(q); renderQuestion(); }
+}
+
+
+/* ============================================================
+   TYPE: vrt — tabbed reference panels + server checkboxes + technique drop-down
+============================================================ */
+function bodyVrt(q, st, stage) {
+  const panel = el("div", "term-panel");
+  const tabsEl = el("div", "term-tabs");
+  const panels = {};
+  function showTab(key) {
+    st.tab = key;
+    [...tabsEl.children].forEach(t => t.classList.toggle("active", t.dataset.k === key));
+    Object.keys(panels).forEach(k => panels[k].classList.toggle("active", k === key));
+  }
+  q.tabs.forEach(t => {
+    const tab = el("div", "term-tab", t.label); tab.dataset.k = t.key;
+    tab.addEventListener("click", () => showTab(t.key));
+    tabsEl.appendChild(tab);
+    const pn = el("div", "vrt-panel"); pn.innerHTML = t.html;
+    panels[t.key] = pn;
+  });
+  panel.appendChild(tabsEl);
+  Object.values(panels).forEach(pn => panel.appendChild(pn));
+  stage.appendChild(panel);
+  showTab(st.tab);
+
+  const sec = el("div", "section");
+  sectionHead(sec, "Remediation Decision", "cross-reference the timeframe table, environment architecture, and scan output");
+  const grid = el("div", "vrt-grid");
+
+  const box1 = el("div", "qbox");
+  box1.appendChild(el("label", null, "Select the server to be patched within 14 calendar days:"));
+  const chkGrid = el("div", "chk-grid");
+  const checks = [];
+  q.servers.forEach(ip => {
+    const lbl = el("label", "chk");
+    const cb = document.createElement("input"); cb.type = "checkbox"; cb.value = ip;
+    cb.checked = st.servers.includes(ip);
+    cb.addEventListener("change", () => {
+      st.servers = checks.filter(c => c.checked).map(c => c.value);
+      clearFeedback();
+    });
+    checks.push(cb);
+    lbl.append(cb, el("span", null, ip));
+    chkGrid.appendChild(lbl);
+  });
+  box1.appendChild(chkGrid);
+  const fb1 = el("div", "fb"); box1.appendChild(fb1);
+
+  const box2 = el("div", "qbox");
+  box2.appendChild(el("label", null, "Select the appropriate technique and mitigation:"));
+  const techSel = makeSelect(q.techniques, st.technique, v => { st.technique = v; clearFeedback(); }, "Technique and mitigation");
+  box2.appendChild(techSel);
+  const fb2 = el("div", "fb"); box2.appendChild(fb2);
+
+  grid.append(box1, box2);
+  sec.appendChild(grid);
+
+  const { row: actionsRow, pill } = buildActions(doSubmit, doShow, doReset);
+  sec.appendChild(actionsRow);
+  const analysisBox = buildAnalysis(q.explain);
+  sec.appendChild(analysisBox);
+  stage.appendChild(sec);
+
+  function setFb(node, ok) { node.textContent = ok ? "Correct" : "Incorrect"; node.className = "fb " + (ok ? "correct" : "incorrect"); }
+  function clearFeedback() {
+    st.checked = false;
+    [fb1, fb2].forEach(f => { f.textContent = ""; f.className = "fb"; });
+    techSel.classList.remove("correct", "wrong");
+    pill.classList.remove("show", "full", "partial");
+    analysisBox.classList.remove("show");
+  }
+  function doSubmit() {
+    const want = new Set(q.answer.servers);
+    const serverOk = st.servers.length === want.size && st.servers.every(ip => want.has(ip));
+    const techOk = st.technique === q.answer.technique;
+    setFb(fb1, serverOk); setFb(fb2, techOk);
+    techSel.classList.remove("correct", "wrong"); techSel.classList.add(techOk ? "correct" : "wrong");
+    st.checked = true;
+    setPill(pill, (serverOk ? 1 : 0) + (techOk ? 1 : 0), 2);
+    analysisBox.classList.add("show");
+  }
+  function doShow() {
+    st.servers = q.answer.servers.slice(); st.technique = q.answer.technique;
+    checks.forEach(c => c.checked = st.servers.includes(c.value));
+    techSel.value = st.technique;
+    doSubmit();
+  }
+  function doReset() { states[current] = freshState(q); renderQuestion(); }
+}
+
+/* ============================================================
+   STATE
+============================================================ */
+function freshState(q) {
+  if (q.type === "vrt") return { tab: q.tabs[0].key, servers: [], technique: "", checked: false };
+  return { wins: {}, zTop: 0, ans: { host: "", exe: "", rem: "" }, checked: false };
+}
+const states = questions.map(q => freshState(q));
+
+/* ============================================================
+   GLOBAL CONTROLLER
+============================================================ */
+let current = 0;
+const flagged = new Set();
+let timerSeconds = 90 * 60;
+let timerInterval = null;
+
+function formatTimer(s) {
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+  return `${h}:${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
+}
+function tickTimer() {
+  if (timerSeconds > 0) timerSeconds--;
+  $("examTimerText").textContent = "Time Remaining " + formatTimer(timerSeconds);
+  if (timerSeconds <= 0) { clearInterval(timerInterval); timerInterval = null; }
+}
+function startTimer() {
+  if (timerInterval) return;
+  $("examTimerText").textContent = "Time Remaining " + formatTimer(timerSeconds);
+  timerInterval = setInterval(tickTimer, 1000);
+}
+function stopTimer() {
+  if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+}
+
+function openQRead() { $("qreadOverlay").classList.add("show"); }
+function closeQRead() { $("qreadOverlay").classList.remove("show"); }
+
+function renderQuestion() {
+  const q = questions[current], st = states[current];
+
+  $("examCounterText").textContent = (current + 1) + " of " + questions.length;
+  $("examFlagBtn").classList.toggle("flagged", flagged.has(current));
+  $("prevBtn").disabled = current === 0;
+  $("nextBtn").disabled = current === questions.length - 1;
+
+  $("briefTitle").firstChild && ($("briefTitle").firstChild.textContent = "");
+  $("briefTitle").childNodes[0] ? ($("briefTitle").childNodes[0].nodeValue = q.title + " ") : null;
+  // rebuild title text node safely
+  const titleEl = $("briefTitle");
+  titleEl.textContent = "";
+  titleEl.appendChild(document.createTextNode(q.title + " "));
+  const chip = el("span", "sev-chip", q.kind.toUpperCase());
+  titleEl.appendChild(chip);
+
+  const qbody = $("qreadBody"); qbody.innerHTML = "";
+  q.scenario.forEach(t => { const p = el("p"); p.innerHTML = t; qbody.appendChild(p); });
+  closeQRead();
+
+  const stage = $("stage"); stage.innerHTML = "";
+  if (q.type === "vrt") bodyVrt(q, st, stage); else bodyDdos(q, st, stage);
+
+  $("examScroll").scrollTop = 0;
+}
+
+function goTo(i) { current = i; renderQuestion(); }
+
+$("beginBtn").addEventListener("click", () => {
+  $("landingScreen").style.display = "none";
+  document.body.classList.add("has-exam-chrome");
+  $("examChrome").style.display = "block";
+  $("examScroll").style.display = "block";
+  $("examBottom").style.display = "flex";
+  startTimer();
+  goTo(0);
+});
+$("homeBtn").addEventListener("click", () => {
+  document.body.classList.remove("has-exam-chrome");
+  $("examChrome").style.display = "none";
+  $("examScroll").style.display = "none";
+  $("examBottom").style.display = "none";
+  stopTimer();
+  closeQRead();
+  $("landingScreen").style.display = "block";
+});
+$("menuBtn").addEventListener("click", () => $("homeBtn").click());
+$("examFlagBtn").addEventListener("click", () => {
+  if (flagged.has(current)) flagged.delete(current); else flagged.add(current);
+  $("examFlagBtn").classList.toggle("flagged", flagged.has(current));
+});
+$("prevBtn").addEventListener("click", () => { if (current > 0) goTo(current - 1); });
+$("nextBtn").addEventListener("click", () => { if (current < questions.length - 1) goTo(current + 1); });
+$("qreadBtn").addEventListener("click", openQRead);
+$("qreadClose").addEventListener("click", closeQRead);
+$("qreadOverlay").addEventListener("click", (e) => { if (e.target === $("qreadOverlay")) closeQRead(); });
+
+</script>
+
+</body>
+</html>
